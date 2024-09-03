@@ -34,3 +34,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# not-included files // Assets for the Research, will not be apart of the project. 
+# UI/UX
+/figma
+
+# unwanted files but backup just incase needed // once we finish the project delete the whole folder && this part aswell.
+/recycle bin
