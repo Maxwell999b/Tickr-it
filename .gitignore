@@ -38,3 +38,4 @@ next-env.d.ts
 # not-included files // Assets for the Research, will not be apart of the project. 
 #Notes
 .local/
+project_structure.txt

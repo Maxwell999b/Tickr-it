@@ -1,112 +1,145 @@
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
-// fix it later for props : any_type
-// type NavProps = React.PropsWithChildren;
 
-export default function Nav() {
+export function Navbar() {
   return (
-    <header className="w-full bg-background border-b border-border">
-      <div className="container flex items-center justify-between h-16 px-4 md:px-6">
-        <Link href="#" className="flex items-center gap-2" prefetch={false}>
-          <MountainIcon className="h-6 w-6" />
-          <span className="sr-only">Acme Inc</span>
-        </Link>
-        <div className="flex items-center gap-4">
-          <form className="flex items-center gap-2 bg-input px-3 py-2 rounded-lg w-[300px] md:w-[400px]">
-            <SearchIcon className="h-5 w-5 text-muted-foreground" />
-            <Input type="search" placeholder="Search tasks..." className="bg-transparent focus:outline-none" />
-          </form>
-          <Button>
-            <PlusIcon className="h-5 w-5 mr-2" />
-            Add new item
-          </Button>
+    <div>
+      <header className="w-full bg-background shadow">
+        <div className="container flex items-center justify-between h-16 px-4 md:px-6">
+          <Link href="#" className="flex items-center gap-2" prefetch={false}>
+            <MountainIcon className="h-6 w-6" />
+            <span className="sr-only">Acme Inc</span>
+          </Link>
+          <div className="flex items-center gap-4">
+            <div className="relative flex-1 max-w-md">
+              <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder="Search tasks..."
+                className="pl-10 pr-12 py-2 rounded-md w-full bg-muted text-muted-foreground focus:ring-0 focus:border-primary"
+              />
+            </div>
+            <Link
+              href="#"
+              className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              prefetch={false}>
+              <PlusIcon className="h-5 w-5 mr-2" />
+              Add new task
+            </Link>
+          </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Avatar className="h-9 w-9">
-                <AvatarImage src="/placeholder-user.jpg" alt="@shadcn" />
-                <AvatarFallback>JP</AvatarFallback>
-              </Avatar>
+              <Button variant="ghost" size="icon" className="rounded-full">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src="/placeholder-user.jpg" />
+                  <AvatarFallback>JD</AvatarFallback>
+                </Avatar>
+                <span className="sr-only">Toggle user menu</span>
+              </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-[200px]">
-              <DropdownMenuLabel>
-                <div className="font-semibold">John Doe</div>
-                <div className="text-sm text-muted-foreground">john@example.com</div>
-              </DropdownMenuLabel>
+            <DropdownMenuContent align="end">
+              <div className="flex items-center gap-2 p-2">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src="/placeholder-user.jpg" />
+                  <AvatarFallback>JD</AvatarFallback>
+                </Avatar>
+                <div className="grid gap-0.5 leading-none">
+                  <div className="font-semibold">John Doe</div>
+                  <div className="text-sm text-muted-foreground">john@example.com</div>
+                </div>
+              </div>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <Link href="#" className="flex items-center gap-2" prefetch={false}>
                   <LayoutDashboardIcon className="h-4 w-4" />
-                  Dashboard
+                  <span>Dashboard</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Link href="#" className="flex items-center gap-2" prefetch={false}>
                   <SettingsIcon className="h-4 w-4" />
-                  Settings
+                  <span>Settings</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Link href="#" className="flex items-center gap-2" prefetch={false}>
                   <WalletIcon className="h-4 w-4" />
-                  Earnings
+                  <span>Earnings</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <Link href="#" className="flex items-center gap-2" prefetch={false}>
                   <LogOutIcon className="h-4 w-4" />
-                  Sign Out
+                  <span>Sign Out</span>
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="lg:hidden">
+              <Button variant="outline" size="icon" className="lg:hidden">
                 <MenuIcon className="h-6 w-6" />
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-[300px]">
-              <div className="flex flex-col gap-4 p-4">
+            <SheetContent side="left">
+              <div className="grid gap-4 p-4">
                 <Link href="#" className="flex items-center gap-2" prefetch={false}>
                   <HomeIcon className="h-5 w-5" />
-                  Home
+                  <span>Home</span>
                 </Link>
                 <Link href="#" className="flex items-center gap-2" prefetch={false}>
                   <InfoIcon className="h-5 w-5" />
-                  About
+                  <span>About</span>
                 </Link>
                 <Link href="#" className="flex items-center gap-2" prefetch={false}>
                   <MailIcon className="h-5 w-5" />
-                  Contact
+                  <span>Contact</span>
                 </Link>
               </div>
             </SheetContent>
           </Sheet>
         </div>
-      </div>
-    </header>
+      </header>
+    </div>
   );
 }
-
-interface HomeIconProps {
+interface Hero_HomePageIconsProps {
   size?: number;
   className?: string;
 }
+function FilePenIcon(props: Hero_HomePageIconsProps) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round">
+      <path d="M12 22h6a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v10" />
+      <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+      <path d="M10.4 12.6a2 2 0 1 1 3 3L8 21l-4 1 1-4Z" />
+    </svg>
+  );
+}
 
-function HomeIcon(props: HomeIconProps) {
+function HomeIcon(props: Hero_HomePageIconsProps) {
   return (
     <svg
       {...props}
@@ -125,7 +158,7 @@ function HomeIcon(props: HomeIconProps) {
   );
 }
 
-function InfoIcon(props: HomeIconProps) {
+function InfoIcon(props: Hero_HomePageIconsProps) {
   return (
     <svg
       {...props}
@@ -145,7 +178,7 @@ function InfoIcon(props: HomeIconProps) {
   );
 }
 
-function LayoutDashboardIcon(props: HomeIconProps) {
+function LayoutDashboardIcon(props: Hero_HomePageIconsProps) {
   return (
     <svg
       {...props}
@@ -166,7 +199,7 @@ function LayoutDashboardIcon(props: HomeIconProps) {
   );
 }
 
-function LogOutIcon(props: HomeIconProps) {
+function LogOutIcon(props: Hero_HomePageIconsProps) {
   return (
     <svg
       {...props}
@@ -186,7 +219,7 @@ function LogOutIcon(props: HomeIconProps) {
   );
 }
 
-function MailIcon(props: HomeIconProps) {
+function MailIcon(props: Hero_HomePageIconsProps) {
   return (
     <svg
       {...props}
@@ -205,7 +238,7 @@ function MailIcon(props: HomeIconProps) {
   );
 }
 
-function MenuIcon(props: HomeIconProps) {
+function MenuIcon(props: Hero_HomePageIconsProps) {
   return (
     <svg
       {...props}
@@ -225,7 +258,7 @@ function MenuIcon(props: HomeIconProps) {
   );
 }
 
-function MountainIcon(props: HomeIconProps) {
+function MountainIcon(props: Hero_HomePageIconsProps) {
   return (
     <svg
       {...props}
@@ -243,7 +276,27 @@ function MountainIcon(props: HomeIconProps) {
   );
 }
 
-function PlusIcon(props: HomeIconProps) {
+function MoveHorizontalIcon(props: Hero_HomePageIconsProps) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round">
+      <polyline points="18 8 22 12 18 16" />
+      <polyline points="6 8 2 12 6 16" />
+      <line x1="2" x2="22" y1="12" y2="12" />
+    </svg>
+  );
+}
+
+function PlusIcon(props: Hero_HomePageIconsProps) {
   return (
     <svg
       {...props}
@@ -262,7 +315,7 @@ function PlusIcon(props: HomeIconProps) {
   );
 }
 
-function SearchIcon(props: HomeIconProps) {
+function SearchIcon(props: Hero_HomePageIconsProps) {
   return (
     <svg
       {...props}
@@ -281,7 +334,7 @@ function SearchIcon(props: HomeIconProps) {
   );
 }
 
-function SettingsIcon(props: HomeIconProps) {
+function SettingsIcon(props: Hero_HomePageIconsProps) {
   return (
     <svg
       {...props}
@@ -300,7 +353,27 @@ function SettingsIcon(props: HomeIconProps) {
   );
 }
 
-function WalletIcon(props: HomeIconProps) {
+function TrashIcon(props: Hero_HomePageIconsProps) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round">
+      <path d="M3 6h18" />
+      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+    </svg>
+  );
+}
+
+function WalletIcon(props: Hero_HomePageIconsProps) {
   return (
     <svg
       {...props}
