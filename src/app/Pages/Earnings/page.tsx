@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
-export function EarningsPageEarningsOverview() {
+export default function EarningsPageEarningsOverview() {
   return (
     <div>
       <section className="bg-background py-12 md:py-20">

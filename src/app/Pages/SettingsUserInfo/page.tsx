@@ -4,7 +4,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 
-export function SettingsPageUserInformation() {
+export default function SettingsPageUserInformation() {
   return (
     <div>
       <section className="bg-background py-12 md:py-20">

@@ -9,8 +9,9 @@ import { Button } from "@/components/ui/button";
 import { Pagination, PaginationContent, PaginationItem } from "@/components/ui/pagination";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import Add_New_Task from "@/components/component/Add_New_Task";
 
-export function Hero_HomePage() {
+export default function Hero_HomePage() {
   return (
     <div>
       <section className="bg-background py-12 md:py-20">
@@ -18,13 +19,7 @@ export function Hero_HomePage() {
           <div className="text-center space-y-4">
             <h1 className="text-3xl font-bold md:text-4xl">Welcome to your task list</h1>
             <p className="text-muted-foreground md:text-xl">Get started by adding a new task</p>
-            <Link
-              href="#"
-              className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-              prefetch={false}>
-              <PlusIcon className="h-5 w-5 mr-2" />
-              Add new task
-            </Link>
+            <Add_New_Task />
           </div>
         </div>
       </section>

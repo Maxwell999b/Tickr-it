@@ -1,6 +1,5 @@
-// This is the root layout component for your Next.js app.
-// Learn more: https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#root-layout-required
 import { Manrope } from "next/font/google";
+import { Navbar } from "@/components/layout/Nav";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 
@@ -19,7 +18,14 @@ const fontBody = Manrope({
 export default function Layout({ children }: React.PropsWithChildren) {
   return (
     <html lang="en">
-      <body className={cn("antialiased", fontHeading.variable, fontBody.variable)}>{children}</body>
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+      </head>
+      <body className={cn("antialiased", fontHeading.variable, fontBody.variable)}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 
-export function LoginPageForm() {
+export default function LoginPageForm() {
   return (
     <div>
       <section className="bg-background py-12 md:py-20">

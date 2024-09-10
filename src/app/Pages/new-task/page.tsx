@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -7,56 +8,64 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { Pagination, PaginationContent, PaginationItem } from "@/components/ui/pagination";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 
-export function Task_DetailsPage() {
+export default function Create_NewTaskPageForm() {
   return (
     <div>
       <section className="bg-background py-12 md:py-20">
         <div className="container">
           <div className="mx-auto max-w-md space-y-6">
             <div className="space-y-2 text-center">
-              <h1 className="text-3xl font-bold">Task Details</h1>
+              <h1 className="text-3xl font-bold">Create a New Task</h1>
+              <p className="text-muted-foreground">Fill out the form to add a new task to your list.</p>
             </div>
-            <div className="space-y-4">
+            <form className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="task-name">Task Name</Label>
-                <div className="font-medium">Finish project proposal</div>
+                <Input id="task-name" placeholder="Enter task name" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="due-date">Due Date</Label>
-                <div>2023-06-30</div>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="w-full justify-start font-normal">
+                      <CalendarDaysIcon className="mr-2 h-4 w-4" />
+                      Pick a date
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar mode="single" />
+                  </PopoverContent>
+                </Popover>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="priority">Priority</Label>
-                <Badge variant="secondary">High</Badge>
+                <Select>
+                  <SelectTrigger id="priority">
+                    <SelectValue placeholder="Select priority" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="low">Low</SelectItem>
+                    <SelectItem value="medium">Medium</SelectItem>
+                    <SelectItem value="high">High</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="description">Description</Label>
-                <div>
-                  Finish the project proposal for the client meeting on June 30th. Include details on the scope,
-                  timeline, and budget.
-                </div>
+                <Textarea id="description" placeholder="Enter task description" />
               </div>
-              <div className="flex justify-between">
-                <Link
-                  href="#"
-                  className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                  prefetch={false}>
-                  <FilePenIcon className="h-5 w-5 mr-2" />
-                  Edit
-                </Link>
-                <Link
-                  href="#"
-                  className="inline-flex items-center justify-center rounded-md bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground shadow transition-colors hover:bg-destructive/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                  prefetch={false}>
-                  <TrashIcon className="h-5 w-5 mr-2" />
-                  Delete
-                </Link>
-              </div>
-            </div>
+              <Button type="submit" className="w-full">
+                Create Task
+              </Button>
+            </form>
           </div>
         </div>
       </section>
@@ -111,12 +120,6 @@ export function Task_DetailsPage() {
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem>
                           <Link href="#" className="flex items-center gap-2" prefetch={false}>
-                            <EyeIcon className="h-4 w-4" />
-                            <span>View</span>
-                          </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Link href="#" className="flex items-center gap-2" prefetch={false}>
                             <FilePenIcon className="h-4 w-4" />
                             <span>Edit</span>
                           </Link>
@@ -148,12 +151,6 @@ export function Task_DetailsPage() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem>
-                          <Link href="#" className="flex items-center gap-2" prefetch={false}>
-                            <EyeIcon className="h-4 w-4" />
-                            <span>View</span>
-                          </Link>
-                        </DropdownMenuItem>
                         <DropdownMenuItem>
                           <Link href="#" className="flex items-center gap-2" prefetch={false}>
                             <FilePenIcon className="h-4 w-4" />
@@ -189,12 +186,6 @@ export function Task_DetailsPage() {
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem>
                           <Link href="#" className="flex items-center gap-2" prefetch={false}>
-                            <EyeIcon className="h-4 w-4" />
-                            <span>View</span>
-                          </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Link href="#" className="flex items-center gap-2" prefetch={false}>
                             <FilePenIcon className="h-4 w-4" />
                             <span>Edit</span>
                           </Link>
@@ -217,11 +208,11 @@ export function Task_DetailsPage() {
     </div>
   );
 }
-interface Task_DetailsPageIconsProps {
+interface Create_NewTaskPageFormIconsProps {
   size?: number;
   className?: string;
 }
-function EyeIcon(props: Task_DetailsPageIconsProps) {
+function CalendarDaysIcon(props: Create_NewTaskPageFormIconsProps) {
   return (
     <svg
       {...props}
@@ -234,13 +225,21 @@ function EyeIcon(props: Task_DetailsPageIconsProps) {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round">
-      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-      <circle cx="12" cy="12" r="3" />
+      <path d="M8 2v4" />
+      <path d="M16 2v4" />
+      <rect width="18" height="18" x="3" y="4" rx="2" />
+      <path d="M3 10h18" />
+      <path d="M8 14h.01" />
+      <path d="M12 14h.01" />
+      <path d="M16 14h.01" />
+      <path d="M8 18h.01" />
+      <path d="M12 18h.01" />
+      <path d="M16 18h.01" />
     </svg>
   );
 }
 
-function FilePenIcon(props: Task_DetailsPageIconsProps) {
+function FilePenIcon(props: Create_NewTaskPageFormIconsProps) {
   return (
     <svg
       {...props}
@@ -260,7 +259,7 @@ function FilePenIcon(props: Task_DetailsPageIconsProps) {
   );
 }
 
-function MoveHorizontalIcon(props: Task_DetailsPageIconsProps) {
+function MoveHorizontalIcon(props: Create_NewTaskPageFormIconsProps) {
   return (
     <svg
       {...props}
@@ -280,7 +279,26 @@ function MoveHorizontalIcon(props: Task_DetailsPageIconsProps) {
   );
 }
 
-function TrashIcon(props: Task_DetailsPageIconsProps) {
+function SearchIcon(props: Create_NewTaskPageFormIconsProps) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round">
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.3-4.3" />
+    </svg>
+  );
+}
+
+function TrashIcon(props: Create_NewTaskPageFormIconsProps) {
   return (
     <svg
       {...props}

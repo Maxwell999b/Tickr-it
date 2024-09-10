@@ -12,7 +12,7 @@ import { Pagination, PaginationContent, PaginationItem } from "@/components/ui/p
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
-export function DashboardPage() {
+export default function DashboardPage() {
   return (
     <div>
       <section className="bg-background py-12 md:py-20">
