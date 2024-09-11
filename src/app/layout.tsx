@@ -1,5 +1,6 @@
 import { Manrope } from "next/font/google";
 import { Navbar } from "@/components/layout/Nav";
+import { Footer } from "@/components/layout/Footer";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 
@@ -25,6 +26,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
       <body className={cn("antialiased", fontHeading.variable, fontBody.variable)}>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
