@@ -72,7 +72,7 @@ const icons = {
       <line x1="4" x2="20" y1="18" y2="18" />
     </>
   ),
-  mountain: <path d="m8 3 4 8 5-5 5 15H2L8 3z" />,
+  mountain: <path d="m8 3 4 8 5-5 5 15H2L8 3z" stroke="#82A7CC" strokeWidth="1" fill="#C9EBF7" />,
   moveHorizontal: (
     <>
       <polyline points="18 8 22 12 18 16" />

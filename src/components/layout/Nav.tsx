@@ -20,7 +20,13 @@ export function Navbar() {
         <div className="container flex items-center justify-between h-16 px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2" prefetch={false}>
             <Icon iconType="mountain" size={24} className="h-6 w-6" />
-            <span className="sr-only">Acme Inc</span>
+            <span className="text-blue-500 font-serif font-bold ">
+              Tickr
+              <span className="text-green-900 font-mono font-semibold ">✔</span>
+              <span className="text-pink-300 font-sans font-extrabold line-through decoration-slate-900/40 decoration-2">
+                it.
+              </span>
+            </span>
           </Link>
           <div className="flex items-center gap-4">
             <div className="relative flex-1 max-w-md">
