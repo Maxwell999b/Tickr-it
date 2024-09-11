@@ -12,8 +12,11 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import Icon from "../component/Icon";
 import Add_New_Task from "../component/Add_New_Task";
-
-export function Navbar() {
+interface NavbarProps {
+  isDarkMode: boolean;
+  onToggleDarkMode: () => void;
+}
+export function Navbar({ isDarkMode, onToggleDarkMode }: NavbarProps) {
   return (
     <div>
       <header className="w-full bg-background shadow">
@@ -118,6 +121,10 @@ export function Navbar() {
               </div>
             </SheetContent>
           </Sheet>
+          <Button variant="outline" size="icon" className="rounded-full" onClick={onToggleDarkMode}>
+            {isDarkMode ? <Icon iconType="sun" className="h-6 w-6" /> : <Icon iconType="moon" className="h-6 w-6" />}
+            <span className="sr-only">Toggle dark mode</span>
+          </Button>
         </div>
       </header>
     </div>
