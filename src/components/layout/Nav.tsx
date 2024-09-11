@@ -55,30 +55,32 @@ export function Navbar() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <div className="flex items-center gap-2 p-2">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src="/placeholder-user.jpg" />
-                  <AvatarFallback>JD</AvatarFallback>
-                </Avatar>
-                <div className="grid gap-0.5 leading-none">
-                  <div className="font-semibold">John Doe</div>
-                  <div className="text-sm text-muted-foreground">john@example.com</div>
-                </div>
+                <Link href="/Pages/profileUserInfo/" className="flex items-center gap-2" prefetch={false}>
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src="/placeholder-user.jpg" />
+                    <AvatarFallback>JD</AvatarFallback>
+                  </Avatar>
+                  <div className="grid gap-0.5 leading-none">
+                    <div className="font-semibold">John Doe</div>
+                    <div className="text-sm text-muted-foreground">john@example.com</div>
+                  </div>
+                </Link>
               </div>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <Link href="#" className="flex items-center gap-2" prefetch={false}>
+                <Link href="/Pages/dashboard/" className="flex items-center gap-2" prefetch={false}>
                   <Icon iconType="layoutDashboard" size={16} className="h-4 w-4" />
                   <span>Dashboard</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="#" className="flex items-center gap-2" prefetch={false}>
+                <Link href="/Pages/settingsUserInfo/" className="flex items-center gap-2" prefetch={false}>
                   <Icon iconType="settings" size={16} className="h-4 w-4" />
                   <span>Settings</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="#" className="flex items-center gap-2" prefetch={false}>
+                <Link href="/Pages/earnings/" className="flex items-center gap-2" prefetch={false}>
                   <Icon iconType="wallet" size={16} className="h-4 w-4" />
                   <span>Earnings</span>
                 </Link>
@@ -101,15 +103,15 @@ export function Navbar() {
             </SheetTrigger>
             <SheetContent side="left">
               <div className="grid gap-4 p-4">
-                <Link href="#" className="flex items-center gap-2" prefetch={false}>
+                <Link href="/" className="flex items-center gap-2" prefetch={false}>
                   <Icon iconType="home" size={20} className="h-5 w-5" />
                   <span>Home</span>
                 </Link>
-                <Link href="#" className="flex items-center gap-2" prefetch={false}>
+                <Link href="/Pages/about_us/" className="flex items-center gap-2" prefetch={false}>
                   <Icon iconType="info" size={20} className="h-5 w-5" />
                   <span>About</span>
                 </Link>
-                <Link href="#" className="flex items-center gap-2" prefetch={false}>
+                <Link href="/Pages/contact_us/" className="flex items-center gap-2" prefetch={false}>
                   <Icon iconType="mail" size={20} className="h-5 w-5" />
                   <span>Contact</span>
                 </Link>
