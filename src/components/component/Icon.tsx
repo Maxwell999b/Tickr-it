@@ -32,7 +32,9 @@ interface IconsProps {
     | "facebook"
     | "instagram"
     | "moon"
-    | "sun";
+    | "sun"
+    | "leftArrow"
+    | "rightArrow";
 }
 
 const icons = {
@@ -84,7 +86,11 @@ const icons = {
       <line x1="4" x2="20" y1="18" y2="18" />
     </>
   ),
-  mountain: <path d="m8 3 4 8 5-5 5 15H2L8 3z" stroke="#82A7CC" strokeWidth="1" fill="#C9EBF7" />,
+  mountain: (
+    <>
+      <path d="m8 3 4 8 5-5 5 15H2L8 3z" stroke="#82A7CC" strokeWidth="1" fill="#C9EBF7" />
+    </>
+  ),
   moveHorizontal: (
     <>
       <polyline points="18 8 22 12 18 16" />
@@ -370,6 +376,38 @@ const icons = {
         <path d="M20 12h2" />
         <path d="m6.34 17.66-1.41 1.41" />
         <path d="m19.07 4.93-1.41 1.41" />
+      </svg>
+    </>
+  ),
+  leftArrow: (
+    <>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round">
+        <polyline points="14 18 8 12 14 6" />
+      </svg>
+    </>
+  ),
+  rightArrow: (
+    <>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round">
+        <polyline points="10 6 16 12 10 18" />
       </svg>
     </>
   ),

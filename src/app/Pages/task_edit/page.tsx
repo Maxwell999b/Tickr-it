@@ -12,19 +12,23 @@ export default function Task_EditPage() {
     <div>
       <section className="bg-muted py-12 md:py-20">
         <div className="container">
-          <div className="max-w-md mx-auto space-y-6">
-            <div className="space-y-2">
-              <h1 className="text-2xl font-bold">Edit Task</h1>
+          <div className="mx-auto max-w-2xl">
+            <div className="space-y-2 m-2">
+              <h1 className="text-3xl font-bold text-pink-500 dark:text-secondary cent">Edit Task</h1>
               <p className="text-muted-foreground">Update the details of your task.</p>
             </div>
-            <Card>
+            <Card className="bg-card text-card-foreground p-6 rounded-lg shadow-lg space-y-6 m-4">
               <CardContent className="space-y-4">
                 <div className="space-y-1">
-                  <Label htmlFor="title">Title</Label>
+                  <Label htmlFor="title" className="text-muted-foreground">
+                    Title
+                  </Label>
                   <Input id="title" type="text" defaultValue="Finish project proposal" />
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="dueDate">Due Date</Label>
+                  <Label htmlFor="dueDate" className="text-muted-foreground">
+                    Due Date
+                  </Label>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button id="dueDate" variant="outline" className="w-full justify-start text-left font-normal">
@@ -38,7 +42,7 @@ export default function Task_EditPage() {
                   </Popover>
                 </div>
                 <div className="space-y-1">
-                  <Label id="priority" htmlFor="priority">
+                  <Label id="priority" htmlFor="priority" className="text-muted-foreground">
                     Priority
                   </Label>
                   <Select>
@@ -53,7 +57,7 @@ export default function Task_EditPage() {
                   </Select>
                 </div>
               </CardContent>
-              <CardFooter className="flex justify-end gap-2">
+              <CardFooter className="flex justify-center gap-2">
                 <Button variant="outline">Cancel</Button>
                 <Button>Save Changes</Button>
               </CardFooter>
