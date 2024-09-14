@@ -4,7 +4,7 @@ import { Navbar } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { cn } from "@/lib/utils";
 import "./globals.css";
-import { useState } from "react";
+import { ThemeProvider, useTheme } from "@/hooks/ThemeContext";
 
 const fontHeading = Manrope({
   subsets: ["latin"],
@@ -18,11 +18,9 @@ const fontBody = Manrope({
   variable: "--font-body",
 });
 
-export default function Layout({ children }: React.PropsWithChildren) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const toggleDarkMode = () => {
-    setIsDarkMode((prevMode) => !prevMode);
-  };
+function Layout({ children }: React.PropsWithChildren) {
+  const { isDarkMode } = useTheme();
+
   return (
     <html lang="en" className={isDarkMode ? "dark" : ""}>
       <head>
@@ -30,10 +28,18 @@ export default function Layout({ children }: React.PropsWithChildren) {
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
       </head>
       <body className={cn("antialiased", fontHeading.variable, fontBody.variable)}>
-        <Navbar isDarkMode={isDarkMode} onToggleDarkMode={toggleDarkMode} />
+        <Navbar />
         {children}
         <Footer />
       </body>
     </html>
+  );
+}
+
+export default function RootLayout({ children }: React.PropsWithChildren) {
+  return (
+    <ThemeProvider>
+      <Layout>{children}</Layout>
+    </ThemeProvider>
   );
 }

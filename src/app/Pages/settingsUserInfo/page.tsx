@@ -1,10 +1,29 @@
+"use client";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { useState } from "react";
+import { useTheme } from "@/hooks/ThemeContext";
 
 export default function SettingsPageUserInformation() {
+  const [receiveAll, setReceiveAll] = useState(true);
+  const [Reminder, setReminder] = useState(true);
+  const { isDarkMode, toggleDarkMode } = useTheme();
+  const [TwoAuth, setTwoAuth] = useState(false);
+
+  const handleToggleEmail = () => {
+    setReceiveAll(!receiveAll);
+  };
+  const handleToggleReminder = () => {
+    setReminder(!Reminder);
+  };
+  const handleToggleTwoAuth = () => {
+    setTwoAuth(!TwoAuth);
+  };
   return (
     <div>
       <section className="bg-background py-12 md:py-20">
@@ -60,6 +79,105 @@ export default function SettingsPageUserInformation() {
                       <Input id="confirm-password" type="password" />
                     </div>
                     <Button className="ml-auto">Update Password</Button>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Email Notifications</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid gap-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium">
+                          {receiveAll ? "Receive all notifications" : "Receive none"}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {receiveAll
+                            ? "Get notified about all activities and updates."
+                            : "Turn off all email notifications."}
+                        </p>
+                      </div>
+                      <Switch
+                        id="notifications-toggle"
+                        checked={receiveAll}
+                        onCheckedChange={handleToggleEmail}
+                        className="ml-auto"
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Task Reminders</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid gap-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium">Reminders</p>
+                        <p className="text-sm text-muted-foreground">
+                          Set reminders to ensure tasks are completed on time.
+                        </p>
+                      </div>
+                      <Switch
+                        id="reminders"
+                        checked={Reminder}
+                        onCheckedChange={handleToggleReminder}
+                        className="ml-auto"
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Theme</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid gap-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium">{isDarkMode ? "Dark Mode" : "Light Mode"}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {isDarkMode ? "Use a dark color scheme." : "Use a light color scheme."}
+                        </p>
+                      </div>
+                      <Switch
+                        id="theme-toggle"
+                        checked={isDarkMode}
+                        onCheckedChange={toggleDarkMode}
+                        className="ml-auto"
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Two-Factor Authentication</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid gap-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium">{TwoAuth ? "Enabled" : "Disabled"}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {TwoAuth
+                            ? "Two-factor authentication is turned on."
+                            : "Two-factor authentication is turned off."}
+                        </p>
+                      </div>
+                      <Switch
+                        id="2fa-toggle"
+                        checked={TwoAuth}
+                        onCheckedChange={handleToggleTwoAuth}
+                        className="ml-auto"
+                      />
+                    </div>
                   </div>
                 </CardContent>
               </Card>

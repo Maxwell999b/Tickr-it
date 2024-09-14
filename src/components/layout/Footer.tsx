@@ -12,33 +12,38 @@ export function Footer() {
             </Link>
             <p className="text-sm text-muted-foreground">&copy; 2024 Acme Inc. All rights reserved.</p>
           </div>
-          <nav className="flex items-center gap-4">
-            <Link href="/Pages/termsOfService/" className="text-sm hover:underline" prefetch={false}>
+          <nav className="flex items-center gap-2">
+            <Link
+              href="/Pages/termsOfService/"
+              className="text-sm hover:underline text-pink-500 font-bold dark:text-secondary"
+              prefetch={false}>
               Terms of Service
             </Link>
-            <Link href="/Pages/privacyPolicy/" className="text-sm hover:underline" prefetch={false}>
+            <Link
+              href="/Pages/privacyPolicy/"
+              className="text-sm hover:underline text-pink-500 font-bold dark:text-secondary"
+              prefetch={false}>
               Privacy Policy
             </Link>
-            <Link href="/Pages/contact_us/" className="text-sm hover:underline" prefetch={false}>
+            <Link
+              href="/Pages/contact_us/"
+              className="text-sm hover:underline text-pink-500 font-bold dark:text-secondary"
+              prefetch={false}>
               Contact Us
             </Link>
           </nav>
           <div className="flex items-center gap-4">
-            <a href="#" className="text-sm hover:underline">
-              support@acme.com
-            </a>
-            <a href="#" className="text-sm hover:underline">
-              +1-555-555-5555
-            </a>
+            <span className="text-sm text-muted-foreground">support@acme.com</span>
+            <span className="text-sm text-muted-foreground">+1-555-555-5555</span>
           </div>
           <div className="flex items-center gap-4">
-            <Link href="#" className="text-sm hover:underline" prefetch={false}>
+            <Link href="#" className="text-sm text-accent" prefetch={false}>
               <Icon iconType="facebook" className="h-5 w-5" />
             </Link>
-            <Link href="#" className="text-sm hover:underline" prefetch={false}>
+            <Link href="#" className="text-sm text-accent" prefetch={false}>
               <Icon iconType="twitter" className="h-5 w-5" />
             </Link>
-            <Link href="#" className="text-sm hover:underline" prefetch={false}>
+            <Link href="#" className="text-sm text-accent" prefetch={false}>
               <Icon iconType="instagram" className="h-5 w-5" />
             </Link>
           </div>

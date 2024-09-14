@@ -4,6 +4,8 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Toggle } from "@/components/ui/toggle";
+import { Switch } from "@/components/ui/switch";
+
 import Icon from "@/components/component/Icon";
 import { useState } from "react";
 
@@ -76,12 +78,12 @@ export default function ProfileUserInfo() {
                   <div className="grid gap-2">
                     <Label htmlFor="two-factor-auth">Two-Factor Authentication</Label>
                     <div className="flex items-center gap-2">
+                      <span>{checked ? "Enabled" : "Disabled"}</span>
                       <Toggle
                         variant={checked ? "outline" : "default"}
                         aria-label="Toggle two-factor authentication"
                         onChange={() => setChecked(!checked)}
-                      />{" "}
-                      <span>{checked ? "Enabled" : "Disabled"}</span>
+                      />
                     </div>
                   </div>
                   <div className="grid gap-2">

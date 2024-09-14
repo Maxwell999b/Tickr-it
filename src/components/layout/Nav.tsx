@@ -12,13 +12,10 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import Icon from "../component/Icon";
 import Add_New_Task from "../component/Add_New_Task";
+import { useTheme } from "@/hooks/ThemeContext";
+export function Navbar() {
+  const { isDarkMode, toggleDarkMode } = useTheme();
 
-interface NavbarProps {
-  isDarkMode: boolean;
-  onToggleDarkMode: () => void;
-}
-
-export function Navbar({ isDarkMode, onToggleDarkMode }: NavbarProps) {
   return (
     <div>
       <header className="w-full bg-background shadow">
@@ -118,7 +115,7 @@ export function Navbar({ isDarkMode, onToggleDarkMode }: NavbarProps) {
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
-                    <Button variant="outline" size="icon" onClick={onToggleDarkMode}>
+                    <Button variant="outline" size="icon" onClick={toggleDarkMode}>
                       {isDarkMode ? (
                         <Icon iconType="sun" className="h-6 w-6" />
                       ) : (
@@ -222,7 +219,7 @@ export function Navbar({ isDarkMode, onToggleDarkMode }: NavbarProps) {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button variant="outline" size="icon" onClick={onToggleDarkMode}>
+            <Button variant="outline" size="icon" onClick={toggleDarkMode}>
               {isDarkMode ? <Icon iconType="sun" className="h-6 w-6" /> : <Icon iconType="moon" className="h-6 w-6" />}
               <span className="sr-only">Toggle dark mode</span>
             </Button>
