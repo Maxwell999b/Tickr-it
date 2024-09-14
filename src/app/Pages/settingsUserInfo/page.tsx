@@ -8,22 +8,15 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import { useTheme } from "@/hooks/ThemeContext";
-
+import { useEmailNotifications } from "@/hooks/useEmailNotifications";
+import { useTwoFactorAuth } from "@/hooks/useTwoFactorAuth";
+import { useTaskReminders } from "@/hooks/useTaskReminders";
 export default function SettingsPageUserInformation() {
-  const [receiveAll, setReceiveAll] = useState(true);
-  const [Reminder, setReminder] = useState(true);
   const { isDarkMode, toggleDarkMode } = useTheme();
-  const [TwoAuth, setTwoAuth] = useState(false);
+  const { receiveAll, toggleEmailNotifications } = useEmailNotifications();
+  const { remindersEnabled, toggleTaskReminders } = useTaskReminders();
+  const { twoAuthEnabled, toggleTwoFactorAuth } = useTwoFactorAuth();
 
-  const handleToggleEmail = () => {
-    setReceiveAll(!receiveAll);
-  };
-  const handleToggleReminder = () => {
-    setReminder(!Reminder);
-  };
-  const handleToggleTwoAuth = () => {
-    setTwoAuth(!TwoAuth);
-  };
   return (
     <div>
       <section className="bg-background py-12 md:py-20">
@@ -102,7 +95,7 @@ export default function SettingsPageUserInformation() {
                       <Switch
                         id="notifications-toggle"
                         checked={receiveAll}
-                        onCheckedChange={handleToggleEmail}
+                        onCheckedChange={toggleEmailNotifications}
                         className="ml-auto"
                       />
                     </div>
@@ -124,8 +117,8 @@ export default function SettingsPageUserInformation() {
                       </div>
                       <Switch
                         id="reminders"
-                        checked={Reminder}
-                        onCheckedChange={handleToggleReminder}
+                        checked={remindersEnabled}
+                        onCheckedChange={toggleTaskReminders}
                         className="ml-auto"
                       />
                     </div>
@@ -164,17 +157,17 @@ export default function SettingsPageUserInformation() {
                   <div className="grid gap-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-medium">{TwoAuth ? "Enabled" : "Disabled"}</p>
+                        <p className="text-sm font-medium">{twoAuthEnabled ? "Enabled" : "Disabled"}</p>
                         <p className="text-sm text-muted-foreground">
-                          {TwoAuth
+                          {twoAuthEnabled
                             ? "Two-factor authentication is turned on."
                             : "Two-factor authentication is turned off."}
                         </p>
                       </div>
                       <Switch
                         id="2fa-toggle"
-                        checked={TwoAuth}
-                        onCheckedChange={handleToggleTwoAuth}
+                        checked={twoAuthEnabled}
+                        onCheckedChange={toggleTwoFactorAuth}
                         className="ml-auto"
                       />
                     </div>

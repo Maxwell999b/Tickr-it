@@ -3,14 +3,19 @@ import Link from "next/link";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Toggle } from "@/components/ui/toggle";
 import { Switch } from "@/components/ui/switch";
-
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Icon from "@/components/component/Icon";
-import { useState } from "react";
+import { useTheme } from "@/hooks/ThemeContext";
+import { useEmailNotifications } from "@/hooks/useEmailNotifications";
+import { useTwoFactorAuth } from "@/hooks/useTwoFactorAuth";
+import { useTaskReminders } from "@/hooks/useTaskReminders";
 
 export default function ProfileUserInfo() {
-  const [checked, setChecked] = useState(false);
+  const { isDarkMode } = useTheme();
+  const { receiveAll, toggleEmailNotifications } = useEmailNotifications();
+  const { remindersEnabled, toggleTaskReminders } = useTaskReminders();
+  const { twoAuthEnabled, toggleTwoFactorAuth } = useTwoFactorAuth();
 
   return (
     <div>
@@ -21,6 +26,18 @@ export default function ProfileUserInfo() {
               <h1 className="text-3xl font-bold">User Profile</h1>
               <p className="text-muted-foreground">View your account settings and preferences.</p>
             </div>
+            <Alert variant="destructive">
+              <AlertTitle>Cannot modify settings here</AlertTitle>
+              <AlertDescription>
+                To change these settings, please visit the{" "}
+                <Link
+                  href="/Pages/settingsUserInfo/"
+                  className="text-muted-foreground underline hover:text-blue-500 hover:dark:text-secondary">
+                  Settings Page
+                </Link>
+                .
+              </AlertDescription>
+            </Alert>
             <Card>
               <CardHeader>
                 <CardTitle>Personal Information</CardTitle>
@@ -69,21 +86,30 @@ export default function ProfileUserInfo() {
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="email-notifications">Email Notifications</Label>
-                    <span className="font-medium">Receive all notifications</span>
+                    <div className="flex items-center gap-2">
+                      <span>{receiveAll ? "Receive all notifications" : "Receive none"}</span>
+                      <Switch checked={receiveAll} className="ml-auto" />
+                    </div>
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="reminders">Task Reminders</Label>
+                    <div className="flex items-center gap-2">
+                      <span>{remindersEnabled ? "Set Reminders for Tasks." : "Reminders Disabled"}</span>
+                      <Switch checked={remindersEnabled} className="ml-auto" />
+                    </div>
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="theme">Theme</Label>
-                    <span className="font-medium">Light</span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium">{isDarkMode ? "Dark" : "Light"}</span>
+                      <Switch checked={isDarkMode} className="ml-auto" />
+                    </div>
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="two-factor-auth">Two-Factor Authentication</Label>
                     <div className="flex items-center gap-2">
-                      <span>{checked ? "Enabled" : "Disabled"}</span>
-                      <Toggle
-                        variant={checked ? "outline" : "default"}
-                        aria-label="Toggle two-factor authentication"
-                        onChange={() => setChecked(!checked)}
-                      />
+                      <span>{twoAuthEnabled ? "Enabled" : "Disabled"}</span>
+                      <Switch checked={twoAuthEnabled} className="ml-auto" />
                     </div>
                   </div>
                   <div className="grid gap-2">

@@ -12,31 +12,31 @@ export default function DashboardPage() {
               <h1 className="text-3xl font-bold">Dashboard</h1>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <Card>
+              <Card className="hover:bg-sky-600/10">
                 <CardHeader className="flex items-center justify-between">
-                  <div className="text-lg font-medium">Total Tasks</div>
-                  <Icon iconType="list" className="h-6 w-6 text-muted-foreground" />
+                  <div className="text-lg font-bold text-pink-600">Total Tasks</div>
+                  <Icon iconType="list" className="h-6 w-6 text-pink-300" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-4xl font-bold text-center">42</div>
+                  <div className="text-4xl font-bold text-center text-sky-600">42</div>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="hover:bg-green-600/10">
                 <CardHeader className="flex items-center justify-between">
-                  <div className="text-lg font-medium">Completed Tasks</div>
-                  <Icon iconType="circleCheck" className="h-6 w-6 text-muted-foreground" />
+                  <div className="text-lg font-medium text-pink-600">Completed Tasks</div>
+                  <Icon iconType="circleCheck" className="h-6 w-6 text-muted-foreground text-pink-300" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-4xl font-bold text-center">25</div>
+                  <div className="text-4xl font-bold text-center text-green-600">25</div>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="hover:bg-yellow-600/10">
                 <CardHeader className="flex items-center justify-between">
-                  <div className="text-lg font-medium">Pending Tasks</div>
-                  <Icon iconType="clock" className="h-6 w-6 text-muted-foreground" />
+                  <div className="text-lg font-medium text-pink-600">Pending Tasks</div>
+                  <Icon iconType="clock" className="h-6 w-6 text-muted-foreground text-pink-300" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-4xl font-bold text-center">17</div>
+                  <div className="text-4xl font-bold text-center text-yellow-600">17</div>
                 </CardContent>
               </Card>
             </div>
