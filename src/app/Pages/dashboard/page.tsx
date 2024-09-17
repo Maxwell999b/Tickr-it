@@ -1,13 +1,12 @@
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import Icon from "@/components/component/Icon";
-import { MainYourTaskSM } from "@/components/component/page/MainYourTaskSM";
-
+import { MainYourTask } from "@/components/component/page/MainYourTask";
 export default function DashboardPage() {
   return (
     <div>
       <section className="bg-background py-12 md:py-20">
         <div className="container">
-          <div className="mx-auto max-w-4xl space-y-6">
+          <div className="mx-auto max-w-6xl space-y-6">
             <div className="space-y-2 text-center">
               <h1 className="text-3xl font-bold">Dashboard</h1>
             </div>
@@ -40,7 +39,7 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
             </div>
-            <MainYourTaskSM />
+            <MainYourTask />
           </div>
         </div>
       </section>
