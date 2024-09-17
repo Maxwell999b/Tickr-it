@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -13,7 +13,6 @@ import {
   DropdownMenuCheckboxItem,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Pagination, PaginationContent, PaginationItem } from "@/components/ui/pagination";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -21,13 +20,12 @@ import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
-
 import Icon from "@/components/component/Icon";
 interface Task {
   id: number;
   taskName: string;
   dueDate: Date;
-  priority: string;
+  priority: "High" | "Medium" | "Low";
   project: string;
   type: string;
   subtasks: string[];
@@ -35,6 +33,7 @@ interface Task {
   attachments: boolean;
   status: boolean;
 }
+
 const initialTasks: Task[] = [
   {
     id: 1,
@@ -72,12 +71,120 @@ const initialTasks: Task[] = [
     attachments: false,
     status: true,
   },
+  {
+    id: 4,
+    taskName: "test",
+    dueDate: new Date("2024-07-10"),
+    priority: "Medium",
+    project: "Internal",
+    type: "Meeting",
+    subtasks: ["Send calendar invite", "Prepare agenda", "Book meeting room"],
+    frequency: "Monthly",
+    attachments: false,
+    status: true,
+  },
+  {
+    id: 5,
+    taskName: "test2",
+    dueDate: new Date("2025-07-10"),
+    priority: "High",
+    project: "Internal",
+    type: "Meeting",
+    subtasks: ["Send calendar invite", "Prepare agenda", "Book meeting room"],
+    frequency: "Weekly",
+    attachments: true,
+    status: false,
+  },
+  {
+    id: 6,
+    taskName: "test3",
+    dueDate: new Date("2027-07-10"),
+    priority: "Low",
+    project: "Internal",
+    type: "Meeting",
+    subtasks: ["Send calendar invite", "Prepare agenda", "Book meeting room"],
+    frequency: "Daily",
+    attachments: false,
+    status: true,
+  },
 ];
 
+type SortOption = "dueDate" | "priority" | "status";
+
 export function MainYourTask() {
-  const [tasks, setTasks] = useState(initialTasks);
-  const [editingTaskId, setEditingTaskId] = useState(null);
-  const [editingField, setEditingField] = useState(null);
+  const [tasks, setTasks] = useState<Task[]>(initialTasks);
+  const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
+  const [editingField, setEditingField] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [sortBy, setSortBy] = useState<SortOption>("dueDate");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const [filters, setFilters] = useState({
+    priority: false,
+    overdue: false,
+    status: false,
+    recurring: false,
+    attachments: false,
+  });
+
+  const tasksPerPage = 5;
+  const sortAndFilterTasks = useCallback(() => {
+    let sortedTasks = [...initialTasks];
+
+    sortedTasks.sort((a, b) => {
+      const order = sortOrder === "asc" ? 1 : -1;
+      switch (sortBy) {
+        case "dueDate":
+          return order * (a.dueDate.getTime() - b.dueDate.getTime());
+        case "priority":
+          const priorityOrder: { [key: string]: number } = { High: 3, Medium: 2, Low: 1 };
+          return order * (priorityOrder[a.priority] - priorityOrder[b.priority]);
+        case "status":
+          return order * (a.status === b.status ? 0 : a.status ? -1 : 1);
+        default:
+          return 0;
+      }
+    });
+
+    sortedTasks = sortedTasks.filter((task) => {
+      if (filters.priority && task.priority !== "High") return false;
+      if (filters.overdue && task.dueDate >= new Date()) return false;
+      if (filters.status && !task.status) return false;
+      if (filters.recurring && task.frequency === "One-time") return false;
+      if (filters.attachments && !task.attachments) return false;
+      return true;
+    });
+
+    setTasks(sortedTasks);
+  }, [sortBy, sortOrder, filters]);
+
+  useEffect(() => {
+    sortAndFilterTasks();
+  }, [sortAndFilterTasks]);
+
+  const handleSortChange = (newSortBy: string) => {
+    if (newSortBy === sortBy) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortBy(newSortBy as SortOption);
+      setSortOrder("desc");
+    }
+  };
+
+  const handleFilterChange = (filterType: keyof typeof filters) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [filterType]: !prevFilters[filterType],
+    }));
+  };
+  const handlePageChange = (direction: "next" | "prev") => {
+    if (direction === "next") {
+      setCurrentPage((prev) => (prev + 1) % Math.ceil(tasks.length / tasksPerPage));
+    } else {
+      setCurrentPage(
+        (prev) => (prev - 1 + Math.ceil(tasks.length / tasksPerPage)) % Math.ceil(tasks.length / tasksPerPage)
+      );
+    }
+  };
 
   const handleDoubleClick = (taskId: any, field: any) => {
     setEditingTaskId(taskId);
@@ -137,15 +244,30 @@ export function MainYourTask() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="shrink-0">
-                  <Icon iconType="arrowUp" className="w-4 h-4 mr-2" />
+                  <Icon iconType="DoubleArrow" className="w-4 h-4 mr-2" />
                   Sort by
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-[200px]" align="end">
-                <DropdownMenuRadioGroup value="due_date">
-                  <DropdownMenuRadioItem value="due_date">Due Date</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="priority">Priority</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="status">Status</DropdownMenuRadioItem>
+                <DropdownMenuRadioGroup value={sortBy} onValueChange={handleSortChange}>
+                  <DropdownMenuRadioItem value="dueDate">
+                    Due Date{" "}
+                    {sortBy === "dueDate" && (
+                      <Icon iconType={sortOrder === "asc" ? "arrowUp" : "arrowDown"} className="w-4 h-4 ml-2" />
+                    )}
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="priority">
+                    Priority{" "}
+                    {sortBy === "priority" && (
+                      <Icon iconType={sortOrder === "asc" ? "arrowUp" : "arrowDown"} className="w-4 h-4 ml-2" />
+                    )}
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="status">
+                    Status{" "}
+                    {sortBy === "status" && (
+                      <Icon iconType={sortOrder === "asc" ? "arrowUp" : "arrowDown"} className="w-4 h-4 ml-2" />
+                    )}
+                  </DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -159,29 +281,41 @@ export function MainYourTask() {
               <DropdownMenuContent className="w-[200px]" align="end">
                 <DropdownMenuLabel>Filter by:</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuCheckboxItem>Assigned to me</DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem>High priority</DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem>Overdue</DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem>Completed</DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem>Recurring</DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem
+                  checked={filters.priority}
+                  onCheckedChange={() => handleFilterChange("priority")}>
+                  High priority
+                </DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem
+                  checked={filters.overdue}
+                  onCheckedChange={() => handleFilterChange("overdue")}>
+                  Overdue
+                </DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem checked={filters.status} onCheckedChange={() => handleFilterChange("status")}>
+                  Completed
+                </DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem
+                  checked={filters.recurring}
+                  onCheckedChange={() => handleFilterChange("recurring")}>
+                  Recurring
+                </DropdownMenuCheckboxItem>
+                <DropdownMenuCheckboxItem
+                  checked={filters.attachments}
+                  onCheckedChange={() => handleFilterChange("attachments")}>
+                  Has attachments
+                </DropdownMenuCheckboxItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <Button size="icon" variant="outline" className="h-8 w-8 ">
-                    <Icon iconType="leftArrow" className="h-4 w-4" />
-                    <span className="sr-only">Previous</span>
-                  </Button>
-                </PaginationItem>
-                <PaginationItem>
-                  <Button size="icon" variant="outline" className="h-8 w-8">
-                    <Icon iconType="rightArrow" className="h-4 w-4" />
-                    <span className="sr-only">Next</span>
-                  </Button>
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
+            <div className="flex items-center gap-2">
+              <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => handlePageChange("prev")}>
+                <Icon iconType="leftArrow" className="h-4 w-4" />
+                <span className="sr-only">Previous</span>
+              </Button>
+              <Button size="icon" variant="outline" className="h-8 w-8" onClick={() => handlePageChange("next")}>
+                <Icon iconType="rightArrow" className="h-4 w-4" />
+                <span className="sr-only">Next</span>
+              </Button>
+            </div>
           </div>
         </div>
         <Table>
@@ -199,7 +333,7 @@ export function MainYourTask() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tasks.map((task) => (
+            {tasks.slice(currentPage * tasksPerPage, (currentPage + 1) * tasksPerPage).map((task) => (
               <TableRow key={task.id}>
                 <TableCell>
                   {editingTaskId === task.id && editingField === "taskName" ? (
