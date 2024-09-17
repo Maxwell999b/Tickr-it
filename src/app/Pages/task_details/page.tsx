@@ -72,7 +72,6 @@ export default function Task_DetailsPage() {
           </div>
         </div>
       </section>
-      <MainYourTask />
     </div>
   );
 }
