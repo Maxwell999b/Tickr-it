@@ -22,6 +22,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { format } from "date-fns";
 import Icon from "@/components/component/Icon";
 import { Task, initialTasks } from "./tasks";
+import { DeleteTaskConfirmation } from "../DeleteTaskConfirmation";
 
 type SortOption = "dueDate" | "priority" | "status";
 
@@ -29,6 +30,7 @@ export function MainYourTask() {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
   const [editingField, setEditingField] = useState<string | null>(null);
+  const [taskToDelete, setTaskToDelete] = useState<any | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [sortBy, setSortBy] = useState<SortOption>("dueDate");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
@@ -75,6 +77,19 @@ export function MainYourTask() {
     sortAndFilterTasks();
   }, [sortAndFilterTasks]);
 
+  const handleDeleteTask = (taskId: any) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    console.log(`Deleted task with ID: ${taskId}`);
+    setTaskToDelete(null);
+  };
+  const handleConfirmDelete = (id: number) => {
+    handleDeleteTask(id);
+    setTaskToDelete(null);
+  };
+
+  const handleCancel = () => {
+    setTaskToDelete(null);
+  };
   const handleSortChange = (newSortBy: string) => {
     if (newSortBy === sortBy) {
       setSortOrder(sortOrder === "asc" ? "desc" : "asc");
@@ -379,23 +394,42 @@ export function MainYourTask() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem>
-                        <Link href="/Pages/task_details/" className="flex items-center gap-2" prefetch={false}>
+                        <Link
+                          href={`/Pages/task_details/${task.id}`}
+                          className="flex items-center gap-2"
+                          prefetch={false}>
                           <Icon iconType="eye" className="h-4 w-4" />
                           <span>View</span>
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem>
-                        <Link href="/Pages/task_edit/" className="flex items-center gap-2" prefetch={false}>
+                        <Link href={`/Pages/task_edit/${task.id}`} className="flex items-center gap-2" prefetch={false}>
                           <Icon iconType="filePen" className="h-4 w-4" />
                           <span>Edit</span>
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem>
-                        <Link href="#" className="flex items-center gap-2" prefetch={false}>
+                        <Link
+                          href="#"
+                          className="flex items-center gap-2 text-red-600 hover:text-red-800"
+                          prefetch={false}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setTaskToDelete(task.id);
+                          }}>
                           <Icon iconType="trash" className="h-4 w-4" />
                           <span>Delete</span>
                         </Link>
                       </DropdownMenuItem>
+                      {taskToDelete !== null && (
+                        <DeleteTaskConfirmation
+                          isOpen={taskToDelete !== null}
+                          taskId={taskToDelete}
+                          taskName={tasks.find((t) => t.id === taskToDelete)?.taskName || ""}
+                          onConfirmDelete={handleConfirmDelete}
+                          onCancel={handleCancel}
+                        />
+                      )}
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>

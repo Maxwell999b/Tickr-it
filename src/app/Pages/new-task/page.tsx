@@ -5,7 +5,7 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 import { Calendar } from "@/components/ui/calendar";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { MainYourTask } from "@/components/component/page/MainYourTask";
+import { MainYourTask } from "@/components/component/data/MainYourTask";
 import Icon from "@/components/component/Icon";
 export default function Create_NewTaskPageForm() {
   return (

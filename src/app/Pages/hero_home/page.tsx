@@ -1,5 +1,5 @@
 import Add_New_Task from "@/components/component/Add_New_Task";
-import { MainYourTask } from "@/components/component/page/MainYourTask";
+import { MainYourTask } from "@/components/component/data/MainYourTask";
 export default function Hero_HomePage() {
   return (
     <div>

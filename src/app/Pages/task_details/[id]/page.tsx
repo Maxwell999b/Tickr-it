@@ -1,9 +1,21 @@
+"use client";
+import { useParams } from "next/navigation";
+import { initialTasks } from "@/components/component/data/tasks";
 import Link from "next/link";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { MainYourTask } from "@/components/component/page/MainYourTask";
 import Icon from "@/components/component/Icon";
+import { TaskNotFound } from "@/components/errors/TaskNotFound";
+
 export default function Task_DetailsPage() {
+  const params = useParams();
+  const taskId = Number(params.id);
+  const task = initialTasks.find((t) => t.id === taskId);
+
+  if (!task) {
+    return <TaskNotFound />;
+  }
+
   return (
     <div>
       <section className="bg-background py-12 md:py-20">
@@ -15,10 +27,12 @@ export default function Task_DetailsPage() {
                 <p className="text-muted-foreground">Provide specific information about your task.</p>
               </div>
               <div className="bg-card text-card-foreground p-6 rounded-lg shadow-lg space-y-6 m-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <Badge variant="info">Important</Badge>
-                    <h2 className="lg:text-2xl font-bold dark:text-primary ">Finish project proposal</h2>
+                <div className="flex items-center justify-between gap-4">
+                  <h2 className="lg:text-2xl font-bold dark:text-primary">{task.taskName}</h2>
+                  <div className="flex gap-2">
+                    <Badge variant="info">{task.type}</Badge>
+                    <Badge variant="urgent">{task.project}</Badge>
+                    {task.status ? <Icon iconType="checkMark" /> : <Icon iconType="crossMark" />}
                   </div>
                 </div>
 
@@ -28,7 +42,7 @@ export default function Task_DetailsPage() {
                       Due Date
                     </Label>
                     <div className="dark:text-accent font-semibold">
-                      <Badge variant="secondary"> 2023-06-30</Badge>
+                      <Badge variant="secondary">{task.dueDate.toDateString()}</Badge>
                     </div>
                   </div>
                   <div>
@@ -36,8 +50,25 @@ export default function Task_DetailsPage() {
                       Priority
                     </Label>
                     <Badge variant="default" className="text-sm font-medium">
-                      High
+                      {task.priority}
                     </Badge>
+                  </div>
+                  <div>
+                    <Label htmlFor="frequency" className="text-muted-foreground mb-1 block">
+                      Frequency
+                    </Label>
+                    <div className="dark:text-accent font-semibold">
+                      <Badge variant="accent">{task.frequency}</Badge>
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="attachments" className="text-muted-foreground mb-1 block">
+                      Attachments
+                    </Label>
+                    <div className="flex items-center gap-1">
+                      <span className="dark:text-info font-semibold">{task.attachments ? "Yes" : "No"}</span>
+                      <Icon iconType={task.attachments ? "attachment" : "noAttachment"} className="mr-2" size={16} />
+                    </div>
                   </div>
                 </div>
 
@@ -46,14 +77,19 @@ export default function Task_DetailsPage() {
                     Description
                   </Label>
                   <div className="text-foreground dark:text-accent">
-                    Finish the project proposal for the client meeting on June 30th. Include details on the scope,
-                    timeline, and budget.
+                    <ul className="list-disc pl-5 mt-2">
+                      {task.subtasks.map((subtask, index) => (
+                        <li key={index} className="mb-1">
+                          {subtask}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
 
                 <div className="flex justify-between pt-4">
                   <Link
-                    href="#"
+                    href={`/Pages/task_edit/${task.id}`}
                     className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                     prefetch={false}>
                     <Icon iconType="filePen" className="h-5 w-5 mr-2" />

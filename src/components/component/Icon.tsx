@@ -39,7 +39,13 @@ interface IconsProps {
     | "arrowUp"
     | "arrowDown"
     | "DoubleArrow"
-    | "calendar";
+    | "calendar"
+    | "grinningSweat"
+    | "xEyes"
+    | "checkMark"
+    | "crossMark"
+    | "attachment"
+    | "noAttachment";
 }
 
 const icons = {
@@ -505,6 +511,101 @@ const icons = {
         <path d="M16 18h.01" />
       </svg>
     </>
+  ),
+  xEyes: (
+    <>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        fill="currentColor"
+        className="text-gray-300 dark:text-gray-700"
+      />
+      <path
+        d="M8 9L10 11M10 9L8 11"
+        stroke="currentColor"
+        className="text-gray-600 dark:text-gray-300"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M14 9L16 11M16 9L14 11"
+        stroke="currentColor"
+        className="text-gray-600 dark:text-gray-300"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M8 15H16"
+        stroke="currentColor"
+        className="text-gray-600 dark:text-gray-300"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </>
+  ),
+  grinningSweat: (
+    <>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        fill="currentColor"
+        className="text-gray-300 dark:text-gray-700"
+      />
+      <path
+        d="M8 9C8.55228 9 9 8.55228 9 8C9 7.44772 8.55228 7 8 7C7.44772 7 7 7.44772 7 8C7 8.55228 7.44772 9 8 9Z"
+        fill="currentColor"
+        className="text-gray-600 dark:text-gray-300"
+      />
+      <path
+        d="M16 9C16.5523 9 17 8.55228 17 8C17 7.44772 16.5523 7 16 7C15.4477 7 15 7.44772 15 8C15 8.55228 15.4477 9 16 9Z"
+        fill="currentColor"
+        className="text-gray-600 dark:text-gray-300"
+      />
+      <path
+        d="M15 13H9C9 15.2091 10.7909 17 13 17C15.2091 17 17 15.2091 17 13H15Z"
+        fill="currentColor"
+        className="text-gray-600 dark:text-gray-300"
+      />
+      <path
+        d="M3 7C3 7 5 5 6 3"
+        stroke="currentColor"
+        className="text-blue-400 dark:text-blue-300"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </>
+  ),
+  attachment: (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="green">
+      <circle cx="12" cy="12" r="10" fill="lightgreen" />
+      <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" />
+    </svg>
+  ),
+  noAttachment: (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="red">
+      <circle cx="12" cy="12" r="10" fill="#ffcccc" />
+      <path d="M15 9l-6 6M9 9l6 6" stroke="white" strokeWidth="2" />
+    </svg>
+  ),
+  checkMark: (
+    <svg
+      className="w-5 h-5 text-green-500"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="20" height="20" stroke="currentColor" strokeWidth="2" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 12l4 4L18 8" />
+    </svg>
+  ),
+  crossMark: (
+    <svg
+      className="w-4 h-4 text-red-500"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="20" height="20" stroke="currentColor" strokeWidth="2" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 6l12 12M6 18L18 6" />
+    </svg>
   ),
 };
 

@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import Icon from "@/components/component/Icon";
-import { MainYourTask } from "@/components/component/page/MainYourTask";
+import { MainYourTask } from "@/components/component/data/MainYourTask";
 export default function DashboardPage() {
   return (
     <div>
