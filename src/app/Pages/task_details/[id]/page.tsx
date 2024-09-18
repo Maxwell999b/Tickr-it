@@ -74,7 +74,7 @@ export default function Task_DetailsPage() {
 
                 <div>
                   <Label htmlFor="description" className="text-muted-foreground mb-1 block">
-                    Description
+                    Subtasks
                   </Label>
                   <div className="text-foreground dark:text-accent">
                     <ul className="list-disc pl-5 mt-2">

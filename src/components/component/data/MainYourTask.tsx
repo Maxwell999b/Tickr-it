@@ -38,7 +38,7 @@ export function MainYourTask() {
     priority: false,
     overdue: false,
     status: false,
-    recurring: false,
+    frequency: false,
     attachments: false,
   });
 
@@ -65,7 +65,7 @@ export function MainYourTask() {
       if (filters.priority && task.priority !== "High") return false;
       if (filters.overdue && task.dueDate >= new Date()) return false;
       if (filters.status && !task.status) return false;
-      if (filters.recurring && task.frequency === "One-time") return false;
+      if (filters.frequency && task.frequency === "One-time") return false;
       if (filters.attachments && !task.attachments) return false;
       return true;
     });
@@ -224,8 +224,8 @@ export function MainYourTask() {
                   Completed
                 </DropdownMenuCheckboxItem>
                 <DropdownMenuCheckboxItem
-                  checked={filters.recurring}
-                  onCheckedChange={() => handleFilterChange("recurring")}>
+                  checked={filters.frequency}
+                  onCheckedChange={() => handleFilterChange("frequency")}>
                   Recurring
                 </DropdownMenuCheckboxItem>
                 <DropdownMenuCheckboxItem
@@ -256,7 +256,7 @@ export function MainYourTask() {
               <TableHead>Status</TableHead>
               <TableHead>Tags</TableHead>
               <TableHead>Subtasks</TableHead>
-              <TableHead>Recurring</TableHead>
+              <TableHead>Frequency</TableHead>
               <TableHead>Attachments</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>

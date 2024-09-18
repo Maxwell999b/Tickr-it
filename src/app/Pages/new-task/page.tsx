@@ -5,7 +5,6 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 import { Calendar } from "@/components/ui/calendar";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { MainYourTask } from "@/components/component/data/MainYourTask";
 import Icon from "@/components/component/Icon";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -86,7 +85,15 @@ export default function Create_NewTaskPageForm() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="attachments">Attachments</Label>
-                <Checkbox id="attachments" label="Include attachments?" />
+                <Select>
+                  <SelectTrigger id="attachment">
+                    <SelectValue placeholder="Select option" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="attachment">Attachment</SelectItem>
+                    <SelectItem value="no-attachment">NO-Attachment</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="status">Status</Label>
