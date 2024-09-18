@@ -7,6 +7,8 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { MainYourTask } from "@/components/component/data/MainYourTask";
 import Icon from "@/components/component/Icon";
+import { Checkbox } from "@/components/ui/checkbox";
+
 export default function Create_NewTaskPageForm() {
   return (
     <div>
@@ -50,6 +52,55 @@ export default function Create_NewTaskPageForm() {
                 </Select>
               </div>
               <div className="space-y-2">
+                <Label htmlFor="project">Project</Label>
+                <Input id="project" placeholder="Enter project name" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="type">Type</Label>
+                <Select>
+                  <SelectTrigger id="type">
+                    <SelectValue placeholder="Select task type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="personal">Personal</SelectItem>
+                    <SelectItem value="work">Work</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="subtasks">Subtasks</Label>
+                <Textarea id="subtasks" placeholder="Enter subtasks (comma-separated)" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="frequency">Frequency</Label>
+                <Select>
+                  <SelectTrigger id="frequency">
+                    <SelectValue placeholder="Select frequency" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="daily">Daily</SelectItem>
+                    <SelectItem value="weekly">Weekly</SelectItem>
+                    <SelectItem value="monthly">Monthly</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="attachments">Attachments</Label>
+                <Checkbox id="attachments" label="Include attachments?" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="status">Status</Label>
+                <Select>
+                  <SelectTrigger id="status">
+                    <SelectValue placeholder="Select status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="true">Completed</SelectItem>
+                    <SelectItem value="false">Pending</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
                 <Label htmlFor="description">Description</Label>
                 <Textarea id="description" placeholder="Enter task description" />
               </div>
@@ -60,7 +111,6 @@ export default function Create_NewTaskPageForm() {
           </div>
         </div>
       </section>
-      <MainYourTask />
     </div>
   );
 }
