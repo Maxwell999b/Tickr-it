@@ -4,9 +4,9 @@ interface Task {
   dueDate: Date;
   priority: "High" | "Medium" | "Low";
   project: string;
-  type: string;
+  type: "Personal" | "Work" | "Others";
   subtasks: string[];
-  frequency: string;
+  frequency: "Monthly" | "Weekly" | "Daily" | "One-time";
   attachments: boolean;
   status: boolean;
 }
@@ -56,7 +56,7 @@ const initialTasks: Task[] = [
     project: "Client C",
     type: "Work",
     subtasks: ["Review progress", "Adjust deadlines", "Communicate changes"],
-    frequency: "Quarterly",
+    frequency: "Monthly",
     attachments: true,
     status: false,
   },
@@ -68,19 +68,19 @@ const initialTasks: Task[] = [
     project: "Internal",
     type: "Work",
     subtasks: ["Book venue", "Send invitations", "Plan activities"],
-    frequency: "Yearly",
+    frequency: "One-time",
     attachments: true,
     status: false,
   },
   {
     id: 6,
-    taskName: "personal doctor appointment",
+    taskName: "Schedule personal doctor",
     dueDate: new Date("2027-07-10"),
     priority: "Low",
     project: "Personal",
     type: "Personal",
     subtasks: ["Find available slots", "Confirm insurance", "Prepare medical records"],
-    frequency: "Annually",
+    frequency: "Monthly",
     attachments: false,
     status: true,
   },
