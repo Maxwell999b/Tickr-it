@@ -30,11 +30,11 @@ const initialTasks: Task[] = [
     dueDate: new Date("2023-07-05"),
     priority: "Medium",
     project: "Client B",
-    type: "Work",
+    type: "Others",
     subtasks: ["Design slides", "Add charts", "Practice delivery"],
     frequency: "One-time",
     attachments: true,
-    status: true,
+    status: false,
   },
   {
     id: 3,
@@ -58,7 +58,7 @@ const initialTasks: Task[] = [
     subtasks: ["Review progress", "Adjust deadlines", "Communicate changes"],
     frequency: "Monthly",
     attachments: true,
-    status: false,
+    status: true,
   },
   {
     id: 5,
@@ -70,7 +70,7 @@ const initialTasks: Task[] = [
     subtasks: ["Book venue", "Send invitations", "Plan activities"],
     frequency: "One-time",
     attachments: true,
-    status: false,
+    status: true,
   },
   {
     id: 6,
