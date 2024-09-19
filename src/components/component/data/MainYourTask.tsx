@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import confetti from "canvas-confetti";
+import "./Task.css";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -148,8 +150,22 @@ export function MainYourTask() {
   };
 
   const handleStatusChange = (taskId: any, checked: any) => {
-    setTasks(tasks.map((task) => (task.id === taskId ? { ...task, status: checked } : task)));
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        return { ...task, status: checked };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+    if (updatedTasks.every((task) => task.status)) {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
+    }
   };
+
   const getPriorityBadgeVariant = (priority: any) => {
     switch (priority) {
       case "High":
@@ -276,7 +292,9 @@ export function MainYourTask() {
                     />
                   ) : (
                     <div
-                      className="font-semibold dark:text-primary cursor-pointer"
+                      className={`font-semibold cursor-pointer ${
+                        task.status ? "text-gray-400 line-through-animation-active" : "dark:text-primary text-slate-700"
+                      } line-through-animation`}
                       onDoubleClick={() => handleDoubleClick(task.id, "taskName")}>
                       {task.taskName}
                     </div>

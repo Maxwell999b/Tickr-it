@@ -1,0 +1,35 @@
+/* Task.css */
+@keyframes lineThrough {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.line-through-animation {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.line-through-animation::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 1px;
+  background-color: currentColor;
+  color: rgb(192, 15, 53);
+  width: 100%;
+  transform: translateY(-50%);
+  transform-origin: left;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.line-through-animation-active::after {
+  animation: lineThrough 0.7s ease forwards;
+  opacity: 1;
+}
