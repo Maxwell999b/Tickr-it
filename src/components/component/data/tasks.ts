@@ -22,7 +22,7 @@ const initialTasks: Task[] = [
     subtasks: ["Research competitors", "Outline proposal structure", "Write executive summary"],
     frequency: "Monthly",
     attachments: true,
-    status: false,
+    status: true,
   },
   {
     id: 2,
@@ -34,7 +34,7 @@ const initialTasks: Task[] = [
     subtasks: ["Design slides", "Add charts", "Practice delivery"],
     frequency: "One-time",
     attachments: true,
-    status: false,
+    status: true,
   },
   {
     id: 3,
@@ -70,7 +70,7 @@ const initialTasks: Task[] = [
     subtasks: ["Book venue", "Send invitations", "Plan activities"],
     frequency: "One-time",
     attachments: true,
-    status: true,
+    status: false,
   },
   {
     id: 6,
@@ -82,7 +82,7 @@ const initialTasks: Task[] = [
     subtasks: ["Find available slots", "Confirm insurance", "Prepare medical records"],
     frequency: "Monthly",
     attachments: false,
-    status: true,
+    status: false,
   },
 ];
 
