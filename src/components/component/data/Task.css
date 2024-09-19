@@ -11,7 +11,6 @@
 .line-through-animation {
   position: relative;
   display: inline-block;
-  white-space: nowrap;
 }
 
 .line-through-animation::after {

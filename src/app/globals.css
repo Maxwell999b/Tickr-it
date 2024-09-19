@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 210 100% 97%;
+    --background: 210 100% 96%;
     --foreground: 339 20% 20%;
     --primary: 308 56% 85%;
     --primary-foreground: 210 22% 22%;
@@ -53,6 +53,7 @@
     --chart-3: 45 90% 55%;
     --chart-4: 180 70% 60%;
     --chart-5: 120 60% 55%;
+    --radius: 0.6rem;
   }
 
   body {

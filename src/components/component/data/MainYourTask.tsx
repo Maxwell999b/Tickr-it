@@ -44,7 +44,7 @@ export function MainYourTask() {
     attachments: false,
   });
 
-  const tasksPerPage = 5;
+  const tasksPerPage = 10;
   const sortAndFilterTasks = useCallback(() => {
     let sortedTasks = [...initialTasks];
 
@@ -296,7 +296,7 @@ export function MainYourTask() {
                         task.status ? "text-gray-400 line-through-animation-active" : "dark:text-primary text-slate-700"
                       } line-through-animation`}
                       onDoubleClick={() => handleDoubleClick(task.id, "taskName")}>
-                      {task.taskName}
+                      <span className="inline-block whitespace-nowrap">{task.taskName}</span>
                     </div>
                   )}
                 </TableCell>
