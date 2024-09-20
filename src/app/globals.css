@@ -18,6 +18,7 @@
     --card-foreground: 210 22% 22%;
     --destructive: 0 93% 73%;
     --destructive-foreground: 210 22% 22%;
+    --header: 200 90% 40%;
     --popover: 0 0% 100%;
     --border: 210 40% 80%;
     --input: 210 40% 56%;
@@ -44,6 +45,7 @@
     --card-foreground: 213 31% 91%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 20% 98%;
+    --header: 230 90% 70%;
     --popover: 222 47% 9%;
     --border: 216 34% 17%;
     --input: 216 34% 17%;

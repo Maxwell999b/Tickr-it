@@ -64,7 +64,7 @@ export default function Privacy_PolicyPage() {
             <div key={index} className="bg-card rounded-lg shadow-lg p-6">
               <div className="flex items-center mb-4">
                 {section.icon}
-                <h2 className="text-2xl font-semibold ml-2 text-sky-800 dark:text-sky-500">{section.title}</h2>
+                <h2 className="text-2xl font-semibold ml-2 text-header">{section.title}</h2>
               </div>
               <p className="text-muted-foreground">{section.content}</p>
             </div>
