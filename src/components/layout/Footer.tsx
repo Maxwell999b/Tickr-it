@@ -26,10 +26,10 @@ export function Footer() {
               Privacy Policy
             </Link>
             <Link
-              href="/Pages/contact_us/"
+              href="/Pages/help_faq/"
               className="text-sm hover:underline text-pink-500 font-bold dark:text-secondary"
               prefetch={false}>
-              Contact Us
+              FAQ
             </Link>
           </nav>
           <div className="flex items-center gap-4">
