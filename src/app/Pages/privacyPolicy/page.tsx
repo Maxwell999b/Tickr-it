@@ -90,7 +90,7 @@ export default function Privacy_PolicyPage() {
             Last updated: <span className="text-zinc-600 font-medium"> 19 Sep 2024</span>
           </p>
           <p className="text-muted-foreground">
-            If you have any questions about these Terms of Service, please contact us at{" "}
+            If you have any questions about this Privacy Policy, please contact us at{" "}
             <a href="mailto:support@tickrit.com" className="text-primary hover:underline">
               support@tickrit.com
             </a>
