@@ -45,7 +45,12 @@ interface IconsProps {
     | "checkMark"
     | "crossMark"
     | "attachment"
-    | "noAttachment";
+    | "noAttachment"
+    | "clipboard"
+    | "focus"
+    | "timer"
+    | "repeat"
+    | "confused";
 }
 
 const icons = {
@@ -606,6 +611,102 @@ const icons = {
       <rect x="2" y="2" width="20" height="20" stroke="currentColor" strokeWidth="2" />
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 6l12 12M6 18L18 6" />
     </svg>
+  ),
+  clipboard: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round">
+      <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+    </svg>
+  ),
+  focus: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+      <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+      <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+      <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+    </svg>
+  ),
+  timer: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round">
+      <line x1="10" x2="14" y1="2" y2="2" />
+      <line x1="12" x2="15" y1="14" y2="11" />
+      <circle cx="12" cy="14" r="8" />
+    </svg>
+  ),
+  repeat: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round">
+      <path d="m17 2 4 4-4 4" />
+      <path d="M3 11v-1a4 4 0 0 1 4-4h14" />
+      <path d="m7 22-4-4 4-4" />
+      <path d="M21 13v1a4 4 0 0 1-4 4H3" />
+    </svg>
+  ),
+  confused: (
+    <>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        fill="currentColor"
+        className="text-gray-300 dark:text-gray-700"
+      />
+      <path
+        d="M9 9C9.5 8.5 10.5 8.5 11 9C11.5 9.5 10.5 10.5 10 10C9.5 9.5 8.5 9.5 9 9Z"
+        stroke="currentColor"
+        className="text-gray-600 dark:text-gray-300"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M15 9C15.5 8.5 16.5 8.5 17 9C17.5 9.5 16.5 10.5 16 10C15.5 9.5 14.5 9.5 15 9Z"
+        stroke="currentColor"
+        className="text-gray-600 dark:text-gray-300"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M8 15C9 16 11 16 12 15C13 14 15 14 16 15"
+        stroke="currentColor"
+        className="text-gray-600 dark:text-gray-300"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </>
   ),
 };
 
