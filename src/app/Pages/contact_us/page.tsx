@@ -55,23 +55,23 @@ export default function ContactUsPage() {
               <div className="flex items-center">
                 <Mail className="w-6 h-6 text-primary mr-4" />
                 <div>
-                  <h3 className="font-semibold">Email</h3>
-                  <p>support@tickrit.com</p>
+                  <h3 className="font-semibold ">Email</h3>
+                  <p className="text-muted-foreground">support@tickrit.com</p>
                 </div>
               </div>
               <div className="flex items-center">
                 <Phone className="w-6 h-6 text-secondary mr-4" />
                 <div>
-                  <h3 className="font-semibold">Phone</h3>
-                  <p>+1 (555) 555-5555</p>
+                  <h3 className="font-semibold ">Phone</h3>
+                  <p className="text-muted-foreground">+1 (555) 555-5555</p>
                 </div>
               </div>
               <div className="flex items-center">
                 <MapPin className="w-6 h-6 text-accent mr-4" />
                 <div>
-                  <h3 className="font-semibold">Address</h3>
-                  <p>Stadium Productivity Lane</p>
-                  <p>Hurghada City, Egypt</p>
+                  <h3 className="font-semibold ">Address</h3>
+                  <p className="text-muted-foreground">Stadium Productivity Lane</p>
+                  <p className="text-muted-foreground">Hurghada City, Egypt</p>
                 </div>
               </div>
             </div>
@@ -97,8 +97,13 @@ export default function ContactUsPage() {
           <h2 className="text-3xl font-bold mb-4">
             Ready to Get <span className="text-pink-600">Started</span>?
           </h2>
-          <p className="text-xl mb-8 text-sky-400 dark:text-sky-700">
-            Join thousands of professionals who have transformed their workflow with Tickr✔it.
+          <p className="text-xl mb-8">
+            <span className="text-sky-600 dark:text-sky-400">
+              {" "}
+              Join thousands of professionals who have transformed their workflow with
+            </span>{" "}
+            Tickr
+            <span className="text-primary">✔</span>it.
           </p>
           <Link href="/Pages/auth?form=register">
             <Button
