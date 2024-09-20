@@ -1,82 +1,110 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Mountain, ArrowRight } from "lucide-react";
 
 export default function Terms_Of_ServicePage() {
+  const sections = [
+    {
+      title: "1. Acceptance of Terms",
+      content:
+        "By accessing or using Tickr✔it, you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree with any part of these terms, you may not use our service.",
+    },
+    {
+      title: "2. Description of Service",
+      content:
+        "Tickr✔it provides a task management platform designed to help individuals and teams organize, track, and complete tasks efficiently. Features may include, but are not limited to, task creation, assignment, prioritization, and progress tracking.",
+    },
+    {
+      title: "3. User Accounts",
+      content:
+        "To use certain features of Tickr✔it, you may be required to create an account. You are responsible for maintaining the confidentiality of your account information and for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account.",
+    },
+    {
+      title: "4. User Conduct",
+      content:
+        "You agree to use Tickr✔it only for lawful purposes and in accordance with these Terms. You agree not to use Tickr✔it in any way that could damage, disable, overburden, or impair our servers or networks, or interfere with any other party's use and enjoyment of Tickr✔it.",
+    },
+    {
+      title: "5. Intellectual Property",
+      content:
+        "The content, features, and functionality of Tickr✔it are owned by us and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws. You may not copy, modify, create derivative works of, publicly display, publicly perform, republish, or transmit any of the material on Tickr✔it without our prior written consent.",
+    },
+    {
+      title: "6. Privacy",
+      content:
+        "Your use of Tickr✔it is also governed by our Privacy Policy. Please review our Privacy Policy, which also governs the Site and informs users of our data collection practices.",
+    },
+    {
+      title: "7. Termination",
+      content:
+        "We reserve the right to terminate or suspend your account and access to Tickr✔it at our sole discretion, without notice, for conduct that we believe violates these Terms of Service or is harmful to other users of Tickr✔it, us, or third parties, or for any other reason.",
+    },
+    {
+      title: "8. Disclaimer of Warranties",
+      content:
+        "Tickr✔it is provided on an 'as is' and 'as available' basis. We make no representations or warranties of any kind, express or implied, as to the operation of Tickr✔it or the information, content, materials, or products included on Tickr✔it.",
+    },
+    {
+      title: "9. Limitation of Liability",
+      content:
+        "In no event shall Tickr✔it, its affiliates, or their licensors, service providers, employees, agents, officers, or directors be liable for damages of any kind, under any legal theory, arising out of or in connection with your use, or inability to use, Tickr✔it.",
+    },
+    {
+      title: "10. Changes to Terms",
+      content:
+        "We reserve the right to update or modify these Terms of Service at any time without prior notice. Your continued use of Tickr✔it following any changes indicates your acceptance of the new Terms of Service.",
+    },
+  ];
+
   return (
-    <div>
-      <section className="bg-muted py-12 md:py-20">
-        <div className="container space-y-6">
-          <div className="mx-auto max-w-4xl space-y-8">
-            <div className="space-y-2">
-              <h1 className="text-3xl font-bold">Terms of Service</h1>
-              <p className="text-muted-foreground">
-                Welcome to Acme Inc. By using our products and services, you agree to these terms.
-              </p>
+    <div className="min-h-screen bg-background text-foreground">
+      <div className="container mx-auto px-4 py-16">
+        <h1 className="text-4xl text-pink-600 md:text-5xl font-bold text-center mb-8">Terms of Service</h1>
+        <p className="text-xl text-center mb-12 max-w-3xl mx-auto">
+          Please read these Terms of Service carefully before using Tickr<span className="text-primary">✔</span>it.{" "}
+          <span className="text-pink-600">By using our service, you agree to be bound by these terms.</span>
+        </p>
+        <div className="flex items-center justify-between mb-8 mt-8">
+          <Button className="absolute right-0  mt-4 m-6">
+            <Link href="/" className="flex items-center">
+              Back to Home
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+        <div className="space-y-8">
+          {sections.map((section, index) => (
+            <div key={index} className="bg-card rounded-lg shadow-lg p-6">
+              <h2 className="text-2xl font-semibold mb-4 text-sky-800 dark:text-sky-500">{section.title}</h2>
+              <p className="text-muted-foreground">{section.content}</p>
             </div>
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold">1. Introduction</h2>
-              <p className="text-muted-foreground">
-                These terms of service (&quot;Terms&quot;) govern your access to and use of the products and services
-                provided by Acme Inc. (&quot;Acme&#39;s&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;). By
-                accessing or using our products and services, you agree to be bound by these Terms and our Privacy
-                Policy.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold">2. Eligibility</h2>
-              <p className="text-muted-foreground">
-                Our products and services are intended for individuals who are at least 18 years old. By using our
-                products and services, you represent and warrant that you are at least 18 years old and have the legal
-                capacity to enter into a binding agreement.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold">3. Intellectual Property</h2>
-              <p className="text-muted-foreground">
-                The content, design, and functionality of our products and services, including but not limited to text,
-                graphics, logos, images, and software, are owned by Acme and are protected by copyright, trademark, and
-                other intellectual property laws.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold">4. Termination</h2>
-              <p className="text-muted-foreground">
-                We reserve the right to suspend or terminate your access to our products and services at any time, for
-                any reason, including if we reasonably believe that you have violated these Terms. You may also cancel
-                your account at any time by contacting us.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold">5. Limitation of Liability</h2>
-              <p className="text-muted-foreground">
-                In no event shall Acme be liable for any indirect, special, incidental, or consequential damages arising
-                out of or in connection with your use of our products and services. Our total liability shall not exceed
-                $100.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold">6. Governing Law</h2>
-              <p className="text-muted-foreground">
-                These Terms and your use of our products and services shall be governed by and construed in accordance
-                with the laws of the state of California, without giving effect to any principles of conflicts of law.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold">7. Changes to these Terms</h2>
-              <p className="text-muted-foreground">
-                We reserve the right to modify these Terms at any time. Any changes will be effective immediately upon
-                posting the revised Terms. Your continued use of our products and services after any such changes
-                constitutes your acceptance of the new Terms.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold">8. Contact Us</h2>
-              <p className="text-muted-foreground">
-                If you have any questions or concerns about these Terms, please contact us at support@acme.com.
-              </p>
-            </div>
+          ))}
+          <div className="mt-12 bg-gray-500/10  rounded-lg shadow-lg p-6">
+            <h2 className="text-2xl font-semibold mb-4">Changes to This Policy</h2>
+            <p className="text-muted-foreground">
+              We may update this privacy policy from time to time. We will notify you of any changes by posting the new
+              privacy policy on this page and updating the &quot;Last updated&quot; date.
+            </p>
           </div>
         </div>
-      </section>
+        <div className="flex items-center justify-center mb-2 mt-2">
+          <Link href="/" className="flex items-center text-2xl font-bold">
+            <Mountain className="h-8 w-8 mr-2 text-primary" />
+            Tickr<span className="text-primary">✔</span>it
+          </Link>
+        </div>
+        <div className="mt-4 text-center">
+          <p className="mb-4">
+            Last updated: <span className="text-zinc-600 font-medium"> 19 Sep 2024</span>
+          </p>
+          <p className="text-muted-foreground">
+            If you have any questions about these Terms of Service, please contact us at{" "}
+            <a href="mailto:support@tickrit.com" className="text-primary hover:underline">
+              support@tickrit.com
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
