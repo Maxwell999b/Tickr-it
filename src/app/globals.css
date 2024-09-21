@@ -6,7 +6,7 @@
   :root {
     --background: 210 100% 96%;
     --foreground: 339 20% 20%;
-    --primary: 308 56% 85%;
+    --primary: 308 65% 65%;
     --primary-foreground: 210 22% 22%;
     --secondary: 196 75% 88%;
     --secondary-foreground: 210 22% 22%;
@@ -33,7 +33,7 @@
   .dark {
     --background: 222 47% 11%;
     --foreground: 213 31% 91%;
-    --primary: 308 56% 65%;
+    --primary: 308 65% 65%;
     --primary-foreground: 210 20% 98%;
     --secondary: 196 75% 50%;
     --secondary-foreground: 210 20% 98%;
