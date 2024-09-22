@@ -14,7 +14,7 @@ export default function AuthPage() {
 
   useEffect(() => {
     // Get the 'form' parameter from searchParams
-    const form = searchParams.get("form");
+    const form = searchParams ? searchParams.get("form") : null;
     if (form === "register") {
       setIsLogin(false);
     }
