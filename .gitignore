@@ -41,7 +41,9 @@ next-env.d.ts
 .local/
 # Test
 test/
+# this 2 file for Welcome Overlay as testing and check only
 /src/components/component/page/TestWelcomeOverlay.tsx
+/src/components/component/page/page.tsx
 # TODO Kanban Tasks & Features
 TODO.md
 # Files & Folders Strucures
@@ -50,3 +52,8 @@ project_structure.txt
 folder_structure.txt
 # Junk
 z-recycle bin/
+
+# IGNORED ONLY UNTIL I FIX IT SO WE DON'T Push THEM BY MISTAKE
+/src/hooks/dataInfoFetching.tsx
+/src/components/errors/NoTasksFiltered.tsx
+/src/components/errors/NoTasksSearched.tsx
