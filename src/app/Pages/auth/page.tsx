@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,49 +25,53 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center text-2xl font-bold">
-            <Mountain className="h-8 w-8 mr-2 text-primary" />
-            Tickr<span className="text-primary">✔</span>it
-          </Link>
-        </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="min-h-screen bg-background flex items-center justify-center px-4">
+        <div className="w-full max-w-md">
+          <div className="text-center mb-8">
+            <Link href="/" className="inline-flex items-center text-2xl font-bold">
+              <Mountain className="h-8 w-8 mr-2 text-primary" />
+              Tickr<span className="text-primary">✔</span>it
+            </Link>
+          </div>
 
-        <div className="bg-card rounded-lg shadow-lg overflow-hidden">
-          <div className="relative">
-            <div
-              className={`transition-all duration-500 ease-in-out ${isLogin ? "translate-x-0" : "-translate-x-full"}`}>
-              <LoginForm />
+          <div className="bg-card rounded-lg shadow-lg overflow-hidden">
+            <div className="relative">
+              <div
+                className={`transition-all duration-500 ease-in-out ${
+                  isLogin ? "translate-x-0" : "-translate-x-full"
+                }`}>
+                <LoginForm />
+              </div>
+              <div
+                className={`absolute top-0 left-0 w-full transition-all duration-500 ease-in-out ${
+                  isLogin ? "translate-x-full" : "translate-x-0"
+                }`}>
+                <RegisterForm />
+              </div>
             </div>
-            <div
-              className={`absolute top-0 left-0 w-full transition-all duration-500 ease-in-out ${
-                isLogin ? "translate-x-full" : "translate-x-0"
-              }`}>
-              <RegisterForm />
+            <div className="p-4 bg-muted">
+              <p className="text-center">
+                {isLogin ? "Don't have an account?" : "Already have an account?"}
+                <Button variant="link" onClick={toggleForm} className="ml-1">
+                  {isLogin ? "Register" : "Login"}
+                </Button>
+              </p>
             </div>
           </div>
-          <div className="p-4 bg-muted">
-            <p className="text-center">
-              {isLogin ? "Don't have an account?" : "Already have an account?"}
-              <Button variant="link" onClick={toggleForm} className="ml-1">
-                {isLogin ? "Register" : "Login"}
-              </Button>
-            </p>
-          </div>
+          <p className="text-center text-sm text-muted-foreground">
+            By registering, you agree to our{" "}
+            <Link href="/Pages/termsOfService" className="text-primary hover:underline">
+              Terms of Service
+            </Link>{" "}
+            and{" "}
+            <Link href="/Pages/privacyPolicy" className="text-primary hover:underline">
+              Privacy Policy
+            </Link>
+          </p>
         </div>
-        <p className="text-center text-sm text-muted-foreground">
-          By registering, you agree to our{" "}
-          <Link href="/Pages/termsOfService" className="text-primary hover:underline">
-            Terms of Service
-          </Link>{" "}
-          and{" "}
-          <Link href="/Pages/privacyPolicy" className="text-primary hover:underline">
-            Privacy Policy
-          </Link>
-        </p>
       </div>
-    </div>
+    </Suspense>
   );
 }
 
