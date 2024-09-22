@@ -57,3 +57,6 @@ z-recycle bin/
 /src/hooks/dataInfoFetching.tsx
 /src/components/errors/NoTasksFiltered.tsx
 /src/components/errors/NoTasksSearched.tsx
+#errors types for build
+/src/app/Pages/Collaboration/
+/src/app/Pages/admin_dashboard/
