@@ -1,183 +1,375 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { UserRoundPen, BellRing, ShieldCheck, Bolt, UserRound } from "lucide-react";
+import Icon from "@/components/component/Icon";
 import { useTheme } from "@/hooks/ThemeContext";
 import { useEmailNotifications } from "@/hooks/useEmailNotifications";
 import { useTwoFactorAuth } from "@/hooks/useTwoFactorAuth";
 import { useTaskReminders } from "@/hooks/useTaskReminders";
+import { motion, AnimatePresence } from "framer-motion";
+
+const tabsWithIcons = [
+  { name: "account", icon: UserRoundPen },
+  { name: "notifications", icon: BellRing },
+  { name: "security", icon: ShieldCheck },
+  { name: "preferences", icon: Bolt },
+];
+
 export default function SettingsPageUserInformation() {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const { receiveAll, toggleEmailNotifications } = useEmailNotifications();
   const { remindersEnabled, toggleTaskReminders } = useTaskReminders();
   const { twoAuthEnabled, toggleTwoFactorAuth } = useTwoFactorAuth();
 
+  const [name, setName] = useState("John Doe");
+  const [email, setEmail] = useState("john@example.com");
+  const [language, setLanguage] = useState("english");
+  const [avatarUrl, setAvatarUrl] = useState("/placeholder-user.jpg");
+  const [showAlert, setShowAlert] = useState(false);
+  const [activeTab, setActiveTab] = useState("account");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatarUrl(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSaveChanges = () => {
+    setShowAlert(true);
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
+    setTimeout(() => setShowAlert(false), 3000);
+  };
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+  };
+
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      setActiveTab(hash);
+    }
+  }, []);
+
   return (
-    <div>
-      <section className="bg-background py-12 md:py-20">
-        <div className="container">
-          <div className="mx-auto max-w-4xl space-y-6">
-            <div className="space-y-2 text-center">
-              <h1 className="text-3xl font-bold">Settings</h1>
-            </div>
-            <div className="grid gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>User Information</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid gap-4">
-                    <div className="grid gap-2">
-                      <Label htmlFor="name">Name</Label>
-                      <Input id="name" type="text" defaultValue="John Doe" />
+    <div className="min-h-screen bg-background text-foreground">
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex flex-col lg:flex-row gap-8">
+          <aside className="lg:w-1/4">
+            <Card className="sticky top-8">
+              <CardContent className="p-6">
+                <div className="flex flex-col items-center space-y-4">
+                  <h1 className="text-3xl font-bold mb-2 text-pink-600">Profile Settings</h1>
+                  <Avatar className="h-24 w-24">
+                    <AvatarImage src={avatarUrl} className="object-fill bg-muted" />
+                    <AvatarFallback>
+                      {name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </AvatarFallback>
+                  </Avatar>
+                  <h2 className="text-2xl font-bold text-header">{name}</h2>
+                  <p className="text-muted-foreground">{email}</p>
+                </div>
+                <nav className="mt-8">
+                  <ul className="space-y-2 text-header">
+                    {tabsWithIcons.map(({ name, icon: IconComponent }) => (
+                      <li key={name}>
+                        <Button
+                          variant={activeTab === name ? "default" : "ghost"}
+                          className="w-full justify-start font-bold"
+                          onClick={() => handleTabChange(name)}>
+                          <IconComponent className="mr-2 h-4 w-4 stroke-ndigo-600 dark:stroke-sky-400" />
+                          {name.charAt(0).toUpperCase() + name.slice(1)}
+                        </Button>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </CardContent>
+            </Card>
+          </aside>
+          <main className="lg:w-3/4">
+            <Tabs value={activeTab} onValueChange={handleTabChange} className="space-y-8">
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="account" className="text-sky-600 dark:text-sky-400">
+                  <UserRound className="h-5 w-5 stroke-primary" />
+                  Account
+                </TabsTrigger>
+                <TabsTrigger value="notifications" className="text-sky-600 dark:text-sky-400">
+                  <BellRing className="h-5 w-5 stroke-primary" />
+                  Notifications
+                </TabsTrigger>
+                <TabsTrigger value="security" className="text-sky-600 dark:text-sky-400">
+                  <ShieldCheck className="h-5 w-5 stroke-primary" />
+                  Security
+                </TabsTrigger>
+                <TabsTrigger value="preferences" className="text-sky-600 dark:text-sky-400">
+                  <Bolt className="h-5 w-5 stroke-primary" />
+                  Preferences
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="account">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-2xl text-primary">Account Information</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div className="flex items-center space-x-4">
+                      <Avatar className="h-20 w-20">
+                        <AvatarImage src={avatarUrl} className="object-fill bg-muted " />
+                        <AvatarFallback>
+                          {name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </AvatarFallback>
+                      </Avatar>
+                      <Button variant="secondary" onClick={() => fileInputRef.current?.click()}>
+                        Change Avatar
+                      </Button>
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleAvatarChange}
+                        accept="image/*"
+                        className="hidden"
+                      />
                     </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" defaultValue="john@example.com" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="profile-picture">Profile Picture</Label>
-                      <div className="flex items-center gap-4">
-                        <Avatar className="h-16 w-16">
-                          <AvatarImage src="/placeholder-user.jpg" />
-                          <AvatarFallback>JD</AvatarFallback>
-                        </Avatar>
-                        <Button variant="outline">Upload New</Button>
+                    <div className="grid gap-4">
+                      <div className="grid gap-2">
+                        <Label htmlFor="name">Name</Label>
+                        <Input
+                          id="name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          className="text-muted-foreground focus:text-foreground"
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="email">Email</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="text-muted-foreground focus:text-foreground"
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="language">Language</Label>
+                        <Select value={language} onValueChange={setLanguage}>
+                          <SelectTrigger id="language">
+                            <SelectValue placeholder="Select a language" />
+                          </SelectTrigger>
+                          <SelectContent className="text-muted-foreground">
+                            <SelectItem value="english">English</SelectItem>
+                            <SelectItem value="spanish">Spanish</SelectItem>
+                            <SelectItem value="french">French</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Change Password</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid gap-4">
-                    <div className="grid gap-2">
-                      <Label htmlFor="current-password">Current Password</Label>
-                      <Input id="current-password" type="password" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="new-password">New Password</Label>
-                      <Input id="new-password" type="password" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="confirm-password">Confirm Password</Label>
-                      <Input id="confirm-password" type="password" />
-                    </div>
-                    <Button className="ml-auto">Update Password</Button>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Email Notifications</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid gap-4">
+                    <Button className="w-full" onClick={handleSaveChanges}>
+                      Save Changes
+                    </Button>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="notifications">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-2xl text-primary">Notification Settings</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
                     <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium">
-                          {receiveAll ? "Receive all notifications" : "Receive none"}
-                        </p>
+                      <div className="space-y-0.5">
+                        <Label htmlFor="email-notifications">Email Notifications</Label>
                         <p className="text-sm text-muted-foreground">
-                          {receiveAll
-                            ? "Get notified about all activities and updates."
-                            : "Turn off all email notifications."}
+                          Receive email notifications for important updates
                         </p>
                       </div>
                       <Switch
-                        id="notifications-toggle"
+                        id="email-notifications"
                         checked={receiveAll}
                         onCheckedChange={toggleEmailNotifications}
-                        className="ml-auto"
                       />
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Task Reminders</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid gap-4">
                     <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium">Reminders</p>
-                        <p className="text-sm text-muted-foreground">
-                          Set reminders to ensure tasks are completed on time.
-                        </p>
+                      <div className="space-y-0.5">
+                        <Label htmlFor="task-reminders">Task Reminders</Label>
+                        <p className="text-sm text-muted-foreground">Get reminders for upcoming tasks</p>
                       </div>
-                      <Switch
-                        id="reminders"
-                        checked={remindersEnabled}
-                        onCheckedChange={toggleTaskReminders}
-                        className="ml-auto"
-                      />
+                      <Switch id="task-reminders" checked={remindersEnabled} onCheckedChange={toggleTaskReminders} />
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Theme</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid gap-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium">{isDarkMode ? "Dark Mode" : "Light Mode"}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {isDarkMode ? "Use a dark color scheme." : "Use a light color scheme."}
-                        </p>
-                      </div>
-                      <Switch
-                        id="theme-toggle"
-                        checked={isDarkMode}
-                        onCheckedChange={toggleDarkMode}
-                        className="ml-auto"
-                      />
+                    <div className="space-y-2">
+                      <Label>Notification Frequency</Label>
+                      <Select defaultValue="daily">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select frequency" />
+                        </SelectTrigger>
+                        <SelectContent className="text-muted-foreground focus:text-foreground">
+                          <SelectItem value="realtime">Real-time</SelectItem>
+                          <SelectItem value="daily">Daily Digest</SelectItem>
+                          <SelectItem value="weekly">Weekly Summary</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                    <Button className="w-full" onClick={handleSaveChanges}>
+                      Save Changes
+                    </Button>
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle>Two-Factor Authentication</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid gap-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium">{twoAuthEnabled ? "Enabled" : "Disabled"}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {twoAuthEnabled
-                            ? "Two-factor authentication is turned on."
-                            : "Two-factor authentication is turned off."}
-                        </p>
+              <TabsContent value="security">
+                <div className="space-y-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-2xl text-primary">Change Password</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid gap-2">
+                        <Label htmlFor="current-password">Current Password</Label>
+                        <Input
+                          id="current-password"
+                          type="password"
+                          className="text-muted-foreground focus:text-foreground"
+                        />
                       </div>
-                      <Switch
-                        id="2fa-toggle"
-                        checked={twoAuthEnabled}
-                        onCheckedChange={toggleTwoFactorAuth}
-                        className="ml-auto"
-                      />
+                      <div className="grid gap-2">
+                        <Label htmlFor="new-password">New Password</Label>
+                        <Input
+                          id="new-password"
+                          type="password"
+                          className="text-muted-foreground focus:text-foreground"
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="confirm-password">Confirm Password</Label>
+                        <Input
+                          id="confirm-password"
+                          type="password"
+                          className="text-muted-foreground focus:text-foreground"
+                        />
+                      </div>
+                      <Button className="w-full" onClick={handleSaveChanges}>
+                        Update Password
+                      </Button>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-2xl text-primary">Two-Factor Authentication</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="space-y-0.5">
+                          <Label>Two-Factor Authentication</Label>
+                          <p className="text-sm text-muted-foreground">
+                            Add an extra layer of security to your account
+                          </p>
+                        </div>
+                        <Switch checked={twoAuthEnabled} onCheckedChange={toggleTwoFactorAuth} />
+                      </div>
+                      {twoAuthEnabled && (
+                        <Button variant="outline" className="w-full">
+                          <Icon iconType="qrCode" className="mr-2 h-4 w-4" />
+                          Set up 2FA
+                        </Button>
+                      )}
+                    </CardContent>
+                  </Card>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="preferences">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-2xl text-primary">User Preferences</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <Label htmlFor="theme-toggle">Dark Mode</Label>
+                        <p className="text-sm text-muted-foreground">Toggle between light and dark theme</p>
+                      </div>
+                      <Switch id="theme-toggle" checked={isDarkMode} onCheckedChange={toggleDarkMode} />
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
+                    <div className="space-y-2">
+                      <Label>Time Zone</Label>
+                      <Select defaultValue="utc">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select time zone" />
+                        </SelectTrigger>
+                        <SelectContent className="text-muted-foreground focus:text-foreground">
+                          <SelectItem value="utc">UTC</SelectItem>
+                          <SelectItem value="est">Eastern Time</SelectItem>
+                          <SelectItem value="pst">Pacific Time</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Date Format</Label>
+                      <Select defaultValue="mdy">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select date format" />
+                        </SelectTrigger>
+                        <SelectContent className="text-muted-foreground focus:text-foreground">
+                          <SelectItem value="mdy">MM/DD/YYYY</SelectItem>
+                          <SelectItem value="dmy">DD/MM/YYYY</SelectItem>
+                          <SelectItem value="ymd">YYYY-MM-DD</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <Button className="w-full" onClick={handleSaveChanges}>
+                      Save Changes
+                    </Button>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
+          </main>
         </div>
-      </section>
+      </div>
+
+      {/* Alert Overlay */}
+      <AnimatePresence>
+        {showAlert && (
+          <motion.div
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -100, opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="fixed top-0 left-0 right-0 z-50 flex justify-center">
+            <div className="bg-green-500 text-white px-6 py-3 rounded-b-lg shadow-lg">Changes saved successfully!</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <audio ref={audioRef} src="/alert-sound.mp3" />
     </div>
   );
 }
