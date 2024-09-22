@@ -50,7 +50,12 @@ interface IconsProps {
     | "focus"
     | "timer"
     | "repeat"
-    | "confused";
+    | "confused"
+    | "shield"
+    | "user"
+    | "qrCode"
+    | "lock"
+    | "bell";
 }
 
 const icons = {
@@ -707,6 +712,31 @@ const icons = {
         strokeLinecap="round"
       />
     </>
+  ),
+  shield: (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+      <path d="M12 2L4 5v6c0 5.25 3.667 10.39 8 11.94 4.333-1.55 8-6.69 8-11.94V5l-8-3zm0 17.93c-3.567-1.28-6-5.12-6-9.93V6.69l6-2.25 6 2.25v3.31c0 4.81-2.433 8.65-6 9.93z" />
+    </svg>
+  ),
+  user: (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+    </svg>
+  ),
+  qrCode: (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+      <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm6-2h8v8h-8V3zm2 2v4h4V5h-4zm-8 8h8v8H3v-8zm2 2v4h4v-4H5zm8 0h2v2h-2v2h4v2h-6v-6zm4 0h2v2h-2v-2zm0 4h2v2h-2v-2z" />
+    </svg>
+  ),
+  lock: (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+      <path d="M12 1C9.243 1 7 3.243 7 6v5H5v12h14V11h-2V6c0-2.757-2.243-5-5-5zm3 11H9V6c0-1.654 1.346-3 3-3s3 1.346 3 3v6zm-5 4h4v2h-4v-2z" />
+    </svg>
+  ),
+  bell: (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+      <path d="M12 22c1.104 0 2-.896 2-2h-4c0 1.104.896 2 2 2zm6-6V9c0-3.309-2.691-6-6-6S6 5.691 6 9v7H4v2h16v-2h-2zm-2 0H8V9c0-2.206 1.794-4 4-4s4 1.794 4 4v7z" />
+    </svg>
   ),
 };
 
