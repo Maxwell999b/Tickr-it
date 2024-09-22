@@ -1,3 +1,5 @@
+"use client";
+
 import { Manrope } from "next/font/google";
 import { Navbar } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
@@ -5,7 +7,6 @@ import { cn } from "@/lib/utils";
 import "./globals.css";
 import { ThemeProvider, useTheme } from "@/hooks/ThemeContext";
 
-// Import fonts using next/font
 const fontHeading = Manrope({
   subsets: ["latin"],
   display: "swap",
