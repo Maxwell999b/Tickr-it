@@ -13,21 +13,18 @@ import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import Icon from "../component/Icon";
 import Add_New_Task from "../component/Add_New_Task";
 import { useTheme } from "@/hooks/ThemeContext";
+import { Mountain } from "lucide-react";
 export function Navbar() {
   const { isDarkMode, toggleDarkMode } = useTheme();
 
   return (
     <div>
       <header className="w-full bg-background shadow">
-        <div className="container flex items-center justify-between h-16 px-4 md:px-6">
+        <div className="max-w-[2000px] mx-auto flex items-center justify-between h-16 px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2" prefetch={false}>
-            <Icon iconType="mountain" size={24} className="h-6 w-6" />
-            <span className="text-blue-500 font-serif font-bold ">
-              Tickr
-              <span className="text-green-900 font-mono font-semibold ">✔</span>
-              <span className="text-pink-300 font-sans font-extrabold line-through decoration-slate-900/40 decoration-2">
-                it.
-              </span>
+            <span className="text-bold">
+              <Mountain className="h-6 w-6 text-primary inline-block" />
+              Tickr<span className="text-primary">✔</span>it
             </span>
           </Link>
 
@@ -49,7 +46,7 @@ export function Navbar() {
           </div>
 
           {/* Mobile View */}
-          <div className="lg:hidden flex items-center gap-4 ">
+          <div className="lg:hidden flex items-center gap-4">
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon">

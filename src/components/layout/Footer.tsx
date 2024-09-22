@@ -1,10 +1,11 @@
 import Link from "next/link";
 import Icon from "../component/Icon";
+
 export function Footer() {
   return (
-    <div>
-      <footer className="bg-muted py-6 w-full">
-        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
+    <footer className="bg-muted py-6 w-full">
+      <div className="max-w-[2000px] mx-auto px-4 md:px-6">
+        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div className="flex items-center gap-4">
             <Link href="#" className="flex items-center gap-2" prefetch={false}>
               <Icon iconType="mountain" className="h-6 w-6" />
@@ -12,7 +13,7 @@ export function Footer() {
             </Link>
             <p className="text-sm text-muted-foreground">&copy; 2024 Acme Inc. All rights reserved.</p>
           </div>
-          <nav className="flex items-center gap-2">
+          <nav className="flex flex-wrap items-center gap-2 justify-center">
             <Link
               href="/Pages/termsOfService/"
               className="text-sm hover:underline text-pink-500 font-bold dark:text-secondary"
@@ -32,7 +33,7 @@ export function Footer() {
               FAQ
             </Link>
           </nav>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col md:flex-row items-center gap-4">
             <span className="text-sm text-muted-foreground">support@acme.com</span>
             <span className="text-sm text-muted-foreground">+1-555-555-5555</span>
           </div>
@@ -57,7 +58,7 @@ export function Footer() {
             </Link>
           </div>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
   );
 }
