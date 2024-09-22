@@ -43,7 +43,7 @@ export default function AboutUsPage() {
           <span className="text-pink-600"> About</span> Tickr<span className="text-primary">✔</span>it
         </h1>
         <p className="text-xl text-center mb-16 max-w-3xl mx-auto text-sky-600 dark:text-sky-400">
-          We're on a mission to revolutionize task management and{" "}
+          We&apos;re on a mission to revolutionize task management and{" "}
           <span className="text-pink-600">boost productivity</span> for individuals worldwide.
         </p>
 
@@ -56,12 +56,12 @@ export default function AboutUsPage() {
               workflow management without sacrificing functionality.
             </p>
             <p className="text-lg mb-6">
-              Since launching in 2020, we've grown Tickr✔it from a small side project to a platform serving thousands of
-              users across the globe. Our commitment to user-centric design and continuous innovation has made Tickr✔it
-              a rising star in the productivity space.
+              Since launching in 2020, we&apos;ve grown Tickr✔it from a small side project to a platform serving
+              thousands of users across the globe. Our commitment to user-centric design and continuous innovation has
+              made Tickr✔it a rising star in the productivity space.
             </p>
             <p className="text-lg">
-              Today, we're proud to help individuals streamline their workflows, meet deadlines, and achieve their
+              Today, we&apos;re proud to help individuals streamline their workflows, meet deadlines, and achieve their
               goals. As we continue to develop and improve Tickr✔it, our mission remains the same: to make task
               management simple, effective, and accessible for everyone.
             </p>
@@ -97,8 +97,9 @@ export default function AboutUsPage() {
                 </h3>
               </Link>
               <p className="text-lg mb-6 text-muted-foreground">
-                Hi, I'm Abdulrahman, the solo developer behind Tickr✔it. With over a decade of experience in web
-                development, I'm passionate about creating tools that make people's lives easier and more productive.
+                Hi, I&apos;m Abdulrahman, the solo developer behind Tickr✔it. With over a decade of experience in web
+                development, I&apos;m passionate about creating tools that make people&apos;s lives easier and more
+                productive.
               </p>
               <h4 className="text-xl font-semibold mb-2">My Skills:</h4>
               <ul className="grid grid-cols-2 gap-2">

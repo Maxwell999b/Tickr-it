@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -83,11 +83,7 @@ export default function TaskCollaboration() {
   const [newCollaborator, setNewCollaborator] = useState({ name: "", email: "" });
   const [newComment, setNewComment] = useState("");
 
-  useEffect(() => {
-    updateCollaborators();
-  }, [tasks]);
-
-  const updateCollaborators = () => {
+  const updateCollaborators = useCallback(() => {
     const allCollaborators = new Set();
     tasks.forEach((task) => {
       task.assignedTo.forEach((person) => allCollaborators.add(JSON.stringify(person)));
@@ -95,7 +91,11 @@ export default function TaskCollaboration() {
     });
     const updatedCollaborators = Array.from(allCollaborators).map(JSON.parse);
     setCollaborators(updatedCollaborators);
-  };
+  }, [tasks]);
+
+  useEffect(() => {
+    updateCollaborators();
+  }, [tasks, updateCollaborators]);
 
   const handleShareTask = (taskId) => {
     setSelectedTask(tasks.find((task) => task.id === taskId));

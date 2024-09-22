@@ -226,7 +226,7 @@ function UsersTab() {
     setIsAddUserDialogOpen(false);
   };
 
-  const handleEditUser = (user) => {
+  const handleEditUser = (user: any) => {
     setEditingUser(user);
   };
 
@@ -235,7 +235,7 @@ function UsersTab() {
     setEditingUser(null);
   };
 
-  const handleDeleteUser = (userId) => {
+  const handleDeleteUser = (userId: number) => {
     setUsers(users.filter((user) => user.id !== userId));
   };
 
