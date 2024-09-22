@@ -1,10 +1,10 @@
 "use client";
+
+import Link from "next/link";
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp, Search } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import Icon from "@/components/component/Icon";
-import Link from "next/link";
-import Image from "next/image";
+import NotFoundCard from "@/components/errors/NotFoundCard";
+
 const faqs = [
   {
     question: "How do I create a new task?",
@@ -96,30 +96,7 @@ export default function HelpFAQ() {
           ))}
         </div>
 
-        {filteredFaqs.length === 0 && (
-          <div className="flex items-center justify-center">
-            <Card className="w-full max-w-lg bg-muted">
-              <CardHeader className="space-y-4">
-                <CardTitle className="text-4xl font-bold text-center text-red-600 dark:text-red-400">Oops!</CardTitle>
-                <CardDescription className="text-center text-lg font-bold">
-                  No matching questions found.
-                </CardDescription>
-                <div className="flex justify-center">
-                  <Image
-                    src="/void.svg"
-                    width="550"
-                    height="550"
-                    alt="Hero"
-                    className="mx-auto aspect-video overflow-hidden rounded-xl object-fit sm:w-full lg:order-last "
-                  />
-                </div>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-gray-600 dark:text-gray-300">Please try a different search term.</p>
-              </CardContent>
-            </Card>
-          </div>
-        )}
+        {filteredFaqs.length === 0 && <NotFoundCard />}
 
         <div className="mt-12 text-center">
           <p className="mb-4 text-muted-foreground font-semibold">Can&apos;t find what you&apos;re looking for?</p>
