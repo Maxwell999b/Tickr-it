@@ -35,10 +35,17 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# not-included files // Assets for the Research, will not be apart of the project. 
-#Notes
+# not-included files // Assets for the Research, will not be apart of the project.
+# Helpers
+# Local files
 .local/
-project_structure.txt
-TODO.md
+# Test
 test/
+# TODO Kanban Tasks & Features
+TODO.md
+# Files & Folders Strucures
+export_structure.py
+project_structure.txt
+folder_structure.txt
+# Junk
 z-recycle bin/
