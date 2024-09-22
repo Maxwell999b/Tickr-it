@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Clock, ListTodo, Zap, Users, BarChart } from "lucide-react";
+import { CheckCircle, Clock, ListTodo, Zap, Users, BarChart, ShieldQuestion } from "lucide-react";
 import Link from "next/link";
 export default function LearnMore() {
   const features = [
@@ -84,7 +84,10 @@ export default function LearnMore() {
         </div>
 
         <div className="bg-muted rounded-lg p-8 text-center">
-          <h3 className="text-2xl font-bold mb-4">Still have questions?</h3>
+          <h3 className="text-2xl font-bold mb-4">
+            <span className="text-pink-500">Still have questions</span>{" "}
+            <ShieldQuestion className="inline-block fill-sky-400" />
+          </h3>
           <p className="mb-6 ">
             <span className="text-muted-foreground"> Our support team is here to help you make the most of</span> Tickr
             <span className="text-primary">✔</span>it.
