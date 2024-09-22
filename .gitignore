@@ -60,3 +60,4 @@ z-recycle bin/
 #errors types for build
 /src/app/Pages/Collaboration/
 /src/app/Pages/admin_dashboard/
+src/components/component/page/WelcomeOverlay.tsx
