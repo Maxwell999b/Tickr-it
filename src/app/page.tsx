@@ -1,9 +1,9 @@
-import Hero_HomePage from "./Pages/hero_home/page";
+import { LandingPage } from "./Pages/landing_page/page.tsx";
 
 export default function Home() {
   return (
     <>
-      <Hero_HomePage />
+      <LandingPage />
     </>
   );
 }
