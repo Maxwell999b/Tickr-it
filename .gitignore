@@ -41,6 +41,7 @@ next-env.d.ts
 .local/
 # Test
 test/
+/src/components/component/page/TestWelcomeOverlay.tsx
 # TODO Kanban Tasks & Features
 TODO.md
 # Files & Folders Strucures
