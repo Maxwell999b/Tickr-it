@@ -27,10 +27,12 @@ function Layout({ children }: React.PropsWithChildren) {
         <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
       </head>
-      <body className={cn("antialiased", fontHeading.variable, fontBody.variable)}>
-        <Navbar />
-        {children}
-        <Footer />
+      <body className={cn("antialiased min-w-[320px]", fontHeading.variable, fontBody.variable)}>
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <main className="flex-grow w-full max-w-[2000px] min-h-screen mx-auto px-4 md:px-6 py-4">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
