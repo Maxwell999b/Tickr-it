@@ -1,15 +1,34 @@
+"use client";
+
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Icon from "../../../components/component/Icon";
 import { Navigation } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 export function LandingPage() {
+  const heroRef = useRef(null);
+  const featuresRef = useRef(null);
+  const aboutRef = useRef(null);
+  const contactRef = useRef(null);
+
+  const heroInView = useInView(heroRef, { once: true, amount: 0.5 });
+  const featuresInView = useInView(featuresRef, { once: true, amount: 0.3 });
+  const aboutInView = useInView(aboutRef, { once: true, amount: 0.3 });
+  const contactInView = useInView(contactRef, { once: true, amount: 0.5 });
+
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32">
+        <motion.section
+          ref={heroRef}
+          initial={{ opacity: 0, y: 50 }}
+          animate={heroInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="flex flex-col justify-center space-y-4">
@@ -41,17 +60,28 @@ export function LandingPage() {
                   </Link>
                 </div>
               </div>
-              <Image
-                src="/lp_building.svg"
-                width="550"
-                height="550"
-                alt="Hero"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-fit sm:w-full lg:order-last lg:aspect-square"
-              />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={heroInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}>
+                <Image
+                  src="/lp_building.svg"
+                  width="550"
+                  height="550"
+                  alt="Hero"
+                  className="mx-auto aspect-video overflow-hidden rounded-xl object-fit sm:w-full lg:order-last lg:aspect-square"
+                />
+              </motion.div>
             </div>
           </div>
-        </section>
-        <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        </motion.section>
+        <motion.section
+          ref={featuresRef}
+          initial={{ opacity: 0 }}
+          animate={featuresInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          id="features"
+          className="w-full py-12 md:py-24 lg:py-32 bg-muted">
           <div className="container px-4 md:px-6 relative z-10">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -70,64 +100,67 @@ export function LandingPage() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
-              <Image
-                src="/lp_heatmap.svg"
-                width="550"
-                height="310"
-                alt="Image"
-                className="mx-auto aspect-video overflow-hidden object-fit sm:w-full lg:order-first"
-              />
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={featuresInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}>
+                <Image
+                  src="/lp_heatmap.svg"
+                  width="550"
+                  height="310"
+                  alt="Image"
+                  className="mx-auto aspect-video overflow-hidden object-fit sm:w-full lg:order-first"
+                />
+              </motion.div>
               <div className="flex flex-col justify-center space-y-6">
                 <ul className="space-y-6">
-                  <li className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
-                      <Icon iconType="clipboard" className="h-12 w-10 text-primary" />
-                    </div>
-                    <div className="flex flex-col">
-                      <h3 className="text-xl font-bold text-header">Task Management</h3>
-                      <p className="text-muted-foreground">
-                        Easily create, organize, and track your personal tasks to stay focused and productive.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
-                      <Icon iconType="focus" className="h-12 w-10 text-primary" />
-                    </div>
-                    <div className="flex flex-col">
-                      <h3 className="text-xl font-bold text-header">Task Prioritization</h3>
-                      <p className="text-muted-foreground">
-                        Prioritize your tasks to ensure you&apos;re focusing on the most important items.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
-                      <Icon iconType="timer" className="h-12 w-10 text-primary" />
-                    </div>
-                    <div className="flex flex-col">
-                      <h3 className="text-xl font-bold text-header">Due Date Reminders</h3>
-                      <p className="text-muted-foreground">
-                        Never miss a deadline with customizable due date reminders.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
-                      <Icon iconType="repeat" className="h-12 w-10 text-primary" />
-                    </div>
-                    <div className="flex flex-col">
-                      <h3 className="text-xl font-bold text-header">Recurring Tasks</h3>
-                      <p className="text-muted-foreground">
-                        Set up recurring tasks to streamline your workflow and never forget important tasks.
-                      </p>
-                    </div>
-                  </li>
+                  {[
+                    {
+                      icon: "clipboard",
+                      title: "Task Management",
+                      description:
+                        "Easily create, organize, and track your personal tasks to stay focused and productive.",
+                    },
+                    {
+                      icon: "focus",
+                      title: "Task Prioritization",
+                      description: "Prioritize your tasks to ensure you're focusing on the most important items.",
+                    },
+                    {
+                      icon: "timer",
+                      title: "Due Date Reminders",
+                      description: "Never miss a deadline with customizable due date reminders.",
+                    },
+                    {
+                      icon: "repeat",
+                      title: "Recurring Tasks",
+                      description:
+                        "Set up recurring tasks to streamline your workflow and never forget important tasks.",
+                    },
+                  ].map((feature, index) => (
+                    <motion.li
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={featuresInView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 * index }}
+                      className="flex items-start space-x-4">
+                      <div className="flex-shrink-0">
+                        <Icon
+                          iconType={feature.icon as "clipboard" | "focus" | "timer"}
+                          className="h-12 w-10 text-primary"
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <h3 className="text-xl font-bold text-header">{feature.title}</h3>
+                        <p className="text-muted-foreground">{feature.description}</p>
+                      </div>
+                    </motion.li>
+                  ))}
                 </ul>
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
         <section id="register" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
             <div className="space-y-2">
@@ -164,7 +197,13 @@ export function LandingPage() {
             height="100"
           />
         </section>
-        <section id="about" className="w-full py-12 md:py-24 lg:py-32">
+        <motion.section
+          ref={aboutRef}
+          initial={{ opacity: 0, y: 50 }}
+          animate={aboutInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          id="about"
+          className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="grid gap-10 sm:px-10 md:gap-16 md:grid-cols-2">
               <div className="space-y-4">
@@ -197,8 +236,14 @@ export function LandingPage() {
               </div>
             </div>
           </div>
-        </section>
-        <section id="contact" className="w-full py-12 md:py-24 lg:py-32">
+        </motion.section>
+        <motion.section
+          ref={contactRef}
+          initial={{ opacity: 0, y: 50 }}
+          animate={contactInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          id="contact"
+          className="w-full py-12 md:py-24 lg:py-32">
           <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
@@ -218,7 +263,7 @@ export function LandingPage() {
               <p className="text-xs text-muted-foreground">We&apos;ll get back to you as soon as possible.</p>
             </div>
           </div>
-        </section>
+        </motion.section>
       </main>
     </div>
   );
