@@ -1,7 +1,7 @@
 interface CIconsProps {
   size?: number;
   className?: string;
-  CIconType: "confetti";
+  CIconType: keyof typeof CIcons;
 }
 
 const CIcons = {
@@ -36,6 +36,52 @@ const CIcons = {
           stroke="#FFD700"
           fill="#FF69B4"
         />
+      </svg>
+    </>
+  ),
+  cake: (
+    <>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        className="lucide lucide-cake">
+        <path d="M21 17v5H3v-5a6 6 0 0 1 18 0Z" stroke="#FF69B4" fill="#FF69B4" />
+        <path d="M7 17V6.3a1.3 1.3 0 0 1 2.6 0v7.4" stroke="#FFD700" />
+        <path d="M12 17V4a1.3 1.3 0 0 1 2.6 0v9" stroke="#32CD32" />
+        <path d="M17 17v-6.7a1.3 1.3 0 0 1 2.6 0v4.4" stroke="#1E90FF" />
+        <path d="M2 22h20M3 17h18M21 17a6 6 0 0 0-18 0" stroke="#FF4500" />
+      </svg>
+    </>
+  ),
+  trophy: (
+    <>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        className="lucide lucide-medal">
+        <path
+          d="M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15"
+          stroke="#FF69B4"
+          fill="none"
+        />
+        <path d="M11 12 5.12 2.2" stroke="#FF69B4" />
+        <path d="m13 12 5.88-9.8" stroke="#FF69B4" />
+        <path d="M8 7h8" stroke="#FF69B4" />
+        <circle cx="12" cy="17" r="5" stroke="#1E90FF" fill="#FFD700" />
+        <path d="M12 18v-2h-.5" stroke="#1E90FF" />
       </svg>
     </>
   ),
