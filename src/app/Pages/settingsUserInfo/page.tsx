@@ -184,9 +184,19 @@ export default function SettingsPageUserInformation() {
                             <SelectValue placeholder="Select a language" />
                           </SelectTrigger>
                           <SelectContent className="text-muted-foreground">
-                            <SelectItem value="english">English</SelectItem>
-                            <SelectItem value="spanish">Spanish</SelectItem>
-                            <SelectItem value="french">French</SelectItem>
+                            <SelectItem
+                              value="english"
+                              className="dark:data-[state=checked]:text-lime-400 data-[state=checked]:text-green-300">
+                              English
+                            </SelectItem>
+                            <SelectItem
+                              value="spanish"
+                              className="dark:data-[state=checked]:text-lime-400 data-[state=checked]:text-green-300">
+                              Spanish
+                            </SelectItem>
+                            <SelectItem value="french" className="data-[state=checked]:text-green-300">
+                              French
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -230,10 +240,22 @@ export default function SettingsPageUserInformation() {
                         <SelectTrigger>
                           <SelectValue placeholder="Select frequency" />
                         </SelectTrigger>
-                        <SelectContent className="text-muted-foreground focus:text-foreground">
-                          <SelectItem value="realtime">Real-time</SelectItem>
-                          <SelectItem value="daily">Daily Digest</SelectItem>
-                          <SelectItem value="weekly">Weekly Summary</SelectItem>
+                        <SelectContent className="text-muted-foreground">
+                          <SelectItem
+                            value="realtime"
+                            className="dark:data-[state=checked]:text-lime-400 data-[state=checked]:text-green-300">
+                            Real-time
+                          </SelectItem>
+                          <SelectItem
+                            value="daily"
+                            className="dark:data-[state=checked]:text-lime-400 data-[state=checked]:text-green-300">
+                            Daily Digest
+                          </SelectItem>
+                          <SelectItem
+                            value="weekly"
+                            className="dark:data-[state=checked]:text-lime-400 data-[state=checked]:text-green-300">
+                            Weekly Summary
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -324,10 +346,22 @@ export default function SettingsPageUserInformation() {
                         <SelectTrigger>
                           <SelectValue placeholder="Select time zone" />
                         </SelectTrigger>
-                        <SelectContent className="text-muted-foreground focus:text-foreground">
-                          <SelectItem value="utc">UTC</SelectItem>
-                          <SelectItem value="est">Eastern Time</SelectItem>
-                          <SelectItem value="pst">Pacific Time</SelectItem>
+                        <SelectContent className="text-muted-foreground">
+                          <SelectItem
+                            value="utc"
+                            className="dark:data-[state=checked]:text-lime-400 data-[state=checked]:text-green-300">
+                            UTC
+                          </SelectItem>
+                          <SelectItem
+                            value="est"
+                            className="dark:data-[state=checked]:text-lime-400 data-[state=checked]:text-green-300">
+                            Eastern Time
+                          </SelectItem>
+                          <SelectItem
+                            value="pst"
+                            className="dark:data-[state=checked]:text-lime-400 data-[state=checked]:text-green-300">
+                            Pacific Time
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -337,10 +371,22 @@ export default function SettingsPageUserInformation() {
                         <SelectTrigger>
                           <SelectValue placeholder="Select date format" />
                         </SelectTrigger>
-                        <SelectContent className="text-muted-foreground focus:text-foreground">
-                          <SelectItem value="mdy">MM/DD/YYYY</SelectItem>
-                          <SelectItem value="dmy">DD/MM/YYYY</SelectItem>
-                          <SelectItem value="ymd">YYYY-MM-DD</SelectItem>
+                        <SelectContent className="text-muted-foreground">
+                          <SelectItem
+                            value="mdy"
+                            className="dark:data-[state=checked]:text-lime-400 data-[state=checked]:text-green-300">
+                            MM/DD/YYYY
+                          </SelectItem>
+                          <SelectItem
+                            value="dmy"
+                            className="dark:data-[state=checked]:text-lime-400 data-[state=checked]:text-green-300">
+                            DD/MM/YYYY
+                          </SelectItem>
+                          <SelectItem
+                            value="ymd"
+                            className="dark:data-[state=checked]:text-lime-400 data-[state=checked]:text-green-300">
+                            YYYY-MM-DD
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
