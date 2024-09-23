@@ -78,7 +78,7 @@ export default function SettingsPageUserInformation() {
             <Card className="sticky top-8">
               <CardContent className="p-6">
                 <div className="flex flex-col items-center space-y-4">
-                  <h1 className="text-3xl font-bold mb-2 text-pink-600">Profile Settings</h1>
+                  <h1 className="text-2xl font-bold mb-2 text-pink-600">Profile Settings</h1>
                   <Avatar className="h-24 w-24">
                     <AvatarImage src={avatarUrl} className="object-fill bg-muted" />
                     <AvatarFallback>
