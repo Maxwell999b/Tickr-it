@@ -34,7 +34,10 @@ export default function LandingPage() {
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                    <span className="text-pink-600">Effortless Task Management with </span>
+                    <span className="before:block before:absolute before:-inset-0 before:-skew-y-2 before:bg-accent relative inline-block">
+                      <span className="relative text-muted">Effortless Task</span>
+                    </span>
+                    <span className="text-pink-600">Management with </span>
                     Tickr
                     <span className="text-primary">✔</span>
                     it.
@@ -209,8 +212,7 @@ export default function LandingPage() {
               <div className="space-y-4">
                 <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm text-accent">About Tickr✔it</div>
                 <h2 className="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
-                  <span className="text-pink-600">Streamline</span> Your{" "}
-                  <span className="text-pink-600"> Workflow with</span> Tickr
+                  <span className="text-pink-600">Streamline Your Workflow with</span> Tickr
                   <span className="text-primary">✔</span>it.
                 </h2>
                 <Link
