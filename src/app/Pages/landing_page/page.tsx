@@ -250,7 +250,12 @@ export default function LandingPage() {
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
                 <Navigation className="inline-block fill-sky-400" />
-                Get in <span className="text-pink-600">Touch</span>
+                Get in{" "}
+                <span
+                  className="text-pink-600 underline decoration-accent decoration-wavy underline-offset-2 decoration-2
+">
+                  Touch
+                </span>
               </h2>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 Have a question or want to learn more about Tickr<span className="text-primary">✔</span>it? Don&apos;t
