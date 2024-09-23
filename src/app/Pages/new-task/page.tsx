@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -6,16 +8,32 @@ import { Calendar } from "@/components/ui/calendar";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import Icon from "@/components/component/Icon";
-import { Checkbox } from "@/components/ui/checkbox";
-
+import { Badge } from "@/components/ui/badge";
+import { Alert } from "@/components/ui/alert";
 export default function Create_NewTaskPageForm() {
+  const [inputValue, setInputValue] = useState("");
+  const [projects, setProjects] = useState<string[]>([]);
+  const maxTags = 10;
+  const handleKeyDown = (e: any) => {
+    if (e.key === " " || e.key === "Enter") {
+      e.preventDefault(); // Prevent default behavior
+      if (inputValue.trim() && projects.length < maxTags) {
+        setProjects([...projects, inputValue.trim()]);
+        setInputValue("");
+      }
+    }
+  };
+
+  const handleBadgeClick = (projectToRemove: any) => {
+    setProjects(projects.filter((project) => project !== projectToRemove));
+  };
   return (
     <div>
       <section className="bg-background py-12 md:py-20">
         <div className="container">
           <div className="mx-auto max-w-md space-y-6">
             <div className="space-y-2 text-center">
-              <h1 className="text-3xl font-bold">Create a New Task</h1>
+              <h1 className="text-3xl font-bold text-pink-600">Create a New Task</h1>
               <p className="text-muted-foreground">Fill out the form to add a new task to your list.</p>
             </div>
             <form className="space-y-4">
@@ -43,7 +61,7 @@ export default function Create_NewTaskPageForm() {
                   <SelectTrigger id="priority">
                     <SelectValue placeholder="Select priority" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="text-muted-foreground">
                     <SelectItem value="low">Low</SelectItem>
                     <SelectItem value="medium">Medium</SelectItem>
                     <SelectItem value="high">High</SelectItem>
@@ -52,7 +70,23 @@ export default function Create_NewTaskPageForm() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="project">Project</Label>
-                <Input id="project" placeholder="Enter project name" />
+                <div className="flex flex-wrap gap-2 mb-2">
+                  <Input
+                    id="project"
+                    placeholder="Enter project name"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                  />
+                  {projects.map((project, index) => (
+                    <Badge key={index} variant="error" onClick={() => handleBadgeClick(project)}>
+                      {project}
+                    </Badge>
+                  ))}
+                  {projects.length >= maxTags && (
+                    <Alert variant="destructive">You can only add up to {maxTags} tags.</Alert>
+                  )}
+                </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="type">Type</Label>
@@ -60,9 +94,10 @@ export default function Create_NewTaskPageForm() {
                   <SelectTrigger id="type">
                     <SelectValue placeholder="Select task type" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="text-muted-foreground">
                     <SelectItem value="personal">Personal</SelectItem>
                     <SelectItem value="work">Work</SelectItem>
+                    <SelectItem value="others">Others</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -76,7 +111,7 @@ export default function Create_NewTaskPageForm() {
                   <SelectTrigger id="frequency">
                     <SelectValue placeholder="Select frequency" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="text-muted-foreground">
                     <SelectItem value="daily">Daily</SelectItem>
                     <SelectItem value="weekly">Weekly</SelectItem>
                     <SelectItem value="monthly">Monthly</SelectItem>
@@ -89,9 +124,9 @@ export default function Create_NewTaskPageForm() {
                   <SelectTrigger id="attachment">
                     <SelectValue placeholder="Select option" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="text-muted-foreground">
                     <SelectItem value="attachment">Attachment</SelectItem>
-                    <SelectItem value="no-attachment">NO-Attachment</SelectItem>
+                    <SelectItem value="no-attachment">None</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -101,7 +136,7 @@ export default function Create_NewTaskPageForm() {
                   <SelectTrigger id="status">
                     <SelectValue placeholder="Select status" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="text-muted-foreground">
                     <SelectItem value="true">Completed</SelectItem>
                     <SelectItem value="false">Pending</SelectItem>
                   </SelectContent>
