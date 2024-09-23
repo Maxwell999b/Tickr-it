@@ -176,7 +176,7 @@ export default function ProfileUserInfo() {
                           <p className="font-medium">{session.location}</p>
                           <p className="text-sm text-muted-foreground">Logged in {session.time}</p>
                         </div>
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" className="text-red-500">
                           <Icon iconType="logOut" className="h-4 w-4 mr-2" />
                           Log out
                         </Button>
