@@ -80,7 +80,7 @@ export function Navbar() {
                             </Avatar>
                             <div className="grid gap-0.5 leading-none">
                               <div className="font-semibold text-violet-400">John Doe</div>
-                              <div className="text-sm text-secondary-foreground">john@example.com</div>
+                              <div className="text-sm text-muted-foreground">john@example.com</div>
                             </div>
                           </Link>
                         </div>
@@ -88,13 +88,13 @@ export function Navbar() {
                         <DropdownMenuItem>
                           <Link href="/Pages/dashboard/" className="flex items-center gap-2" prefetch={false}>
                             <Icon iconType="layoutDashboard" size={16} className="h-4 w-4" />
-                            <span>Dashboard</span>
+                            <span className="text-sky-600 dark:text-sky-400">Dashboard</span>
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                           <Link href="/Pages/settingsUserInfo/" className="flex items-center gap-2" prefetch={false}>
                             <Icon iconType="settings" size={16} className="h-4 w-4" />
-                            <span>Settings</span>
+                            <span className="text-sky-600 dark:text-sky-400">Settings</span>
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
@@ -107,7 +107,7 @@ export function Navbar() {
                         <DropdownMenuItem>
                           <Link href="#" className="flex items-center gap-2" prefetch={false}>
                             <Icon iconType="logOut" size={16} className="h-4 w-4" />
-                            <span>Sign Out</span>
+                            <span className="text-red-700 dark:text-red-500">Sign Out</span>
                           </Link>
                         </DropdownMenuItem>
                       </DropdownMenuContent>
@@ -124,22 +124,22 @@ export function Navbar() {
 
                   <div className="flex flex-col gap-4">
                     <Link href="/" className="flex items-center gap-2 hover:text-accent" prefetch={false}>
-                      <Icon iconType="home" size={20} className="h-5 w-5" />
-                      <span>Home</span>
+                      <Icon iconType="home" size={20} className="h-5 w-5 stroke-primary" />
+                      <span className="text-sky-600 dark:text-sky-400">Home</span>
                     </Link>
                     <Link
                       href="/Pages/about_us/"
                       className="flex items-center gap-2 hover:text-accent"
                       prefetch={false}>
-                      <Icon iconType="info" size={20} className="h-5 w-5" />
-                      <span>About</span>
+                      <Icon iconType="info" size={20} className="h-5 w-5 stroke-primary" />
+                      <span className="text-sky-600 dark:text-sky-400">About</span>
                     </Link>
                     <Link
                       href="/Pages/contact_us/"
                       className="flex items-center gap-2 hover:text-accent"
                       prefetch={false}>
-                      <Icon iconType="mail" size={20} className="h-5 w-5" />
-                      <span>Contact</span>
+                      <Icon iconType="mail" size={20} className="h-5 w-5 stroke-primary" />
+                      <span className="text-sky-600 dark:text-sky-400">Contact</span>
                     </Link>
                   </div>
 
