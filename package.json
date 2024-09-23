@@ -28,6 +28,7 @@
     "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.5.6",
     "lucide-react": "^0.438.0",
