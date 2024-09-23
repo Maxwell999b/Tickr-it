@@ -37,7 +37,7 @@ export const DeleteTaskConfirmation: React.FC<DeleteTaskConfirmationProps> = ({
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogContent className="sm:max-w-[425px]">
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+          <AlertDialogTitle className="text-xl font-semibold text-red-600 dark:text-red-400">
             Confirm Deletion
           </AlertDialogTitle>
           <AlertDialogDescription className="text-sm text-gray-500 dark:text-gray-400">
