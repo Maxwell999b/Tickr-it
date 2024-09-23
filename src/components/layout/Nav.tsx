@@ -98,9 +98,9 @@ export function Navbar() {
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
-                          <Link href="/Pages/earnings/" className="flex items-center gap-2" prefetch={false}>
+                          <Link href="/Pages/Collaboration/" className="flex items-center gap-2" prefetch={false}>
                             <Icon iconType="wallet" size={16} className="h-4 w-4" />
-                            <span>Earnings</span>
+                            <span>Collaboration</span>
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
@@ -201,9 +201,9 @@ export function Navbar() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/Pages/earnings/" className="flex items-center gap-2" prefetch={false}>
+                  <Link href="/Pages/Collaboration/" className="flex items-center gap-2" prefetch={false}>
                     <Icon iconType="wallet" size={16} className="h-4 w-4" />
-                    <span>Earnings</span>
+                    <span>Collaboration</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
