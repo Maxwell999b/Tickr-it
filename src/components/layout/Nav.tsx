@@ -99,8 +99,8 @@ export function Navbar() {
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                           <Link href="/Pages/Collaboration/" className="flex items-center gap-2" prefetch={false}>
-                            <Icon iconType="wallet" size={16} className="h-4 w-4" />
-                            <span>Collaboration</span>
+                            <Icon iconType="groupPeople" size={16} className="h-4 w-4" />
+                            <span className="text-sky-600 dark:text-sky-400">Collaboration</span>
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
@@ -175,7 +175,7 @@ export function Navbar() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <div className="flex items-center gap-2 p-2 bg-accent/50 rounded-sm hover:bg-accent">
+                <div className="flex items-center gap-2 p-2 bg-accent/20 rounded-sm hover:bg-accent">
                   <Link href="/Pages/profileUserInfo/" className="flex items-center gap-2" prefetch={false}>
                     <Avatar className="h-8 w-8">
                       <AvatarImage src="/pcoffe.svg" />
@@ -191,26 +191,26 @@ export function Navbar() {
                 <DropdownMenuItem>
                   <Link href="/Pages/dashboard/" className="flex items-center gap-2" prefetch={false}>
                     <Icon iconType="layoutDashboard" size={16} className="h-4 w-4" />
-                    <span>Dashboard</span>
+                    <span className="text-sky-600 dark:text-sky-400">Dashboard</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/Pages/settingsUserInfo/" className="flex items-center gap-2" prefetch={false}>
                     <Icon iconType="settings" size={16} className="h-4 w-4" />
-                    <span>Settings</span>
+                    <span className="text-sky-600 dark:text-sky-400">Settings</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/Pages/Collaboration/" className="flex items-center gap-2" prefetch={false}>
-                    <Icon iconType="wallet" size={16} className="h-4 w-4" />
-                    <span>Collaboration</span>
+                    <Icon iconType="groupPeople" size={16} className="h-4 w-4" />
+                    <span className="text-sky-600 dark:text-sky-400">Collaboration</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <Link href="#" className="flex items-center gap-2" prefetch={false}>
                     <Icon iconType="logOut" size={16} className="h-4 w-4" />
-                    <span>Sign Out</span>
+                    <span className="text-red-700 dark:text-red-500">Sign Out</span>
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
