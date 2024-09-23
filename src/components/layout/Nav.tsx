@@ -61,7 +61,7 @@ export function Navbar() {
                       <DropdownMenuTrigger asChild>
                         <div className="flex items-center bg-primary rounded-3xl p-2 hover:bg-primary/90">
                           <Avatar className="mr-1 ">
-                            <AvatarImage src="/placeholder-user.jpg" />
+                            <AvatarImage src="/pcoffe.svg" />
                             <AvatarFallback>JD</AvatarFallback>
                           </Avatar>
                           <span className="font-semibold text-muted">Profile</span>
@@ -75,11 +75,11 @@ export function Navbar() {
                             className="flex items-center gap-2 p-2 bg-accent/50 rounded-3xl hover:bg-accent"
                             prefetch={false}>
                             <Avatar className="h-8 w-8">
-                              <AvatarImage src="/placeholder-user.jpg" />
+                              <AvatarImage src="/pcoffe.svg" />
                               <AvatarFallback>JD</AvatarFallback>
                             </Avatar>
                             <div className="grid gap-0.5 leading-none">
-                              <div className="font-semibold text-primary-foreground">John Doe</div>
+                              <div className="font-semibold text-violet-400">John Doe</div>
                               <div className="text-sm text-secondary-foreground">john@example.com</div>
                             </div>
                           </Link>
@@ -168,7 +168,7 @@ export function Navbar() {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
                   <Avatar className="h-8 w-8">
-                    <AvatarImage src="/placeholder-user.jpg" />
+                    <AvatarImage src="/pcoffe.svg" />
                     <AvatarFallback>JD</AvatarFallback>
                   </Avatar>
                   <span className="sr-only">Toggle user menu</span>
@@ -178,11 +178,11 @@ export function Navbar() {
                 <div className="flex items-center gap-2 p-2 bg-accent/50 rounded-sm hover:bg-accent">
                   <Link href="/Pages/profileUserInfo/" className="flex items-center gap-2" prefetch={false}>
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src="/placeholder-user.jpg" />
+                      <AvatarImage src="/pcoffe.svg" />
                       <AvatarFallback>JD</AvatarFallback>
                     </Avatar>
                     <div className="grid gap-0.5 leading-none">
-                      <div className="font-semibold">John Doe</div>
+                      <div className="font-semibold text-violet-400">John Doe</div>
                       <div className="text-sm text-muted-foreground">john@example.com</div>
                     </div>
                   </Link>

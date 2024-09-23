@@ -33,7 +33,7 @@ export default function SettingsPageUserInformation() {
   const [name, setName] = useState("John Doe");
   const [email, setEmail] = useState("john@example.com");
   const [language, setLanguage] = useState("english");
-  const [avatarUrl, setAvatarUrl] = useState("/placeholder-user.jpg");
+  const [avatarUrl, setAvatarUrl] = useState("/pcoffe.svg");
   const [showAlert, setShowAlert] = useState(false);
   const [activeTab, setActiveTab] = useState("account");
   const fileInputRef = useRef<HTMLInputElement>(null);

@@ -29,7 +29,7 @@ export default function ProfileUserInfo() {
                 <div className="flex flex-col items-center space-y-4">
                   <h1 className="text-2xl font-bold mb-2 text-pink-600">Profile Overview</h1>
                   <Avatar className="h-24 w-24">
-                    <AvatarImage src="/placeholder-user.jpg" />
+                    <AvatarImage src="/pcoffe.svg" />
                     <AvatarFallback>JD</AvatarFallback>
                   </Avatar>
                   <h2 className="text-2xl font-bold text-header">John Doe</h2>
