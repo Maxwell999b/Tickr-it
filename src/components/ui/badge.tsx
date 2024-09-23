@@ -29,8 +29,9 @@ const badgeVariants = cva(
         high: "bg-red-50 text-red-600 dark:bg-red-900 dark:text-red-200 hover:bg-red-100 dark:hover:bg-red-800",
         urgent:
           "bg-purple-50 text-purple-600 dark:bg-purple-900 dark:text-purple-200 hover:bg-purple-100 dark:hover:bg-purple-800",
-        completed:
-          "bg-green-50 text-green-600 dark:bg-green-900 dark:text-green-200 hover:bg-green-100 dark:hover:bg-green-800",
+        completed: "border border-input bg-background hover:bg-green-100 border-green-600",
+        inProgress: "border border-input bg-background hover:bg-yellow-100 border-yellow-400",
+        pending: "border border-input bg-background hover:bg-red-100 border-red-600",
       },
       size: {
         default: "h-6 px-2.5 py-0.5",
