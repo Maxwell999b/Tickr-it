@@ -49,7 +49,6 @@ type Task = {
   comments: Comment[];
 };
 
-// Mock data for tasks and collaborators
 const initialTasks: Task[] = [
   {
     id: 1,
@@ -90,6 +89,13 @@ const initialCollaborators: Collaborator[] = [
   { id: 2, name: "Bob Smith", email: "bob@example.com", avatar: "/placeholder.svg" },
   { id: 3, name: "Charlie Brown", email: "charlie@example.com", avatar: "/placeholder.svg" },
 ];
+
+const statusColors = {
+  "In Progress": "bg-yellow-500",
+  Pending: "bg-blue-500",
+  Completed: "bg-green-500",
+};
+
 const getStatusBadgeVariant = (status: string) => {
   switch (status) {
     case "Completed":
@@ -102,6 +108,7 @@ const getStatusBadgeVariant = (status: string) => {
       return "outline";
   }
 };
+
 export default function TaskCollaboration() {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const [collaborators, setCollaborators] = useState<Collaborator[]>(initialCollaborators);
@@ -113,6 +120,8 @@ export default function TaskCollaboration() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [newCollaborator, setNewCollaborator] = useState<Omit<Collaborator, "id" | "avatar">>({ name: "", email: "" });
   const [newComment, setNewComment] = useState("");
+  const [shareDialogTask, setShareDialogTask] = useState<Task | null>(null);
+  const [assignDialogTask, setAssignDialogTask] = useState<Task | null>(null);
 
   const updateCollaborators = useCallback(() => {
     const allCollaborators = new Set<string>();
@@ -133,46 +142,93 @@ export default function TaskCollaboration() {
   }, [tasks, updateCollaborators]);
 
   const handleShareTask = (taskId: number) => {
-    setSelectedTask(tasks.find((task) => task.id === taskId) || null);
-    setIsShareDialogOpen(true);
+    const task = tasks.find((t) => t.id === taskId);
+    if (task) {
+      setShareDialogTask({ ...task });
+      setIsShareDialogOpen(true);
+    }
   };
 
   const handleAssignTask = (taskId: number) => {
-    setSelectedTask(tasks.find((task) => task.id === taskId) || null);
-    setIsAssignDialogOpen(true);
+    const task = tasks.find((t) => t.id === taskId);
+    if (task) {
+      setAssignDialogTask({ ...task });
+      setIsAssignDialogOpen(true);
+    }
   };
 
   const handleAddCollaborator = (type: "assignedTo" | "sharedWith") => {
-    if (newCollaborator.name && newCollaborator.email && selectedTask) {
-      const newCollaboratorWithId: Collaborator = {
-        ...newCollaborator,
-        id: Math.max(...collaborators.map((c) => c.id), 0) + 1,
-        avatar: "/placeholder.svg",
-      };
-      const updatedTasks = tasks.map((task) =>
-        task.id === selectedTask.id ? { ...task, [type]: [...task[type], newCollaboratorWithId] } : task
+    if (newCollaborator.name && newCollaborator.email && (type === "assignedTo" ? assignDialogTask : shareDialogTask)) {
+      const collaboratorExists = collaborators.some(
+        (c) => c.name === newCollaborator.name && c.email === newCollaborator.email
       );
-      setTasks(updatedTasks);
-      setSelectedTask({ ...selectedTask, [type]: [...selectedTask[type], newCollaboratorWithId] });
-      setNewCollaborator({ name: "", email: "" });
+
+      if (collaboratorExists) {
+        const alreadyAdded = (type === "assignedTo" ? assignDialogTask : shareDialogTask)?.[type]?.some(
+          (c) => c.name === newCollaborator.name && c.email === newCollaborator.email
+        );
+
+        if (alreadyAdded) {
+          alert("This collaborator is already added to the task.");
+          return;
+        }
+
+        const newCollaboratorWithId = collaborators.find(
+          (c) => c.name === newCollaborator.name && c.email === newCollaborator.email
+        );
+
+        if (newCollaboratorWithId) {
+          const updatedTasks = tasks.map((task) =>
+            task.id === (type === "assignedTo" ? assignDialogTask : shareDialogTask)?.id
+              ? { ...task, [type]: [...task[type], newCollaboratorWithId] }
+              : task
+          );
+          setTasks(updatedTasks);
+          if (type === "assignedTo" && assignDialogTask) {
+            setAssignDialogTask({ ...assignDialogTask, [type]: [...assignDialogTask[type], newCollaboratorWithId] });
+          } else if (type === "sharedWith" && shareDialogTask) {
+            setShareDialogTask({ ...shareDialogTask, [type]: [...shareDialogTask[type], newCollaboratorWithId] });
+          }
+          setNewCollaborator({ name: "", email: "" });
+        }
+      } else {
+        alert("This collaborator is not registered. Please add them to the collaborators list first.");
+      }
     }
   };
 
   const handleRemoveCollaborator = (type: "assignedTo" | "sharedWith", collaboratorEmail: string) => {
-    if (selectedTask) {
+    if (type === "assignedTo" && assignDialogTask) {
       const updatedTasks = tasks.map((task) =>
-        task.id === selectedTask.id
+        task.id === assignDialogTask.id
           ? { ...task, [type]: task[type].filter((c) => c.email !== collaboratorEmail) }
           : task
       );
       setTasks(updatedTasks);
-      setSelectedTask({ ...selectedTask, [type]: selectedTask[type].filter((c) => c.email !== collaboratorEmail) });
+      setAssignDialogTask({
+        ...assignDialogTask,
+        [type]: assignDialogTask[type].filter((c) => c.email !== collaboratorEmail),
+      });
+    } else if (type === "sharedWith" && shareDialogTask) {
+      const updatedTasks = tasks.map((task) =>
+        task.id === shareDialogTask.id
+          ? { ...task, [type]: task[type].filter((c) => c.email !== collaboratorEmail) }
+          : task
+      );
+      setTasks(updatedTasks);
+      setShareDialogTask({
+        ...shareDialogTask,
+        [type]: shareDialogTask[type].filter((c) => c.email !== collaboratorEmail),
+      });
     }
   };
 
   const handleOpenCommentDialog = (taskId: number) => {
-    setSelectedTask(tasks.find((task) => task.id === taskId) || null);
-    setIsCommentDialogOpen(true);
+    const task = tasks.find((t) => t.id === taskId);
+    if (task) {
+      setSelectedTask(task);
+      setIsCommentDialogOpen(true);
+    }
   };
 
   const handleAddComment = () => {
@@ -191,6 +247,23 @@ export default function TaskCollaboration() {
         comments: [...selectedTask.comments, { text: newComment, author: "You", timestamp: new Date().toISOString() }],
       });
       setNewComment("");
+    }
+  };
+
+  const handleCollaboratorInputChange = (value: string, field: "name" | "email") => {
+    setNewCollaborator((prev) => ({ ...prev, [field]: value }));
+
+    const matchingCollaborator = collaborators.find((c) =>
+      field === "name"
+        ? c.name.toLowerCase().startsWith(value.toLowerCase())
+        : c.email.toLowerCase().startsWith(value.toLowerCase())
+    );
+
+    if (matchingCollaborator) {
+      setNewCollaborator({
+        name: field === "name" ? value : matchingCollaborator.name,
+        email: field === "email" ? value : matchingCollaborator.email,
+      });
     }
   };
 
@@ -213,7 +286,6 @@ export default function TaskCollaboration() {
   const renderCollaborators = (collaborators: Collaborator[], max = 3) => {
     const visibleCollaborators = collaborators.slice(0, max);
     const remainingCount = collaborators.length - max;
-
     return (
       <div className="flex items-center">
         <div className="flex -space-x-2 overflow-hidden">
@@ -271,9 +343,14 @@ export default function TaskCollaboration() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All</SelectItem>
-                <SelectItem value="In Progress">Progress</SelectItem>
-                <SelectItem value="Pending">Pending</SelectItem>
-                <SelectItem value="Completed">Completed</SelectItem>
+                {Object.entries(statusColors).map(([status, color]) => (
+                  <SelectItem key={status} value={status}>
+                    <div className="flex items-center">
+                      <div className={`w-3 h-3 rounded-full ${color} mr-2`}></div>
+                      {status}
+                    </div>
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -406,27 +483,44 @@ export default function TaskCollaboration() {
             <DialogTitle className="text-pink-600">Share Task</DialogTitle>
             <DialogDescription>Add or remove collaborators for this task</DialogDescription>
           </DialogHeader>
-          {selectedTask && (
+          {shareDialogTask && (
             <div>
-              <h3 className="font-medium mb-2 text-blue-500 dark:text-blue-400">Task: {selectedTask.name}</h3>
+              <h3 className="font-medium mb-2 text-blue-500 dark:text-blue-400">Task: {shareDialogTask.name}</h3>
               <div className="flex items-center space-x-2 mb-4">
-                <Input
-                  placeholder="Name"
-                  value={newCollaborator.name}
-                  onChange={(e) => setNewCollaborator({ ...newCollaborator, name: e.target.value })}
-                />
-                <Input
-                  placeholder="Email"
-                  value={newCollaborator.email}
-                  onChange={(e) => setNewCollaborator({ ...newCollaborator, email: e.target.value })}
-                />
+                <div className="relative w-full">
+                  <Input
+                    type="text"
+                    placeholder="Search collaborators..."
+                    value={newCollaborator.name}
+                    onChange={(e) => handleCollaboratorInputChange(e.target.value, "name")}
+                    className="w-full"
+                  />
+                  {newCollaborator.name && (
+                    <ul className="absolute z-10 w-full bg-background border border-input rounded-md mt-1 max-h-60 overflow-auto">
+                      {collaborators
+                        .filter(
+                          (c) =>
+                            c.name.toLowerCase().includes(newCollaborator.name.toLowerCase()) ||
+                            c.email.toLowerCase().includes(newCollaborator.name.toLowerCase())
+                        )
+                        .map((collaborator) => (
+                          <li
+                            key={collaborator.id}
+                            className="px-3 py-2 hover:bg-accent cursor-pointer"
+                            onClick={() => setNewCollaborator({ name: collaborator.name, email: collaborator.email })}>
+                            {collaborator.name} ({collaborator.email})
+                          </li>
+                        ))}
+                    </ul>
+                  )}
+                </div>
                 <Button onClick={() => handleAddCollaborator("sharedWith")}>
                   <UserPlus className="w-4 h-4 mr-2" />
-                  Add
+                  Share
                 </Button>
               </div>
               <div className="space-y-2">
-                {selectedTask.sharedWith.map((collaborator, index) => (
+                {shareDialogTask.sharedWith.map((collaborator, index) => (
                   <div key={index} className="flex items-center justify-between bg-muted p-2 rounded">
                     <span>
                       <span className="text-gray-700 dark:text-gray-200">{collaborator.name}</span>
@@ -455,27 +549,44 @@ export default function TaskCollaboration() {
             <DialogTitle className="text-pink-600">Assign Task</DialogTitle>
             <DialogDescription>Add or remove assignees for this task</DialogDescription>
           </DialogHeader>
-          {selectedTask && (
+          {assignDialogTask && (
             <div>
-              <h3 className="font-medium mb-2 text-blue-500 dark:text-blue-400">Task: {selectedTask.name}</h3>
+              <h3 className="font-medium mb-2 text-blue-500 dark:text-blue-400">Task: {assignDialogTask.name}</h3>
               <div className="flex items-center space-x-2 mb-4">
-                <Input
-                  placeholder="Name"
-                  value={newCollaborator.name}
-                  onChange={(e) => setNewCollaborator({ ...newCollaborator, name: e.target.value })}
-                />
-                <Input
-                  placeholder="Email"
-                  value={newCollaborator.email}
-                  onChange={(e) => setNewCollaborator({ ...newCollaborator, email: e.target.value })}
-                />
+                <div className="relative w-full">
+                  <Input
+                    type="text"
+                    placeholder="Search collaborators..."
+                    value={newCollaborator.name}
+                    onChange={(e) => handleCollaboratorInputChange(e.target.value, "name")}
+                    className="w-full"
+                  />
+                  {newCollaborator.name && (
+                    <ul className="absolute z-10 w-full bg-background border border-input rounded-md mt-1 max-h-60 overflow-auto">
+                      {collaborators
+                        .filter(
+                          (c) =>
+                            c.name.toLowerCase().includes(newCollaborator.name.toLowerCase()) ||
+                            c.email.toLowerCase().includes(newCollaborator.name.toLowerCase())
+                        )
+                        .map((collaborator) => (
+                          <li
+                            key={collaborator.id}
+                            className="px-3 py-2 hover:bg-accent cursor-pointer"
+                            onClick={() => setNewCollaborator({ name: collaborator.name, email: collaborator.email })}>
+                            {collaborator.name} ({collaborator.email})
+                          </li>
+                        ))}
+                    </ul>
+                  )}
+                </div>
                 <Button onClick={() => handleAddCollaborator("assignedTo")}>
                   <UserPlus className="w-4 h-4 mr-2" />
                   Assign
                 </Button>
               </div>
               <div className="space-y-2">
-                {selectedTask.assignedTo.map((assignee, index) => (
+                {assignDialogTask.assignedTo.map((assignee, index) => (
                   <div key={index} className="flex items-center justify-between bg-muted p-2 rounded">
                     <span>
                       <span className="text-gray-700 dark:text-gray-200">{assignee.name}</span>
