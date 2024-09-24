@@ -1,10 +1,31 @@
+"use client";
+import { useState, useEffect } from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import Icon from "@/components/component/Icon";
 import { MainYourTask } from "@/components/component/data/MainYourTask";
+import { motion } from "framer-motion";
 
 export default function DashboardPage() {
+  const [animate, setAnimate] = useState(false);
+  useEffect(() => {
+    setAnimate(true);
+  }, []);
+
+  const stats = [
+    { name: "Tasks Completed This Week", value: 15, total: 20, color: "bg-primary" },
+    { name: "On-time Completion Rate", value: 90, total: 100, color: "bg-green-500" },
+    { name: "Task Efficiency Score", value: 85, total: 100, color: "bg-blue-500" },
+    { name: "Team Collaboration Index", value: 75, total: 100, color: "bg-purple-500" },
+  ];
+  const deadlines = [
+    { task: "Complete project proposal", daysLeft: 2, status: "warning" },
+    { task: "Team meeting preparation", daysLeft: 4, status: "info" },
+    { task: "Prepare presentation", daysLeft: 5, status: "info" },
+    { task: "Submit quarterly report", daysLeft: 1, status: "danger" },
+    { task: "Update LinkedIn profile", daysLeft: 1, status: "danger" },
+    { task: "Team meeting preparation", daysLeft: 14, status: "success" },
+    { task: "Update LinkedIn profile", daysLeft: 30, status: "success" },
+  ];
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="container mx-auto px-4 py-8">
@@ -45,18 +66,16 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <ul className="space-y-2">
-                <li className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Complete project proposal</span>
-                  <span className="text-yellow-500">2 days left</span>
-                </li>
-                <li className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Submit quarterly report</span>
-                  <span className="text-red-500">Due tomorrow</span>
-                </li>
-                <li className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Team meeting preparation</span>
-                  <span className="text-green-500">5 days left</span>
-                </li>
+                {deadlines.map((deadline, index) => (
+                  <li
+                    key={index}
+                    className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-2 border-b last:border-b-0">
+                    <span className="text-muted-foreground mb-1 sm:mb-0">{deadline.task}</span>
+                    <span className={`text-sm font-medium ${getStatusColor(deadline.status)}`}>
+                      {deadline.daysLeft === 1 ? "Due tomorrow" : `${deadline.daysLeft} days left`}
+                    </span>
+                  </li>
+                ))}
               </ul>
             </CardContent>
           </Card>
@@ -66,24 +85,24 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-muted-foreground">Tasks Completed This Week</span>
-                    <span className="text-header">15/20</span>
+                {stats.map((stat, index) => (
+                  <div key={index}>
+                    <div className="flex justify-between mb-1">
+                      <span className="text-muted-foreground">{stat.name}</span>
+                      <span className="text-header">
+                        {stat.value}/{stat.total}
+                      </span>
+                    </div>
+                    <div className="w-full bg-muted rounded-full h-2.5">
+                      <motion.div
+                        className={`${stat.color} h-2.5 rounded-full`}
+                        initial={{ width: 0 }}
+                        animate={{ width: animate ? `${(stat.value / stat.total) * 100}%` : 0 }}
+                        transition={{ duration: 1, delay: index * 0.2 }}
+                      />
+                    </div>
                   </div>
-                  <div className="w-full bg-muted rounded-full h-2.5">
-                    <div className="bg-primary h-2.5 rounded-full" style={{ width: "75%" }}></div>
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span className="text-muted-foreground">On-time Completion Rate</span>
-                    <span className="text-header">90%</span>
-                  </div>
-                  <div className="w-full bg-muted rounded-full h-2.5">
-                    <div className="bg-green-500 h-2.5 rounded-full" style={{ width: "90%" }}></div>
-                  </div>
-                </div>
+                ))}
               </div>
             </CardContent>
           </Card>
@@ -92,4 +111,17 @@ export default function DashboardPage() {
       </div>
     </div>
   );
+}
+
+function getStatusColor(status: string) {
+  switch (status) {
+    case "danger":
+      return "text-red-500";
+    case "warning":
+      return "text-yellow-500";
+    case "success":
+      return "text-green-500";
+    default:
+      return "text-sky-500";
+  }
 }
