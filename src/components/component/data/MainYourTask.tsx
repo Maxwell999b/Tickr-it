@@ -189,7 +189,7 @@ export function MainYourTask() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="shrink-0">
-                  <Icon iconType="DoubleArrow" className="w-4 h-4 mr-2" />
+                  <Icon iconType="DoubleArrow" className="w-4 h-4 mr-2 stroke-primary" />
                   Sort by
                 </Button>
               </DropdownMenuTrigger>
@@ -198,19 +198,28 @@ export function MainYourTask() {
                   <DropdownMenuRadioItem value="dueDate">
                     Due Date{" "}
                     {sortBy === "dueDate" && (
-                      <Icon iconType={sortOrder === "asc" ? "arrowUp" : "arrowDown"} className="w-4 h-4 ml-2" />
+                      <Icon
+                        iconType={sortOrder === "asc" ? "arrowUp" : "arrowDown"}
+                        className="w-4 h-4 ml-2 stroke-primary"
+                      />
                     )}
                   </DropdownMenuRadioItem>
                   <DropdownMenuRadioItem value="priority">
                     Priority{" "}
                     {sortBy === "priority" && (
-                      <Icon iconType={sortOrder === "asc" ? "arrowUp" : "arrowDown"} className="w-4 h-4 ml-2" />
+                      <Icon
+                        iconType={sortOrder === "asc" ? "arrowUp" : "arrowDown"}
+                        className="w-4 h-4 ml-2 stroke-primary"
+                      />
                     )}
                   </DropdownMenuRadioItem>
                   <DropdownMenuRadioItem value="status">
                     Status{" "}
                     {sortBy === "status" && (
-                      <Icon iconType={sortOrder === "asc" ? "arrowUp" : "arrowDown"} className="w-4 h-4 ml-2" />
+                      <Icon
+                        iconType={sortOrder === "asc" ? "arrowUp" : "arrowDown"}
+                        className="w-4 h-4 ml-2 stroke-primary"
+                      />
                     )}
                   </DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
@@ -219,7 +228,7 @@ export function MainYourTask() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="shrink-0">
-                  <Icon iconType="filter" className="w-4 h-4 mr-2" />
+                  <Icon iconType="filter" className="w-4 h-4 mr-2 stroke-primary" />
                   Filter
                 </Button>
               </DropdownMenuTrigger>
@@ -373,17 +382,17 @@ export function MainYourTask() {
                       <DropdownMenuRadioGroup
                         value={task.frequency}
                         onValueChange={(value) => handleFrequencyChange(task.id, value)}>
-                        <DropdownMenuRadioItem value="Monthly">
-                          <Badge variant="outline">Monthly</Badge>
-                        </DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value="Weekly">
-                          <Badge variant="outline">Weekly</Badge>
+                        <DropdownMenuRadioItem value="One-time">
+                          <Badge variant="outline">One-time</Badge>
                         </DropdownMenuRadioItem>
                         <DropdownMenuRadioItem value="Daily">
                           <Badge variant="outline">Daily</Badge>
                         </DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value="One-time">
-                          <Badge variant="outline">One-time</Badge>
+                        <DropdownMenuRadioItem value="Weekly">
+                          <Badge variant="outline">Weekly</Badge>
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="Monthly">
+                          <Badge variant="outline">Monthly</Badge>
                         </DropdownMenuRadioItem>
                       </DropdownMenuRadioGroup>
                     </DropdownMenuContent>
@@ -416,14 +425,14 @@ export function MainYourTask() {
                           href={`/Pages/task_details/${task.id}`}
                           className="flex items-center gap-2"
                           prefetch={false}>
-                          <Icon iconType="eye" className="h-4 w-4" />
-                          <span>View</span>
+                          <Icon iconType="eye" className="h-4 w-4 stroke-primary" />
+                          <span className="text-sky-600 dark:text-sky-400">View</span>
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem>
                         <Link href={`/Pages/task_edit/${task.id}`} className="flex items-center gap-2" prefetch={false}>
-                          <Icon iconType="filePen" className="h-4 w-4" />
-                          <span>Edit</span>
+                          <Icon iconType="filePen" className="h-4 w-4 stroke-primary" />
+                          <span className="text-sky-600 dark:text-sky-400">Edit</span>
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem>
