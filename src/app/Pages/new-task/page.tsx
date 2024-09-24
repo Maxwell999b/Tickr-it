@@ -62,9 +62,15 @@ export default function Create_NewTaskPageForm() {
                     <SelectValue placeholder="Select priority" />
                   </SelectTrigger>
                   <SelectContent className="text-muted-foreground">
-                    <SelectItem value="low">Low</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="high">High</SelectItem>
+                    <SelectItem value="low" className="data-[state=checked]:text-pink-700">
+                      Low
+                    </SelectItem>
+                    <SelectItem value="medium" className="data-[state=checked]:text-pink-700">
+                      Medium
+                    </SelectItem>
+                    <SelectItem value="high" className="data-[state=checked]:text-pink-700">
+                      High
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -95,15 +101,25 @@ export default function Create_NewTaskPageForm() {
                     <SelectValue placeholder="Select task type" />
                   </SelectTrigger>
                   <SelectContent className="text-muted-foreground">
-                    <SelectItem value="personal">Personal</SelectItem>
-                    <SelectItem value="work">Work</SelectItem>
-                    <SelectItem value="others">Others</SelectItem>
+                    <SelectItem value="personal" className="data-[state=checked]:text-pink-700">
+                      Personal
+                    </SelectItem>
+                    <SelectItem value="work" className="data-[state=checked]:text-pink-700">
+                      Work
+                    </SelectItem>
+                    <SelectItem value="others" className="data-[state=checked]:text-pink-700">
+                      Others
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="subtasks">Subtasks</Label>
-                <Textarea id="subtasks" placeholder="Enter subtasks (comma-separated)" />
+                <Textarea
+                  id="subtasks"
+                  placeholder="Enter subtasks (comma-separated)"
+                  className="w-full h-30 resize-none scroll-smooth focus:scroll-auto"
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="frequency">Frequency</Label>
@@ -112,9 +128,15 @@ export default function Create_NewTaskPageForm() {
                     <SelectValue placeholder="Select frequency" />
                   </SelectTrigger>
                   <SelectContent className="text-muted-foreground">
-                    <SelectItem value="daily">Daily</SelectItem>
-                    <SelectItem value="weekly">Weekly</SelectItem>
-                    <SelectItem value="monthly">Monthly</SelectItem>
+                    <SelectItem value="daily" className="data-[state=checked]:text-pink-700">
+                      Daily
+                    </SelectItem>
+                    <SelectItem value="weekly" className="data-[state=checked]:text-pink-700">
+                      Weekly
+                    </SelectItem>
+                    <SelectItem value="monthly" className="data-[state=checked]:text-pink-700">
+                      Monthly
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -125,8 +147,12 @@ export default function Create_NewTaskPageForm() {
                     <SelectValue placeholder="Select option" />
                   </SelectTrigger>
                   <SelectContent className="text-muted-foreground">
-                    <SelectItem value="attachment">Attachment</SelectItem>
-                    <SelectItem value="no-attachment">None</SelectItem>
+                    <SelectItem value="attachment" className="data-[state=checked]:text-pink-700">
+                      Attachment
+                    </SelectItem>
+                    <SelectItem value="no-attachment" className="data-[state=checked]:text-pink-700">
+                      None
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -137,14 +163,22 @@ export default function Create_NewTaskPageForm() {
                     <SelectValue placeholder="Select status" />
                   </SelectTrigger>
                   <SelectContent className="text-muted-foreground">
-                    <SelectItem value="true">Completed</SelectItem>
-                    <SelectItem value="false">Pending</SelectItem>
+                    <SelectItem value="true" className="data-[state=checked]:text-pink-700">
+                      Completed
+                    </SelectItem>
+                    <SelectItem value="false" className="data-[state=checked]:text-pink-700">
+                      Pending
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="description">Description</Label>
-                <Textarea id="description" placeholder="Enter task description" />
+                <Textarea
+                  id="description"
+                  placeholder="Enter task description"
+                  className="w-full h-40 resize-none scroll-smooth focus:scroll-auto"
+                />
               </div>
               <Button type="submit" className="w-full">
                 Create Task
