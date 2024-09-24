@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -10,11 +11,15 @@ import { Textarea } from "@/components/ui/textarea";
 import Icon from "@/components/component/Icon";
 import { Badge } from "@/components/ui/badge";
 import { Alert } from "@/components/ui/alert";
+import { useCalendar } from "@/hooks/useCalendar";
+
 export default function Create_NewTaskPageForm() {
   const [inputValue, setInputValue] = useState("");
   const [projects, setProjects] = useState<string[]>([]);
+  const { selectedDates, handleDateSelect, formatDate } = useCalendar({ 0: new Date() }, (taskId, date) => {});
   const maxTags = 10;
-  const handleKeyDown = (e: any) => {
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === " " || e.key === "Enter") {
       e.preventDefault(); // Prevent default behavior
       if (inputValue.trim() && projects.length < maxTags) {
@@ -24,16 +29,17 @@ export default function Create_NewTaskPageForm() {
     }
   };
 
-  const handleBadgeClick = (projectToRemove: any) => {
+  const handleBadgeClick = (projectToRemove: string) => {
     setProjects(projects.filter((project) => project !== projectToRemove));
   };
+
   return (
-    <div>
-      <section className="bg-background py-12 md:py-20">
+    <div className="min-h-screen bg-background text-foreground">
+      <section className="py-12 md:py-20">
         <div className="container">
           <div className="mx-auto max-w-md space-y-6">
             <div className="space-y-2 text-center">
-              <h1 className="text-3xl font-bold text-pink-600">Create a New Task</h1>
+              <h1 className="text-3xl font-bold text-primary">Create a New Task</h1>
               <p className="text-muted-foreground">Fill out the form to add a new task to your list.</p>
             </div>
             <form className="space-y-4">
@@ -45,13 +51,18 @@ export default function Create_NewTaskPageForm() {
                 <Label htmlFor="due-date">Due Date</Label>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button variant="outline" className="w-full justify-start font-normal">
+                    <Button id="due-date" variant="outline" className="w-full justify-start text-left font-normal">
                       <Icon iconType="calendarDays" className="mr-2 h-4 w-4" />
-                      Pick a date
+                      {formatDate(selectedDates[0])}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar mode="single" />
+                    <Calendar
+                      mode="single"
+                      selected={selectedDates[0]}
+                      onSelect={(date) => handleDateSelect(0, date)}
+                      initialFocus
+                    />
                   </PopoverContent>
                 </Popover>
               </div>
