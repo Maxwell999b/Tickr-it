@@ -5,52 +5,52 @@ import { Mountain, ArrowRight } from "lucide-react";
 export default function Terms_Of_ServicePage() {
   const sections = [
     {
-      title: "1. Acceptance of Terms",
+      title: "Acceptance of Terms",
       content:
         "By accessing or using Tickr✔it, you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree with any part of these terms, you may not use our service.",
     },
     {
-      title: "2. Description of Service",
+      title: "Description of Service",
       content:
         "Tickr✔it provides a task management platform designed to help individuals and teams organize, track, and complete tasks efficiently. Features may include, but are not limited to, task creation, assignment, prioritization, and progress tracking.",
     },
     {
-      title: "3. User Accounts",
+      title: "User Accounts",
       content:
         "To use certain features of Tickr✔it, you may be required to create an account. You are responsible for maintaining the confidentiality of your account information and for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account.",
     },
     {
-      title: "4. User Conduct",
+      title: "User Conduct",
       content:
         "You agree to use Tickr✔it only for lawful purposes and in accordance with these Terms. You agree not to use Tickr✔it in any way that could damage, disable, overburden, or impair our servers or networks, or interfere with any other party's use and enjoyment of Tickr✔it.",
     },
     {
-      title: "5. Intellectual Property",
+      title: "Intellectual Property",
       content:
         "The content, features, and functionality of Tickr✔it are owned by us and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws. You may not copy, modify, create derivative works of, publicly display, publicly perform, republish, or transmit any of the material on Tickr✔it without our prior written consent.",
     },
     {
-      title: "6. Privacy",
+      title: "Privacy",
       content:
         "Your use of Tickr✔it is also governed by our Privacy Policy. Please review our Privacy Policy, which also governs the Site and informs users of our data collection practices.",
     },
     {
-      title: "7. Termination",
+      title: "Termination",
       content:
         "We reserve the right to terminate or suspend your account and access to Tickr✔it at our sole discretion, without notice, for conduct that we believe violates these Terms of Service or is harmful to other users of Tickr✔it, us, or third parties, or for any other reason.",
     },
     {
-      title: "8. Disclaimer of Warranties",
+      title: "Disclaimer of Warranties",
       content:
         "Tickr✔it is provided on an 'as is' and 'as available' basis. We make no representations or warranties of any kind, express or implied, as to the operation of Tickr✔it or the information, content, materials, or products included on Tickr✔it.",
     },
     {
-      title: "9. Limitation of Liability",
+      title: "Limitation of Liability",
       content:
         "In no event shall Tickr✔it, its affiliates, or their licensors, service providers, employees, agents, officers, or directors be liable for damages of any kind, under any legal theory, arising out of or in connection with your use, or inability to use, Tickr✔it.",
     },
     {
-      title: "10. Changes to Terms",
+      title: "Changes to Terms",
       content:
         "We reserve the right to update or modify these Terms of Service at any time without prior notice. Your continued use of Tickr✔it following any changes indicates your acceptance of the new Terms of Service.",
     },
@@ -75,7 +75,10 @@ export default function Terms_Of_ServicePage() {
         <div className="space-y-8">
           {sections.map((section, index) => (
             <div key={index} className="bg-card rounded-lg shadow-lg p-6">
-              <h2 className="text-2xl font-semibold mb-4 text-sky-800 dark:text-sky-500">{section.title}</h2>
+              <h2 className="text-2xl font-semibold mb-4 text-header">
+                <span className="text-primary"> {index + 1}. </span>
+                {section.title}
+              </h2>
               <p className="text-muted-foreground">{section.content}</p>
             </div>
           ))}
