@@ -21,10 +21,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { format } from "date-fns";
 import Icon from "@/components/component/Icon";
 import { Task, initialTasks } from "./tasks";
 import { DeleteTaskConfirmation } from "../DeleteTaskConfirmation";
+import { useCalendar } from "@/hooks/useCalendar";
 
 type SortOption = "dueDate" | "priority" | "status";
 
@@ -42,6 +42,15 @@ export function MainYourTask() {
     status: false,
     frequency: false,
     attachments: false,
+  });
+
+  const initialDates = tasks.reduce((acc, task) => {
+    acc[task.id] = task.dueDate;
+    return acc;
+  }, {} as { [taskId: number]: Date });
+
+  const { selectedDates, handleDateSelect, formatDate } = useCalendar(initialDates, (taskId, date) => {
+    handleDateChange(taskId, date);
   });
 
   const tasksPerPage = 10;
@@ -145,8 +154,17 @@ export function MainYourTask() {
     setTasks(tasks.map((task) => (task.id === taskId ? { ...task, frequency } : task)));
   };
 
-  const handleDateChange = (taskId: any, date: any) => {
-    setTasks(tasks.map((task) => (task.id === taskId ? { ...task, dueDate: date } : task)));
+  const handleDateChange = (taskId: number, date: Date | undefined) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId
+          ? {
+              ...task,
+              dueDate: date || task.dueDate,
+            }
+          : task
+      )
+    );
   };
 
   const handleStatusChange = (taskId: any, checked: any) => {
@@ -312,16 +330,19 @@ export function MainYourTask() {
                 <TableCell>
                   <Popover>
                     <PopoverTrigger asChild>
-                      <Button variant="outline" className="w-[180px] justify-start text-left font-normal">
-                        <Icon iconType="calendar" className="mr-2 h-4 w-4" />
-                        {format(task.dueDate, "PPP")}
+                      <Button
+                        id={`due-date-${task.id}`}
+                        variant="outline"
+                        className="w-full justify-start text-left font-normal">
+                        <Icon iconType="calendarDays" className="mr-2 h-4 w-4" />
+                        {formatDate(selectedDates[task.id])}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
+                    <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
-                        selected={task.dueDate}
-                        onSelect={(date) => handleDateChange(task.id, date)}
+                        selected={selectedDates[task.id]}
+                        onSelect={(date) => handleDateSelect(task.id, date)}
                         initialFocus
                       />
                     </PopoverContent>
