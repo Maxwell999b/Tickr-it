@@ -79,7 +79,7 @@ export default function Create_NewTaskPageForm() {
                 <div className="flex flex-wrap gap-2 mb-2">
                   <Input
                     id="project"
-                    placeholder="Enter project name"
+                    placeholder="Enter projects (space-separated)"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={handleKeyDown}
