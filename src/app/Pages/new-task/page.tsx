@@ -123,11 +123,14 @@ export default function Create_NewTaskPageForm() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="frequency">Frequency</Label>
-                <Select>
+                <Select defaultValue="one-time">
                   <SelectTrigger id="frequency">
                     <SelectValue placeholder="Select frequency" />
                   </SelectTrigger>
                   <SelectContent className="text-muted-foreground">
+                    <SelectItem value="one-time" className="data-[state=checked]:text-pink-700">
+                      One-time
+                    </SelectItem>
                     <SelectItem value="daily" className="data-[state=checked]:text-pink-700">
                       Daily
                     </SelectItem>
@@ -142,7 +145,7 @@ export default function Create_NewTaskPageForm() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="attachments">Attachments</Label>
-                <Select>
+                <Select defaultValue="no-attachment">
                   <SelectTrigger id="attachment">
                     <SelectValue placeholder="Select option" />
                   </SelectTrigger>
@@ -158,7 +161,7 @@ export default function Create_NewTaskPageForm() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="status">Status</Label>
-                <Select>
+                <Select defaultValue="false">
                   <SelectTrigger id="status">
                     <SelectValue placeholder="Select status" />
                   </SelectTrigger>
