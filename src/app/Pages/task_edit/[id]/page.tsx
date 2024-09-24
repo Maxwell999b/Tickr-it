@@ -1,4 +1,5 @@
 "use client";
+
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { initialTasks } from "@/components/component/data/tasks";
@@ -12,6 +13,8 @@ import { Calendar } from "@/components/ui/calendar";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import Icon from "@/components/component/Icon";
 import { TaskNotFound } from "@/components/errors/TaskNotFound";
+import { useCalendar } from "@/hooks/useCalendar";
+
 export default function Task_EditPage() {
   const params = useParams();
   const taskId = Number(params.id);
@@ -21,6 +24,8 @@ export default function Task_EditPage() {
   const [priority, setPriority] = useState(task?.priority || "");
   const [type, setType] = useState(task?.type || "");
   const [frequency, setFrequency] = useState(task?.frequency || "");
+
+  const { selectedDates, handleDateSelect, formatDate } = useCalendar({ [taskId]: task?.dueDate || undefined });
 
   useEffect(() => {
     console.log("Task loaded:", task);
@@ -51,6 +56,7 @@ export default function Task_EditPage() {
       setSubtasks([""]);
     }
   };
+
   return (
     <div>
       <section className="bg-background py-12 md:py-20">
@@ -74,13 +80,18 @@ export default function Task_EditPage() {
                   </Label>
                   <Popover>
                     <PopoverTrigger asChild>
-                      <Button id="dueDate" variant="outline" className="w-full justify-start text-left font-normal">
-                        <Icon iconType="calendarDays" className="mr-1 h-4 w-4 -translate-x-1" />
-                        {task.dueDate.toDateString()}
+                      <Button id="due-date" variant="outline" className="w-full justify-start text-left font-normal">
+                        <Icon iconType="calendarDays" className="mr-2 h-4 w-4" />
+                        {selectedDates[taskId] ? formatDate(selectedDates[taskId]) : "No date set"}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar initialFocus mode="single" selected={task.dueDate} />
+                      <Calendar
+                        mode="single"
+                        selected={selectedDates[taskId]}
+                        onSelect={(date) => handleDateSelect(taskId, date)}
+                        initialFocus
+                      />
                     </PopoverContent>
                   </Popover>
                 </div>
