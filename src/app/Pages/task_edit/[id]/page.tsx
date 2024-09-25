@@ -40,7 +40,7 @@ export default function Task_EditPage() {
       setFrequency(task.frequency);
       setStatus(task.status ? "Completed" : "In Process");
       setProject(task.project);
-      setAttachments(task.attachments ? "yes" : "no");
+      setAttachments(task.attachments ? "Yes" : "No");
     }
   }, [task]);
 
@@ -130,9 +130,15 @@ export default function Task_EditPage() {
                       <SelectValue placeholder="Select priority">{priority}</SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="High">High</SelectItem>
-                      <SelectItem value="Medium">Medium</SelectItem>
-                      <SelectItem value="Low">Low</SelectItem>
+                      <SelectItem value="High" className="data-[state=checked]:text-pink-700">
+                        High
+                      </SelectItem>
+                      <SelectItem value="Medium" className="data-[state=checked]:text-pink-700">
+                        Medium
+                      </SelectItem>
+                      <SelectItem value="Low" className="data-[state=checked]:text-pink-700">
+                        Low
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -145,9 +151,15 @@ export default function Task_EditPage() {
                       <SelectValue placeholder="Select type">{type}</SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="personal">Personal</SelectItem>
-                      <SelectItem value="work">Work</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="Personal" className="data-[state=checked]:text-pink-700">
+                        Personal
+                      </SelectItem>
+                      <SelectItem value="Work" className="data-[state=checked]:text-pink-700">
+                        Work
+                      </SelectItem>
+                      <SelectItem value="Others" className="data-[state=checked]:text-pink-700">
+                        Other
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -160,10 +172,18 @@ export default function Task_EditPage() {
                       <SelectValue placeholder="Select frequency">{frequency}</SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="monthly">Monthly</SelectItem>
-                      <SelectItem value="weekly">Weekly</SelectItem>
-                      <SelectItem value="daily">Daily</SelectItem>
-                      <SelectItem value="onetime">One-time</SelectItem>
+                      <SelectItem value="Monthly" className="data-[state=checked]:text-pink-700">
+                        Monthly
+                      </SelectItem>
+                      <SelectItem value="Weekly" className="data-[state=checked]:text-pink-700">
+                        Weekly
+                      </SelectItem>
+                      <SelectItem value="Daily" className="data-[state=checked]:text-pink-700">
+                        Daily
+                      </SelectItem>
+                      <SelectItem value="One-time" className="data-[state=checked]:text-pink-700">
+                        One-time
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -182,8 +202,12 @@ export default function Task_EditPage() {
                       <SelectValue placeholder="Select status">{status}</SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Completed">Completed</SelectItem>
-                      <SelectItem value="In Process">In Process</SelectItem>
+                      <SelectItem value="Completed" className="data-[state=checked]:text-pink-700">
+                        Completed
+                      </SelectItem>
+                      <SelectItem value="In Process" className="data-[state=checked]:text-pink-700">
+                        In Process
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -196,8 +220,12 @@ export default function Task_EditPage() {
                       <SelectValue placeholder="Select attachments">{attachments}</SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="yes">Yes</SelectItem>
-                      <SelectItem value="no">No</SelectItem>
+                      <SelectItem value="Yes" className="data-[state=checked]:text-pink-700">
+                        Yes
+                      </SelectItem>
+                      <SelectItem value="No" className="data-[state=checked]:text-pink-700">
+                        No
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
