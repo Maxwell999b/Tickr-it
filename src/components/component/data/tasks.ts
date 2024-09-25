@@ -21,7 +21,7 @@ const initialTasks: Task[] = [
     type: "Work",
     subtasks: ["Research competitors", "Outline proposal structure", "Write executive summary"],
     frequency: "Monthly",
-    attachments: true,
+    attachments: false,
     status: true,
   },
   {

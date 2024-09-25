@@ -25,6 +25,7 @@ interface IconsProps {
     | "upload"
     | "chevronDown"
     | "check"
+    | "checkTwice"
     | "mapPin"
     | "phone"
     | "twitter"
@@ -56,7 +57,8 @@ interface IconsProps {
     | "qrCode"
     | "lock"
     | "bell"
-    | "groupPeople";
+    | "groupPeople"
+    | "reset";
 }
 
 const icons = {
@@ -238,11 +240,27 @@ const icons = {
         height="24"
         viewBox="0 0 24 24"
         fill="none"
-        stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round">
         <path d="M20 6 9 17l-5-5" />
+      </svg>
+    </>
+  ),
+  checkTwice: (
+    <>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        className="lucide lucide-check-check">
+        <path d="M18 6 7 17l-5-5" />
+        <path d="m22 10-7.5 7.5L13 16" />
       </svg>
     </>
   ),
@@ -760,6 +778,23 @@ const icons = {
       <circle cx="9" cy="7" r="4" />
       <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
       <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  ),
+  reset: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      className="lucide lucide-repeat-2">
+      <path d="m2 9 3-3 3 3" />
+      <path d="M13 18H7a2 2 0 0 1-2-2V6" />
+      <path d="m22 15-3 3-3-3" />
+      <path d="M11 6h6a2 2 0 0 1 2 2v10" />
     </svg>
   ),
 };
