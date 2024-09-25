@@ -200,9 +200,7 @@ export function MainYourTask() {
     <section className="py-2 md:py-4">
       <div className="container mx-auto space-y-4">
         <div className="flex items-center justify-between px-2">
-          <h2 className="text-sm md:text-2xl font-bold flex justify-center text-pink-500 dark:text-secondary p-2">
-            Your Tasks
-          </h2>
+          <h2 className="text-sm md:text-2xl font-bold flex justify-center text-pink-600 p-2">Your Tasks</h2>
           <div className="flex items-center gap-4">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

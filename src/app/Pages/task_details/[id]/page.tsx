@@ -22,8 +22,8 @@ export default function Task_DetailsPage() {
         <div className="container">
           <div className="mx-auto max-w-2xl">
             <div className="space-y-6 m-2">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold text-pink-500 dark:text-secondary">Task Details</h1>
+              <div className="space-y-2 text-center">
+                <h1 className="text-3xl font-bold text-pink-600">Task Details</h1>
                 <p className="text-muted-foreground">Provide specific information about your task.</p>
               </div>
               <div className="bg-card text-card-foreground p-6 rounded-lg shadow-lg space-y-6 m-4">

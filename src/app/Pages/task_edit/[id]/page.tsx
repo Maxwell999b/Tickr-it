@@ -88,8 +88,8 @@ export default function Task_EditPage() {
       <section className="bg-background py-12 md:py-20">
         <div className="container">
           <div className="mx-auto max-w-2xl">
-            <div className="space-y-2 m-2">
-              <h1 className="text-3xl font-bold text-pink-500 dark:text-secondary">Edit Task</h1>
+            <div className="space-y-2 m-2 text-center">
+              <h1 className="text-3xl font-bold text-pink-600">Edit Task</h1>
               <p className="text-muted-foreground">Update the details of your task.</p>
             </div>
             <Card className="bg-card text-card-foreground p-6 rounded-lg shadow-lg space-y-6 m-4">
