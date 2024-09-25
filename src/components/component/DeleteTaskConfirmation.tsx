@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,27 +14,22 @@ interface DeleteTaskConfirmationProps {
   isOpen: boolean;
   taskId: number;
   taskName: string;
-  onConfirmDelete: (id: number) => void;
+  onConfirmDelete: () => void;
   onCancel: () => void;
 }
 
 export const DeleteTaskConfirmation: React.FC<DeleteTaskConfirmationProps> = ({
-  taskId,
+  isOpen,
   taskName,
   onConfirmDelete,
+  onCancel,
 }) => {
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    if (taskId !== null) {
-      setOpen(true);
-    }
-  }, [taskId]);
-
-  const handleClose = () => setOpen(false);
-
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
+    <AlertDialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onCancel();
+      }}>
       <AlertDialogContent className="sm:max-w-[425px]">
         <AlertDialogHeader>
           <AlertDialogTitle className="text-xl font-semibold text-red-600 dark:text-red-400">
@@ -47,14 +42,11 @@ export const DeleteTaskConfirmation: React.FC<DeleteTaskConfirmationProps> = ({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="sm:space-x-4">
-          <AlertDialogCancel className="w-full sm:w-auto" onClick={handleClose}>
+          <AlertDialogCancel className="w-full sm:w-auto" onClick={onCancel}>
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
-            onClick={() => {
-              onConfirmDelete(taskId);
-              handleClose();
-            }}
+            onClick={onConfirmDelete}
             className="w-full sm:w-auto bg-red-600 text-white hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800">
             Delete
           </AlertDialogAction>

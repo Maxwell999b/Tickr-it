@@ -32,7 +32,7 @@ export function MainYourTask() {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
   const [editingField, setEditingField] = useState<string | null>(null);
-  const [taskToDelete, setTaskToDelete] = useState<any | null>(null);
+  const [taskToDelete, setTaskToDelete] = useState<{ id: number; name: string } | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [sortBy, setSortBy] = useState<SortOption>("dueDate");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
@@ -88,19 +88,21 @@ export function MainYourTask() {
     sortAndFilterTasks();
   }, [sortAndFilterTasks]);
 
-  const handleDeleteTask = (taskId: any) => {
+  const handleDeleteTask = (taskId: number) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
     console.log(`Deleted task with ID: ${taskId}`);
     setTaskToDelete(null);
   };
-  const handleConfirmDelete = (id: number) => {
-    handleDeleteTask(id);
+  const handleConfirmDelete = () => {
+    if (taskToDelete) {
+      handleDeleteTask(taskToDelete.id);
+    }
+  };
+
+  const handleCancelDelete = () => {
     setTaskToDelete(null);
   };
 
-  const handleCancel = () => {
-    setTaskToDelete(null);
-  };
   const handleSortChange = (newSortBy: string) => {
     if (newSortBy === sortBy) {
       setSortOrder(sortOrder === "asc" ? "desc" : "asc");
@@ -458,22 +460,21 @@ export function MainYourTask() {
                         <Link
                           href="#"
                           className="flex items-center gap-2 text-red-600 hover:text-red-800"
-                          prefetch={false}
                           onClick={(e) => {
                             e.preventDefault();
-                            setTaskToDelete(task.id);
+                            setTaskToDelete({ id: task.id, name: task.taskName });
                           }}>
                           <Icon iconType="trash" className="h-4 w-4" />
                           <span>Delete</span>
                         </Link>
                       </DropdownMenuItem>
-                      {taskToDelete !== null && (
+                      {taskToDelete && (
                         <DeleteTaskConfirmation
-                          isOpen={taskToDelete !== null}
-                          taskId={taskToDelete}
-                          taskName={tasks.find((t) => t.id === taskToDelete)?.taskName || ""}
+                          isOpen={true}
+                          taskId={taskToDelete.id}
+                          taskName={taskToDelete.name}
                           onConfirmDelete={handleConfirmDelete}
-                          onCancel={handleCancel}
+                          onCancel={handleCancelDelete}
                         />
                       )}
                     </DropdownMenuContent>
