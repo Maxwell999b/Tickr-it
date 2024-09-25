@@ -20,17 +20,29 @@ export default function Task_EditPage() {
   const taskId = Number(params.id);
   const task = initialTasks.find((t) => t.id === taskId);
 
+  const [taskName, setTaskName] = useState(task?.taskName || "");
   const [subtasks, setSubtasks] = useState(task?.subtasks || []);
   const [priority, setPriority] = useState(task?.priority || "");
   const [type, setType] = useState(task?.type || "");
   const [frequency, setFrequency] = useState(task?.frequency || "");
+  const [status, setStatus] = useState(task?.status ? "Completed" : "In Process");
+  const [project, setProject] = useState(task?.project || "");
+  const [attachments, setAttachments] = useState(task?.attachments ? "yes" : "no");
 
   const { selectedDates, handleDateSelect, formatDate } = useCalendar({ [taskId]: task?.dueDate || undefined });
 
   useEffect(() => {
-    console.log("Task loaded:", task);
-    console.log("Initial values:", { priority, type, frequency });
-  }, [task, priority, type, frequency]);
+    if (task) {
+      setTaskName(task.taskName);
+      setSubtasks(task.subtasks);
+      setPriority(task.priority);
+      setType(task.type);
+      setFrequency(task.frequency);
+      setStatus(task.status ? "Completed" : "In Process");
+      setProject(task.project);
+      setAttachments(task.attachments ? "yes" : "no");
+    }
+  }, [task]);
 
   if (!task) {
     return <TaskNotFound />;
@@ -43,7 +55,7 @@ export default function Task_EditPage() {
   };
 
   const addSubtask = () => {
-    if (subtasks[subtasks.length - 1].trim() !== "") {
+    if (subtasks[subtasks.length - 1]?.trim() !== "") {
       setSubtasks([...subtasks, ""]);
     }
   };
@@ -55,6 +67,20 @@ export default function Task_EditPage() {
     if (updatedSubtasks.length === 0) {
       setSubtasks([""]);
     }
+  };
+
+  const handleSaveChanges = () => {
+    console.log("Saving changes:", {
+      taskName,
+      subtasks,
+      priority,
+      type,
+      frequency,
+      status,
+      project,
+      attachments,
+      dueDate: selectedDates[taskId],
+    });
   };
 
   return (
@@ -72,7 +98,7 @@ export default function Task_EditPage() {
                   <Label htmlFor="title" className="text-muted-foreground">
                     Title
                   </Label>
-                  <Input id="title" type="text" defaultValue={task.taskName} />
+                  <Input id="title" type="text" value={taskName} onChange={(e) => setTaskName(e.target.value)} />
                 </div>
                 <div className="space-y-1">
                   <Label htmlFor="dueDate" className="text-muted-foreground">
@@ -99,19 +125,14 @@ export default function Task_EditPage() {
                   <Label id="priority" htmlFor="priority" className="text-muted-foreground">
                     Priority
                   </Label>
-                  <Select
-                    value={priority}
-                    onValueChange={(value) => {
-                      console.log("Priority changed to:", value);
-                      setPriority(value);
-                    }}>
+                  <Select value={priority} onValueChange={setPriority}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select priority" />
+                      <SelectValue placeholder="Select priority">{priority}</SelectValue>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="high">High</SelectItem>
-                      <SelectItem value="medium">Medium</SelectItem>
-                      <SelectItem value="low">Low</SelectItem>
+                      <SelectItem value="High">High</SelectItem>
+                      <SelectItem value="Medium">Medium</SelectItem>
+                      <SelectItem value="Low">Low</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -119,9 +140,9 @@ export default function Task_EditPage() {
                   <Label htmlFor="type" className="text-muted-foreground">
                     Type
                   </Label>
-                  <Select defaultValue={task.type}>
+                  <Select value={type} onValueChange={setType}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select type" />
+                      <SelectValue placeholder="Select type">{type}</SelectValue>
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="personal">Personal</SelectItem>
@@ -134,9 +155,9 @@ export default function Task_EditPage() {
                   <Label htmlFor="frequency" className="text-muted-foreground">
                     Frequency
                   </Label>
-                  <Select defaultValue={task.frequency}>
+                  <Select value={frequency} onValueChange={setFrequency}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select type" />
+                      <SelectValue placeholder="Select frequency">{frequency}</SelectValue>
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="monthly">Monthly</SelectItem>
@@ -150,19 +171,19 @@ export default function Task_EditPage() {
                   <Label htmlFor="project" className="text-muted-foreground">
                     Project
                   </Label>
-                  <Input id="project" type="text" defaultValue={task.project} />
+                  <Input id="project" type="text" value={project} onChange={(e) => setProject(e.target.value)} />
                 </div>
                 <div className="space-y-1">
                   <Label htmlFor="status" className="text-muted-foreground">
                     Status
                   </Label>
-                  <Select defaultValue={task.status ? "Completed" : "In Process"}>
+                  <Select value={status} onValueChange={setStatus}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select option" />
+                      <SelectValue placeholder="Select status">{status}</SelectValue>
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Completed">Completed</SelectItem>
-                      <SelectItem value="InProcess">In Process</SelectItem>
+                      <SelectItem value="In Process">In Process</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -170,9 +191,9 @@ export default function Task_EditPage() {
                   <Label htmlFor="attachments" className="text-muted-foreground">
                     Attachments
                   </Label>
-                  <Select defaultValue={task.attachments ? "yes" : "no"}>
+                  <Select value={attachments} onValueChange={setAttachments}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select attachments" />
+                      <SelectValue placeholder="Select attachments">{attachments}</SelectValue>
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="yes">Yes</SelectItem>
@@ -213,7 +234,7 @@ export default function Task_EditPage() {
                 <Link href={`/Pages/task_details/${task.id}`}>
                   <Button variant="outline">Cancel</Button>
                 </Link>
-                <Button>Save Changes</Button>
+                <Button onClick={handleSaveChanges}>Save Changes</Button>
               </CardFooter>
             </Card>
           </div>
