@@ -92,7 +92,7 @@ const initialCollaborators: Collaborator[] = [
 
 const statusColors = {
   "In Progress": "bg-yellow-500",
-  Pending: "bg-blue-500",
+  Pending: "bg-red-500",
   Completed: "bg-green-500",
 };
 
