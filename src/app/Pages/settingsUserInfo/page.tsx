@@ -16,6 +16,7 @@ import { useEmailNotifications } from "@/hooks/useEmailNotifications";
 import { useTwoFactorAuth } from "@/hooks/useTwoFactorAuth";
 import { useTaskReminders } from "@/hooks/useTaskReminders";
 import { motion, AnimatePresence } from "framer-motion";
+import ImageCropDialog from "@/components/component/ImageCropDialog";
 
 const tabsWithIcons = [
   { name: "account", icon: UserRoundPen },
@@ -38,17 +39,24 @@ export default function SettingsPageUserInformation() {
   const [activeTab, setActiveTab] = useState("account");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [showCropDialog, setShowCropDialog] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setAvatarUrl(reader.result as string);
+        setSelectedImage(reader.result as string);
+        setShowCropDialog(true);
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleCropComplete = (croppedImageUrl: string) => {
+    setAvatarUrl(croppedImageUrl);
+    setShowCropDialog(false);
   };
 
   const handleSaveChanges = () => {
@@ -80,7 +88,7 @@ export default function SettingsPageUserInformation() {
                 <div className="flex flex-col items-center space-y-4">
                   <h1 className="text-2xl font-bold mb-2 text-pink-600">Profile Settings</h1>
                   <Avatar className="h-24 w-24">
-                    <AvatarImage src={avatarUrl} className="object-fill bg-muted" />
+                    <AvatarImage src={avatarUrl} className="object-cover" />
                     <AvatarFallback>
                       {name
                         .split(" ")
@@ -138,7 +146,7 @@ export default function SettingsPageUserInformation() {
                   <CardContent className="space-y-6">
                     <div className="flex items-center space-x-4">
                       <Avatar className="h-20 w-20">
-                        <AvatarImage src={avatarUrl} className="object-fill bg-muted " />
+                        <AvatarImage src={avatarUrl} className="object-cover" />
                         <AvatarFallback>
                           {name
                             .split(" ")
@@ -392,6 +400,14 @@ export default function SettingsPageUserInformation() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {showCropDialog && selectedImage && (
+        <ImageCropDialog
+          imageUrl={selectedImage}
+          onCropComplete={handleCropComplete}
+          onClose={() => setShowCropDialog(false)}
+        />
+      )}
 
       <audio ref={audioRef} src="/alert-sound.mp3" />
     </div>
