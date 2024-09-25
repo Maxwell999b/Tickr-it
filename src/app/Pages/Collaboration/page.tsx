@@ -632,6 +632,7 @@ export default function TaskCollaboration() {
                   placeholder="Add a comment..."
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
+                  className="w-full h-40 resize-none scroll-smooth focus:scroll-auto"
                 />
                 <Button onClick={handleAddComment}>Add Comment</Button>
               </div>
