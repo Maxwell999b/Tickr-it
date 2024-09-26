@@ -70,7 +70,7 @@ export default function AboutUsPage() {
           transition={{ duration: 0.5, delay: 0.4 }}>
           <h2 className="text-3xl font-bold mb-8 text-center text-pink-600">Our Story</h2>
           <motion.div
-            className="bg-[#1e2a4a] rounded-lg shadow-lg p-8 md:p-12 text-gray-200"
+            className="bg-muted rounded-lg shadow-lg p-8 md:p-12 text-muted-foreground"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}>
