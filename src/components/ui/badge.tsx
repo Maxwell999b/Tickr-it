@@ -14,6 +14,7 @@ const badgeVariants = cva(
         outline: "border border-input bg-background hover:bg-muted",
         muted: "bg-muted text-muted-foreground hover:bg-muted/80",
         info: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800",
+        date: "bg-muted text-sky-400",
         success:
           "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800",
         warning:

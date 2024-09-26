@@ -42,6 +42,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { format } from "date-fns";
+import { CalendarDays } from "lucide-react";
+
 import NoSearchResults from "@/components/errors/no-search-results";
 // Mock data for charts
 const userGrowthData = [
@@ -103,6 +109,33 @@ const initialTasks: Task[] = [
   { id: 3, name: "Update documentation", assignedTo: "Bob Johnson", dueDate: "2023-07-10", status: "Completed" },
 ];
 
+const statusColorsTasks = {
+  "In Progress": "bg-yellow-500",
+  Pending: "bg-red-500",
+  Completed: "bg-green-500",
+};
+const statusColorsUsers = {
+  Active: "bg-green-500",
+  Inactive: "bg-red-500",
+};
+const roleColors = {
+  User: "bg-slate-700",
+  Admin: "bg-blue-500",
+};
+
+const getStatusBadgeVariant = (status: string) => {
+  switch (status) {
+    case "Completed":
+      return "completed";
+    case "In Progress":
+      return "inProgress";
+    case "Pending":
+      return "pending";
+    default:
+      return "outline";
+  }
+};
+
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
 
@@ -123,11 +156,9 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="bg-card shadow-md">
-        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-center items-center">
-          <h1 className="text-3xl font-bold text-primary">Admin Dashboard</h1>
-        </div>
-      </header>
+      <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <h1 className="text-3xl font-bold text-pink-600">Admin Dashboard</h1>
+      </div>
 
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <nav className="flex space-x-4 mb-6">
@@ -156,7 +187,7 @@ function OverviewTab() {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <Card>
         <CardHeader>
-          <CardTitle>User Growth</CardTitle>
+          <CardTitle className="text-sky-600 dark:text-sky-400">User Growth</CardTitle>
           <CardDescription>New user registrations over time</CardDescription>
         </CardHeader>
         <CardContent>
@@ -167,7 +198,7 @@ function OverviewTab() {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="users" stroke="#8884d8" activeDot={{ r: 8 }} />
+              <Line type="monotone" dataKey="users" stroke="#fa78ff" activeDot={{ r: 8 }} />
             </LineChart>
           </ResponsiveContainer>
         </CardContent>
@@ -175,7 +206,7 @@ function OverviewTab() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Task Completion</CardTitle>
+          <CardTitle className="text-sky-600 dark:text-sky-400">Task Completion</CardTitle>
           <CardDescription>Completed vs Pending tasks</CardDescription>
         </CardHeader>
         <CardContent>
@@ -186,8 +217,8 @@ function OverviewTab() {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="completed" fill="#8884d8" />
-              <Bar dataKey="pending" fill="#82ca9d" />
+              <Bar dataKey="completed" fill="#E06CD0" />
+              <Bar dataKey="pending" fill="#38BDF8" />
             </BarChart>
           </ResponsiveContainer>
         </CardContent>
@@ -195,26 +226,26 @@ function OverviewTab() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Quick Stats</CardTitle>
+          <CardTitle className="text-sky-600 dark:text-sky-400">Quick Stats</CardTitle>
           <CardDescription>Key metrics at a glance</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Total Users</span>
-              <span className="font-bold">1,234</span>
+              <span className="font-bold text-primary">1,234</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Active Tasks</span>
-              <span className="font-bold">567</span>
+              <span className="font-bold text-primary">567</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Completed Tasks</span>
-              <span className="font-bold">890</span>
+              <span className="font-bold text-primary">890</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Total Revenue</span>
-              <span className="font-bold">$12,345</span>
+              <span className="font-bold text-primary">$12,345</span>
             </div>
           </div>
         </CardContent>
@@ -229,6 +260,7 @@ function UsersTab() {
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [isAddUserDialogOpen, setIsAddUserDialogOpen] = useState(false);
   const [newUser, setNewUser] = useState<Omit<User, "id">>({ name: "", email: "", status: "Active", role: "User" });
+  const [addUserError, setAddUserError] = useState<string | null>(null);
 
   const filteredUsers = users.filter(
     (user) =>
@@ -237,10 +269,15 @@ function UsersTab() {
   );
 
   const handleAddUser = () => {
-    const userToAdd: User = { ...newUser, id: users.length + 1 };
-    setUsers([...users, userToAdd]);
-    setNewUser({ name: "", email: "", status: "Active", role: "User" });
-    setIsAddUserDialogOpen(false);
+    if (isValidUser(newUser)) {
+      const userToAdd: User = { ...newUser, id: users.length + 1 };
+      setUsers([...users, userToAdd]);
+      setNewUser({ name: "", email: "", status: "Active", role: "User" });
+      setIsAddUserDialogOpen(false);
+      setAddUserError(null);
+    } else {
+      setAddUserError("Please enter a valid name and email address.");
+    }
   };
 
   const handleEditUser = (user: User) => {
@@ -248,9 +285,11 @@ function UsersTab() {
   };
 
   const handleUpdateUser = () => {
-    if (editingUser) {
+    if (editingUser && isValidUser(editingUser)) {
       setUsers(users.map((u) => (u.id === editingUser.id ? editingUser : u)));
       setEditingUser(null);
+    } else {
+      alert("Please enter a valid name and email address.");
     }
   };
 
@@ -260,6 +299,15 @@ function UsersTab() {
 
   const clearSearch = () => {
     setSearchTerm("");
+  };
+
+  const isValidUser = (user: Omit<User, "id">): boolean => {
+    return user.name.trim() !== "" && isValidEmail(user.email);
+  };
+
+  const isValidEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   return (
@@ -299,11 +347,13 @@ function UsersTab() {
                 </Label>
                 <Input
                   id="email"
+                  type="email"
                   value={newUser.email}
                   onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
                   className="col-span-3"
                 />
               </div>
+              {addUserError && <p className="text-red-500 text-sm">{addUserError}</p>}
             </div>
             <DialogFooter>
               <Button onClick={handleAddUser}>Add User</Button>
@@ -333,17 +383,18 @@ function UsersTab() {
                       onChange={(e) => setEditingUser({ ...editingUser, name: e.target.value })}
                     />
                   ) : (
-                    user.name
+                    <span className="text-pink-600">{user.name}</span>
                   )}
                 </TableCell>
                 <TableCell>
                   {editingUser?.id === user.id ? (
                     <Input
+                      type="email"
                       value={editingUser.email}
                       onChange={(e) => setEditingUser({ ...editingUser, email: e.target.value })}
                     />
                   ) : (
-                    user.email
+                    <span className="text-purple-400">{user.email}</span>
                   )}
                 </TableCell>
                 <TableCell>
@@ -355,12 +406,22 @@ function UsersTab() {
                         <SelectValue placeholder="Select status" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Active">Active</SelectItem>
-                        <SelectItem value="Inactive">Inactive</SelectItem>
+                        {Object.entries(statusColorsUsers).map(([status, color]) => (
+                          <SelectItem key={status} value={status}>
+                            <div className="flex items-center">
+                              <div className={`w-3 h-3 rounded-full ${color} mr-2`}></div>
+                              {status}
+                            </div>
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   ) : (
-                    user.status
+                    <Badge
+                      variant="outline"
+                      className={`${statusColorsUsers[user.status as keyof typeof statusColorsUsers]} text-white`}>
+                      {user.status}
+                    </Badge>
                   )}
                 </TableCell>
                 <TableCell>
@@ -372,12 +433,22 @@ function UsersTab() {
                         <SelectValue placeholder="Select role" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="User">User</SelectItem>
-                        <SelectItem value="Admin">Admin</SelectItem>
+                        {Object.entries(roleColors).map(([role, color]) => (
+                          <SelectItem key={role} value={role}>
+                            <div className="flex items-center">
+                              <div className={`w-3 h-3 rounded-full ${color} mr-2`}></div>
+                              {role}
+                            </div>
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   ) : (
-                    user.role
+                    <Badge
+                      variant="outline"
+                      className={`${roleColors[user.role as keyof typeof roleColors]} text-white`}>
+                      {user.role}
+                    </Badge>
                   )}
                 </TableCell>
                 <TableCell>
@@ -412,6 +483,7 @@ function TasksTab() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
 
   const filteredTasks = tasks.filter(
     (task) =>
@@ -422,12 +494,18 @@ function TasksTab() {
 
   const handleEditTask = (task: Task) => {
     setEditingTask({ ...task });
+    setSelectedDate(new Date(task.dueDate));
   };
 
   const handleUpdateTask = () => {
-    if (editingTask) {
-      setTasks(tasks.map((t) => (t.id === editingTask.id ? editingTask : t)));
+    if (editingTask && selectedDate) {
+      const updatedTask = {
+        ...editingTask,
+        dueDate: selectedDate.toISOString().split("T")[0],
+      };
+      setTasks(tasks.map((t) => (t.id === updatedTask.id ? updatedTask : t)));
       setEditingTask(null);
+      setSelectedDate(undefined);
     }
   };
 
@@ -456,9 +534,14 @@ function TasksTab() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All</SelectItem>
-            <SelectItem value="Completed">Completed</SelectItem>
-            <SelectItem value="In Progress">In Progress</SelectItem>
-            <SelectItem value="Pending">Pending</SelectItem>
+            {Object.entries(statusColorsTasks).map(([status, color]) => (
+              <SelectItem key={status} value={status}>
+                <div className="flex items-center">
+                  <div className={`w-3 h-3 rounded-full ${color} mr-2`}></div>
+                  {status}
+                </div>
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
@@ -484,7 +567,7 @@ function TasksTab() {
                       onChange={(e) => setEditingTask({ ...editingTask, name: e.target.value })}
                     />
                   ) : (
-                    task.name
+                    <span className="text-primary">{task.name}</span>
                   )}
                 </TableCell>
                 <TableCell>
@@ -494,18 +577,28 @@ function TasksTab() {
                       onChange={(e) => setEditingTask({ ...editingTask, assignedTo: e.target.value })}
                     />
                   ) : (
-                    task.assignedTo
+                    <span className="text-pink-600">{task.assignedTo}</span>
                   )}
                 </TableCell>
                 <TableCell>
                   {editingTask?.id === task.id ? (
-                    <Input
-                      type="date"
-                      value={editingTask.dueDate}
-                      onChange={(e) => setEditingTask({ ...editingTask, dueDate: e.target.value })}
-                    />
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant={"outline"}
+                          className={`w-[280px] justify-start text-left font-normal ${
+                            !selectedDate && "text-muted-foreground"
+                          }`}>
+                          <CalendarDays className="mr-2 h-4 w-4" />
+                          {selectedDate ? format(selectedDate, "PPP") : <span>Pick a date</span>}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar mode="single" selected={selectedDate} onSelect={setSelectedDate} initialFocus />
+                      </PopoverContent>
+                    </Popover>
                   ) : (
-                    task.dueDate
+                    <Badge variant="date">{task.dueDate}</Badge>
                   )}
                 </TableCell>
                 <TableCell>
@@ -517,13 +610,19 @@ function TasksTab() {
                         <SelectValue placeholder="Select status" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Completed">Completed</SelectItem>
-                        <SelectItem value="In Progress">In Progress</SelectItem>
-                        <SelectItem value="Pending">Pending</SelectItem>
+                        {Object.keys(statusColorsTasks).map((status) => (
+                          <SelectItem key={status} value={status}>
+                            {status}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   ) : (
-                    task.status
+                    <Badge
+                      variant={getStatusBadgeVariant(task.status)}
+                      className="w-full justify-center text-muted-foreground">
+                      {task.status}
+                    </Badge>
                   )}
                 </TableCell>
                 <TableCell>
@@ -547,7 +646,7 @@ function TasksTab() {
           </TableBody>
         </Table>
       ) : (
-        <NoSearchResults clearSearch={clearSearch} message="No tasks match the current search" />
+        <NoSearchResults clearSearch={clearSearch} message="No tasks match the current filters" />
       )}
     </div>
   );
@@ -558,7 +657,7 @@ function EarningsTab() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Revenue Overview</CardTitle>
+          <CardTitle className="text-sky-600 dark:text-sky-400">Revenue Overview</CardTitle>
           <CardDescription>Monthly revenue trend</CardDescription>
         </CardHeader>
         <CardContent>
@@ -569,7 +668,7 @@ function EarningsTab() {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="revenue" fill="#8884d8" />
+              <Bar dataKey="revenue" fill="#E06CD0" />
             </BarChart>
           </ResponsiveContainer>
         </CardContent>
@@ -577,26 +676,26 @@ function EarningsTab() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Financial Summary</CardTitle>
+          <CardTitle className="text-sky-600 dark:text-sky-400">Financial Summary</CardTitle>
           <CardDescription>Key financial metrics</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <p className="text-muted-foreground">Total Revenue</p>
-              <p className="text-2xl font-bold">$54,321</p>
+              <p className="text-2xl font-bold text-primary">$54,321</p>
             </div>
             <div className="space-y-2">
               <p className="text-muted-foreground">Monthly Recurring Revenue</p>
-              <p className="text-2xl font-bold">$4,567</p>
+              <p className="text-2xl font-bold text-primary">$4,567</p>
             </div>
             <div className="space-y-2">
               <p className="text-muted-foreground">Average Revenue per User</p>
-              <p className="text-2xl font-bold">$27.50</p>
+              <p className="text-2xl font-bold text-primary">$27.50</p>
             </div>
             <div className="space-y-2">
               <p className="text-muted-foreground">Churn Rate</p>
-              <p className="text-2xl font-bold">2.3%</p>
+              <p className="text-2xl font-bold text-primary">2.3%</p>
             </div>
           </div>
         </CardContent>
