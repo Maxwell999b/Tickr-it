@@ -58,5 +58,4 @@ z-recycle bin/
 /src/components/errors/NoTasksFiltered.tsx
 /src/components/errors/NoTasksSearched.tsx
 #errors types for build
-/src/app/Pages/admin_dashboard/
 src/components/component/page/WelcomeOverlay.tsx

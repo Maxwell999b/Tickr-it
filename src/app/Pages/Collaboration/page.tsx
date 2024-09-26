@@ -26,6 +26,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
+import NoSearchResults from "@/components/errors/no-search-results";
 
 type Collaborator = {
   id: number;
@@ -283,6 +284,11 @@ export default function TaskCollaboration() {
       (statusFilter === "all" || task.status === statusFilter)
   );
 
+  const clearSearch = () => {
+    setSearchTerm("");
+    setStatusFilter("all");
+  };
+
   const renderCollaborators = (collaborators: Collaborator[], max = 3) => {
     const visibleCollaborators = collaborators.slice(0, max);
     const remainingCount = collaborators.length - max;
@@ -355,53 +361,57 @@ export default function TaskCollaboration() {
             </Select>
           </div>
 
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Task Name</TableHead>
-                <TableHead>Assigned To</TableHead>
-                <TableHead>Shared With</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <AnimatePresence>
-                {filteredTasks.map((task) => (
-                  <motion.tr
-                    key={task.id}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}>
-                    <TableCell className="text-violet-600 dark:text-violet-400">{task.name}</TableCell>
-                    <TableCell className="text-primary">
-                      {renderCollaborators(task.assignedTo, 2)}
-                      <Button onClick={() => handleAssignTask(task.id)} variant="ghost" size="sm" className="ml-2">
-                        <UserPlus className="w-4 h-4 text-purple-400" />
-                      </Button>
-                    </TableCell>
-                    <TableCell className="text-accent">{renderCollaborators(task.sharedWith)}</TableCell>
-                    <TableCell className="text-primary">
-                      <Badge variant={getStatusBadgeVariant(task.status)} className="w-full justify-center">
-                        {task.status}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Button onClick={() => handleShareTask(task.id)} variant="outline" size="sm" className="mr-2">
-                        <Share2 className="w-4 h-4 mr-2 text-purple-400" />
-                        Share
-                      </Button>
-                      <Button onClick={() => handleOpenCommentDialog(task.id)} variant="outline" size="sm">
-                        <MessageSquare className="w-4 h-4 mr-2 text-purple-400" />
-                        Comment
-                      </Button>
-                    </TableCell>
-                  </motion.tr>
-                ))}
-              </AnimatePresence>
-            </TableBody>
-          </Table>
+          {filteredTasks.length > 0 ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Task Name</TableHead>
+                  <TableHead>Assigned To</TableHead>
+                  <TableHead>Shared With</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <AnimatePresence>
+                  {filteredTasks.map((task) => (
+                    <motion.tr
+                      key={task.id}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}>
+                      <TableCell className="text-violet-600 dark:text-violet-400">{task.name}</TableCell>
+                      <TableCell className="text-primary">
+                        {renderCollaborators(task.assignedTo, 2)}
+                        <Button onClick={() => handleAssignTask(task.id)} variant="ghost" size="sm" className="ml-2">
+                          <UserPlus className="w-4 h-4 text-purple-400" />
+                        </Button>
+                      </TableCell>
+                      <TableCell className="text-accent">{renderCollaborators(task.sharedWith)}</TableCell>
+                      <TableCell className="text-primary">
+                        <Badge variant={getStatusBadgeVariant(task.status)} className="w-full justify-center">
+                          {task.status}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Button onClick={() => handleShareTask(task.id)} variant="outline" size="sm" className="mr-2">
+                          <Share2 className="w-4 h-4 mr-2 text-purple-400" />
+                          Share
+                        </Button>
+                        <Button onClick={() => handleOpenCommentDialog(task.id)} variant="outline" size="sm">
+                          <MessageSquare className="w-4 h-4 mr-2 text-purple-400" />
+                          Comment
+                        </Button>
+                      </TableCell>
+                    </motion.tr>
+                  ))}
+                </AnimatePresence>
+              </TableBody>
+            </Table>
+          ) : (
+            <NoSearchResults clearSearch={clearSearch} message="No tasks match the current Search" />
+          )}
         </CardContent>
       </Card>
 
