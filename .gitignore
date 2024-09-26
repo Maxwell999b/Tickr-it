@@ -55,7 +55,7 @@ z-recycle bin/
 
 # IGNORED ONLY UNTIL I FIX IT SO WE DON'T Push THEM BY MISTAKE
 /src/hooks/dataInfoFetching.tsx
-/src/components/errors/NoTasksFiltered.tsx
-/src/components/errors/NoTasksSearched.tsx
+# NoTasksFiltered.tsx,NoTasksSearched.tsx
+/src/components/errors/unused/
 #errors types for build
 src/components/component/page/WelcomeOverlay.tsx
