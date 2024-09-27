@@ -31,7 +31,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-type Role = "Owner" | "Admin" | "Team Leader" | "Member" | "Watcher";
+export type Role = "Owner" | "Admin" | "Team Leader" | "Member" | "Watcher";
 
 type Member = {
   id: string;
@@ -713,6 +713,6 @@ function TeamCollaboration({ currentUserRole = "Member" }: { currentUserRole?: R
   );
 }
 
-export default function TeamCollaborationPage() {
-  return <TeamCollaboration />;
+export default function TeamCollaborationPage({ currentUserRole = "Member" }: { currentUserRole?: Role }) {
+  return <TeamCollaboration currentUserRole={currentUserRole} />;
 }
