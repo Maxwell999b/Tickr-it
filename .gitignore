@@ -36,28 +36,30 @@ yarn-error.log*
 next-env.d.ts
 
 # not-included files // Assets for the Research, will not be apart of the project.
-# Helpers
-# Local files
+
+# Local development
 .local/
-# Test
 test/
+
+# Temporary files
+z-recycle bin/
+
+# Project management
+TODO.md
+export_structure.py
+project_structure.txt
+folder_structure.txt
+
+# Temporary ignores (remove when fixed)
+/src/hooks/dataInfoFetching.tsx
+/src/components/errors/unused/
+src/components/component/page/WelcomeOverlay.tsx
+
 # this 2 file for Welcome Overlay as testing and check only
 /src/components/component/page/TestWelcomeOverlay.tsx
 /src/components/component/page/page.tsx
 # Teams Collaboration for testing Roles and Permissions
 /src/app/Pages/Collaboration/Teams/test.tsx
-#TO.DO-Kanban Tasks & Features
-TODO.md
-# Files & Folders Strucures
-export_structure.py
-project_structure.txt
-folder_structure.txt
-# Junk
-z-recycle bin/
 
-# IGNORED ONLY UNTIL I FIX IT SO WE DON'T Push THEM BY MISTAKE
-/src/hooks/dataInfoFetching.tsx
-# NoTasksFiltered.tsx,NoTasksSearched.tsx
-/src/components/errors/unused/
-#errors types for build
-src/components/component/page/WelcomeOverlay.tsx
+
+
