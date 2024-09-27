@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import CIcon from "../component/CIcons";
-import Add_New_Task from "../component/Add_New_Task";
+import CIcon from "../common/CIcons";
+import Add_New_Task from "../tasks/Add_New_Task";
 const FirstTimeTaskCard = ({
   title = "Welcome!",
   description = "You have no tasks yet.",

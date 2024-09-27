@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import confetti from "canvas-confetti";
-import "./Task.css";
+import "@/styles/Task.css";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -22,9 +22,9 @@ import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import Icon from "@/components/component/Icon";
+import Icon from "@/components/common/Icon";
 import { Task, initialTasks } from "./tasks";
-import { DeleteTaskConfirmation } from "../DeleteTaskConfirmation";
+import { DeleteTaskConfirmation } from "./DeleteTaskConfirmation";
 import { useCalendar } from "@/hooks/useCalendar";
 
 type SortOption = "dueDate" | "priority" | "status";

@@ -1,15 +1,15 @@
 "use client";
 import { useParams } from "next/navigation";
-import { initialTasks } from "@/components/component/data/tasks";
+import { initialTasks } from "@/components/tasks/tasks";
 import Link from "next/link";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import Icon from "@/components/component/Icon";
+import Icon from "@/components/common/Icon";
 import { TaskNotFound } from "@/components/errors/TaskNotFound";
 
 export default function Task_DetailsPage() {
   const params = useParams();
-  const taskId = Number(params.id);
+  const taskId = params ? Number(params.id) : 0;
   const task = initialTasks.find((t) => t.id === taskId);
 
   if (!task) {

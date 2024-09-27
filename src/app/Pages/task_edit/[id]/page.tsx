@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import { initialTasks } from "@/components/component/data/tasks";
+import { initialTasks } from "@/components/tasks/tasks";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -11,13 +11,13 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import Icon from "@/components/component/Icon";
+import Icon from "@/components/common/Icon";
 import { TaskNotFound } from "@/components/errors/TaskNotFound";
 import { useCalendar } from "@/hooks/useCalendar";
 
 export default function Task_EditPage() {
   const params = useParams();
-  const taskId = Number(params.id);
+  const taskId = params ? Number(params.id) : 0;
   const task = initialTasks.find((t) => t.id === taskId);
 
   const [taskName, setTaskName] = useState(task?.taskName || "");

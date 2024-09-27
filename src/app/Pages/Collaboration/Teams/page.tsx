@@ -68,7 +68,7 @@ const ROLE_COLORS: Record<Role, string> = {
   Watcher: "bg-blue-500",
 };
 
-export default function TeamCollaboration({ currentUserRole = "Member" }: { currentUserRole?: Role }) {
+function TeamCollaboration({ currentUserRole = "Member" }: { currentUserRole?: Role }) {
   const [teams, setTeams] = useState<Team[]>([]);
   const [newTeam, setNewTeam] = useState({ name: "", description: "" });
   const [isCreateTeamDialogOpen, setIsCreateTeamDialogOpen] = useState(false);
@@ -711,4 +711,8 @@ export default function TeamCollaboration({ currentUserRole = "Member" }: { curr
       </Dialog>
     </div>
   );
+}
+
+export default function TeamCollaborationPage() {
+  return <TeamCollaboration />;
 }

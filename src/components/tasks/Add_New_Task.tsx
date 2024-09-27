@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Icon from "./Icon";
+import Icon from "../common/Icon";
 const Add_New_Task = () => {
   return (
     <div>

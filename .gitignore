@@ -40,6 +40,8 @@ next-env.d.ts
 # Local development
 .local/
 test/
+# New Random Components For Checking And Pushing them Later
+/src/components/Acomponent/*
 
 # Temporary files
 z-recycle bin/
@@ -53,13 +55,11 @@ folder_structure.txt
 # Temporary ignores (remove when fixed)
 /src/hooks/dataInfoFetching.tsx
 /src/components/errors/unused/
-src/components/component/page/WelcomeOverlay.tsx
 
 # this 2 file for Welcome Overlay as testing and check only
-/src/components/component/page/TestWelcomeOverlay.tsx
-/src/components/component/page/page.tsx
+/src/components/welcome/TestWelcomeOverlay.tsx
+/src/components/welcome/page.tsx
 # Teams Collaboration for testing Roles and Permissions
 /src/app/Pages/Collaboration/Teams/test.tsx
-
 
 

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import Icon from "../../../components/component/Icon";
+import Icon from "@/components/common/Icon";
 import { Navigation } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";

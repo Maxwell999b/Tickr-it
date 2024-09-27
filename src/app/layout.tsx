@@ -5,7 +5,7 @@ import { Navbar } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { cn } from "@/lib/utils";
 import "./globals.css";
-import { ThemeProvider, useTheme } from "@/hooks/ThemeContext";
+import { ThemeProvider, useTheme } from "@/context/ThemeContext";
 
 const fontHeading = Manrope({
   subsets: ["latin"],

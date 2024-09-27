@@ -10,13 +10,13 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { UserRoundPen, BellRing, ShieldCheck, Bolt, UserRound } from "lucide-react";
-import Icon from "@/components/component/Icon";
-import { useTheme } from "@/hooks/ThemeContext";
+import Icon from "@/components/common/Icon";
+import { useTheme } from "@/context/ThemeContext";
 import { useEmailNotifications } from "@/hooks/useEmailNotifications";
 import { useTwoFactorAuth } from "@/hooks/useTwoFactorAuth";
 import { useTaskReminders } from "@/hooks/useTaskReminders";
 import { motion, AnimatePresence } from "framer-motion";
-import ImageCropDialog from "@/components/component/ImageCropDialog";
+import ImageCropDialog from "@/components/common/ImageCropDialog";
 
 const tabsWithIcons = [
   { name: "account", icon: UserRoundPen },

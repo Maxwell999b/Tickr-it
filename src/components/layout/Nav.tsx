@@ -10,9 +10,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
-import Icon from "../component/Icon";
-import Add_New_Task from "../component/Add_New_Task";
-import { useTheme } from "@/hooks/ThemeContext";
+import Icon from "../common/Icon";
+import Add_New_Task from "../tasks/Add_New_Task";
+import { useTheme } from "@/context/ThemeContext";
 import { Mountain } from "lucide-react";
 export function Navbar() {
   const { isDarkMode, toggleDarkMode } = useTheme();
@@ -71,7 +71,7 @@ export function Navbar() {
                       <DropdownMenuContent align="center">
                         <div className="flex items-center gap-2 p-2">
                           <Link
-                            href="/Pages/profileUserInfo/"
+                            href="/Pages/profile/"
                             className="flex items-center gap-2 p-2 bg-accent/50 rounded-3xl hover:bg-accent"
                             prefetch={false}>
                             <Avatar className="h-8 w-8">
@@ -92,7 +92,7 @@ export function Navbar() {
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
-                          <Link href="/Pages/settingsUserInfo/" className="flex items-center gap-2" prefetch={false}>
+                          <Link href="/Pages/settings/" className="flex items-center gap-2" prefetch={false}>
                             <Icon iconType="settings" size={16} className="h-4 w-4" />
                             <span className="text-sky-600 dark:text-sky-400">Settings</span>
                           </Link>
@@ -176,7 +176,7 @@ export function Navbar() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <div className="flex items-center gap-2 p-2 bg-accent/20 rounded-sm hover:bg-accent">
-                  <Link href="/Pages/profileUserInfo/" className="flex items-center gap-2" prefetch={false}>
+                  <Link href="/Pages/profile/" className="flex items-center gap-2" prefetch={false}>
                     <Avatar className="h-8 w-8">
                       <AvatarImage src="/pcoffe.svg" />
                       <AvatarFallback>JD</AvatarFallback>
@@ -195,7 +195,7 @@ export function Navbar() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/Pages/settingsUserInfo/" className="flex items-center gap-2" prefetch={false}>
+                  <Link href="/Pages/settings/" className="flex items-center gap-2" prefetch={false}>
                     <Icon iconType="settings" size={16} className="h-4 w-4" />
                     <span className="text-sky-600 dark:text-sky-400">Settings</span>
                   </Link>

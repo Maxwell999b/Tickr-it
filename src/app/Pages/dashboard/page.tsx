@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import Icon from "@/components/component/Icon";
-import { MainYourTask } from "@/components/component/data/MainYourTask";
+import Icon from "@/components/common/Icon";
+import { MainYourTask } from "@/components/tasks/MainYourTask";
 import { motion } from "framer-motion";
 
 export default function DashboardPage() {
