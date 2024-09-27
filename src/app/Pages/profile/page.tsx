@@ -35,7 +35,7 @@ export default function ProfileUserInfo() {
                   <h2 className="text-2xl font-bold text-header">John Doe</h2>
                   <p className="text-muted-foreground">john@example.com</p>
                   <Link
-                    href="/Pages/settingsUserInfo/"
+                    href="/Pages/settings/"
                     className="w-full bg-primary text-primary-foreground rounded-lg hover:bg-primary/30">
                     <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/70">
                       Edit Profile
@@ -80,7 +80,7 @@ export default function ProfileUserInfo() {
               <AlertDescription>
                 To change these settings, please visit the{" "}
                 <Link
-                  href="/Pages/settingsUserInfo/"
+                  href="/Pages/settings/"
                   className="text-muted-foreground underline hover:text-primary transition-colors">
                   Settings Page
                 </Link>
