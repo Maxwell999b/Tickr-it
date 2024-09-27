@@ -46,7 +46,7 @@ test/
 /src/components/component/page/page.tsx
 # Teams Collaboration for testing Roles and Permissions
 /src/app/Pages/Collaboration/Teams/test.tsx
-# TODO Kanban Tasks & Features
+#TO.DO-Kanban Tasks & Features
 TODO.md
 # Files & Folders Strucures
 export_structure.py
