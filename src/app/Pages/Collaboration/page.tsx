@@ -382,7 +382,7 @@ export default function TaskCollaboration() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.3 }}>
-                      <TableCell className="text-violet-600 dark:text-violet-400">{task.name}</TableCell>
+                      <TableCell className="font-medium text-sky-500 dark:text-sky-400">{task.name}</TableCell>
                       <TableCell className="text-primary">
                         {renderCollaborators(task.assignedTo, 2)}
                         <Button onClick={() => handleAssignTask(task.id)} variant="ghost" size="sm" className="ml-2">

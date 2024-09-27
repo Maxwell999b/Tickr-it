@@ -18,7 +18,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { UserPlus, Settings, MoreHorizontal, Trash2, X, Copy, Edit } from "lucide-react";
+import { UserPlus, Settings, MoreHorizontal, Trash2, X, Copy, Edit, Eye } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -380,7 +380,7 @@ export default function TeamCollaboration({ currentUserRole = "Member" }: { curr
       <div className="flex flex-col lg:flex-row gap-6">
         <Card className="w-full lg:w-1/2">
           <CardHeader>
-            <CardTitle>Your Teams</CardTitle>
+            <CardTitle className="text-blue-500 dark:text-blue-400">Your Teams</CardTitle>
             <CardDescription>Teams you&apos;re a part of</CardDescription>
           </CardHeader>
           <CardContent>
@@ -397,8 +397,10 @@ export default function TeamCollaboration({ currentUserRole = "Member" }: { curr
               <TableBody>
                 {teams.map((team, index) => (
                   <TableRow key={team.id}>
-                    <TableCell>{index + 1}</TableCell>
-                    <TableCell className="font-medium">{team.name}</TableCell>
+                    <TableCell>
+                      <span className="bg-muted rounded-md text-muted-foreground">{index + 1}</span>
+                    </TableCell>
+                    <TableCell className="font-medium text-sky-500 dark:text-sky-400">{team.name}</TableCell>
                     <TableCell>
                       <Badge variant="outline" className={`${ROLE_COLORS[currentUserRole]} text-white`}>
                         {currentUserRole}
@@ -407,6 +409,7 @@ export default function TeamCollaboration({ currentUserRole = "Member" }: { curr
                     <TableCell>{team.members.length}</TableCell>
                     <TableCell>
                       <Button variant="ghost" size="sm" onClick={() => handleSelectTeam(team)}>
+                        <Eye className="h-4 w-4 mr-2 text-purple-400" />
                         View
                       </Button>
                     </TableCell>
@@ -422,7 +425,7 @@ export default function TeamCollaboration({ currentUserRole = "Member" }: { curr
             <CardHeader>
               <div className="flex flex-col space-y-2">
                 <div>
-                  <CardTitle>{selectedTeam.name}</CardTitle>
+                  <CardTitle className="text-sky-500 dark:text-sky-400">{selectedTeam.name}</CardTitle>
                   <CardDescription>{selectedTeam.description}</CardDescription>
                 </div>
                 <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
@@ -435,7 +438,7 @@ export default function TeamCollaboration({ currentUserRole = "Member" }: { curr
                         setEditedTeam({ name: selectedTeam.name, description: selectedTeam.description });
                         setIsEditTeamDialogOpen(true);
                       }}>
-                      <Edit className="h-4 w-4 mr-2" />
+                      <Edit className="h-4 w-4 mr-2 text-purple-400" />
                       Edit Team
                     </Button>
                   )}
@@ -455,24 +458,24 @@ export default function TeamCollaboration({ currentUserRole = "Member" }: { curr
             <CardContent>
               <div className="space-y-4">
                 <div className="flex flex-col space-y-2">
-                  <h3 className="text-lg font-semibold">Team Members</h3>
+                  <h3 className="text-lg font-semibold text-primary">Team Members</h3>
                   <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                     {canPerformAction("invite") && (
                       <>
                         <Button variant="outline" size="sm" className="w-full sm:w-auto" onClick={copyInviteLink}>
-                          <Copy className="mr-2 h-4 w-4" />
+                          <Copy className="mr-2 h-4 w-4 text-purple-400" />
                           Copy Invite Link
                         </Button>
                         <Dialog open={isInviteMemberDialogOpen} onOpenChange={setIsInviteMemberDialogOpen}>
                           <DialogTrigger asChild>
                             <Button variant="outline" size="sm" className="w-full sm:w-auto">
-                              <UserPlus className="mr-2 h-4 w-4" />
+                              <UserPlus className="mr-2 h-4 w-4 text-purple-400" />
                               Invite Member
                             </Button>
                           </DialogTrigger>
                           <DialogContent className="sm:max-w-[425px] mx-auto w-[calc(100%-2rem)]">
                             <DialogHeader>
-                              <DialogTitle>Invite New Member</DialogTitle>
+                              <DialogTitle className="text-pink-600">Invite New Member</DialogTitle>
                               <DialogDescription>Enter the details of the new team member.</DialogDescription>
                             </DialogHeader>
                             <div className="grid gap-4 py-4">
@@ -549,12 +552,12 @@ export default function TeamCollaboration({ currentUserRole = "Member" }: { curr
                                 </Avatar>
                               </TooltipTrigger>
                               <TooltipContent>
-                                <p>{member.name}</p>
-                                <p>{member.email}</p>
+                                <p className="font-medium text-primary/70">{member.name}</p>
+                                <p className="font-medium text-muted-foreground">{member.email}</p>
                               </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
-                          <span>{member.name}</span>
+                          <span className="font-medium text-primary">{member.name}</span>
                         </TableCell>
                         <TableCell>
                           <Badge variant="outline" className={`${ROLE_COLORS[member.role]} text-white`}>
@@ -576,8 +579,8 @@ export default function TeamCollaboration({ currentUserRole = "Member" }: { curr
                                     setSelectedMember(member);
                                     setIsChangeRoleDialogOpen(true);
                                   }}>
-                                  <Settings className="mr-2 h-4 w-4" />
-                                  Change Role
+                                  <Settings className="mr-2 h-4 w-4 stroke-primary" />
+                                  <span className="text-sky-500 dark:text-sky-400">Change Role</span>
                                 </DropdownMenuItem>
                               )}
                               <DropdownMenuSeparator />
@@ -606,18 +609,22 @@ export default function TeamCollaboration({ currentUserRole = "Member" }: { curr
       <Dialog open={isDeleteTeamDialogOpen} onOpenChange={setIsDeleteTeamDialogOpen}>
         <DialogContent className="sm:max-w-[425px] mx-auto w-[calc(100%-2rem)]">
           <DialogHeader>
-            <DialogTitle>Delete Team</DialogTitle>
+            <DialogTitle className="text-destructive">Delete Team</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete the team &quot;{selectedTeam?.name}&quot;? This action cannot be undone.
-              To confirm, please type the team name below.
+              Are you sure you want to delete the team{" "}
+              <span className="font-semibold text-foreground">&quot;{selectedTeam?.name}&quot;</span>?
+              <div className="mt-4 text-foreground">
+                This action cannot be undone. To confirm, please type the team name below.
+              </div>
             </DialogDescription>
           </DialogHeader>
           <Input
             value={deleteConfirmation}
             onChange={(e) => setDeleteConfirmation(e.target.value)}
-            placeholder="Type team name to confirm"
+            placeholder={`Type "${selectedTeam?.name}" to confirm`}
+            className="mt-2"
           />
-          <DialogFooter>
+          <DialogFooter className="mt-6">
             <Button variant="outline" onClick={() => setIsDeleteTeamDialogOpen(false)}>
               Cancel
             </Button>
@@ -634,7 +641,7 @@ export default function TeamCollaboration({ currentUserRole = "Member" }: { curr
       <Dialog open={isChangeRoleDialogOpen} onOpenChange={setIsChangeRoleDialogOpen}>
         <DialogContent className="sm:max-w-[425px] mx-auto w-[calc(100%-2rem)]">
           <DialogHeader>
-            <DialogTitle>Change Member Role</DialogTitle>
+            <DialogTitle className="text-pink-600">Change Member Role</DialogTitle>
             <DialogDescription>Select a new role for {selectedMember?.name}</DialogDescription>
           </DialogHeader>
           <Select
@@ -667,7 +674,7 @@ export default function TeamCollaboration({ currentUserRole = "Member" }: { curr
       <Dialog open={isEditTeamDialogOpen} onOpenChange={setIsEditTeamDialogOpen}>
         <DialogContent className="sm:max-w-[425px] mx-auto w-[calc(100%-2rem)]">
           <DialogHeader>
-            <DialogTitle>Edit Team</DialogTitle>
+            <DialogTitle className="text-pink-600">Edit Team</DialogTitle>
             <DialogDescription>Update the team name and description.</DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
