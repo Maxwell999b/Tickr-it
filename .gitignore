@@ -62,4 +62,5 @@ folder_structure.txt
 # Teams Collaboration for testing Roles and Permissions
 /src/app/Pages/Collaboration/Teams/test.tsx
 
-
+# LICENSE
+LICENSE
