@@ -6,7 +6,7 @@ import TeamCollaborationClient from "./TeamCollaborationClient";
 import { Role } from "./types";
 
 export default function TeamCollaborationPage() {
-  const [currentUserRole, setCurrentUserRole] = useState<Role>("Member");
+  const [currentUserRole, setCurrentUserRole] = useState<Role>("Owner");
 
   return (
     <div className="mb-4">
