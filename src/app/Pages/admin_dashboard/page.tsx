@@ -161,7 +161,7 @@ export default function AdminDashboard() {
       </div>
 
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <nav className="flex space-x-4 mb-6">
+        <nav className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4 md:mb-6">
           <Button variant={activeTab === "overview" ? "default" : "outline"} onClick={() => setActiveTab("overview")}>
             Overview
           </Button>
