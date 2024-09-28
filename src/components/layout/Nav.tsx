@@ -35,6 +35,7 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
+import Add_New_Task from "../tasks/Add_New_Task";
 
 const navItems = [
   { href: "/", icon: Home, label: "Home" },
@@ -77,10 +78,7 @@ export function Navbar() {
               className="pl-10 pr-12 py-2 rounded-md w-full bg-muted text-muted-foreground focus:ring-0 focus:border-primary"
             />
           </div>
-          <Button className="flex items-center gap-2">
-            <Plus className="h-5 w-5" />
-            Add New Task
-          </Button>
+          <Add_New_Task />
         </div>
 
         {/* Mobile View */}
