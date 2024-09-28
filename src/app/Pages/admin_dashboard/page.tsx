@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   BarChart,
   Bar,
@@ -13,20 +13,7 @@ import {
   LineChart,
   Line,
 } from "recharts";
-import {
-  Users,
-  CheckSquare,
-  DollarSign,
-  TrendingUp,
-  Bell,
-  FileText,
-  Settings,
-  Shield,
-  MessageSquare,
-  Search,
-  Edit,
-  Trash2,
-} from "lucide-react";
+import { Users, DollarSign, TrendingUp, ClipboardList, Edit, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -162,17 +149,33 @@ export default function AdminDashboard() {
 
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <nav className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4 md:mb-6">
-          <Button variant={activeTab === "overview" ? "default" : "outline"} onClick={() => setActiveTab("overview")}>
-            Overview
+          <Button
+            variant={activeTab === "overview" ? "default" : "outline"}
+            onClick={() => setActiveTab("overview")}
+            className="flex justify-between">
+            <TrendingUp className="stroke-muted-foreground" />
+            <span>Overview</span>
           </Button>
-          <Button variant={activeTab === "users" ? "default" : "outline"} onClick={() => setActiveTab("users")}>
-            Users
+          <Button
+            variant={activeTab === "users" ? "default" : "outline"}
+            onClick={() => setActiveTab("users")}
+            className="flex justify-between">
+            <Users className="stroke-muted-foreground" />
+            <span>Users</span>
           </Button>
-          <Button variant={activeTab === "tasks" ? "default" : "outline"} onClick={() => setActiveTab("tasks")}>
-            Tasks
+          <Button
+            variant={activeTab === "tasks" ? "default" : "outline"}
+            onClick={() => setActiveTab("tasks")}
+            className="flex justify-between">
+            <ClipboardList className="stroke-muted-foreground" />
+            <span>Tasks</span>
           </Button>
-          <Button variant={activeTab === "earnings" ? "default" : "outline"} onClick={() => setActiveTab("earnings")}>
-            Earnings
+          <Button
+            variant={activeTab === "earnings" ? "default" : "outline"}
+            onClick={() => setActiveTab("earnings")}
+            className="flex justify-between">
+            <DollarSign className="stroke-muted-foreground" />
+            <span>Earnings</span>
           </Button>
         </nav>
 
