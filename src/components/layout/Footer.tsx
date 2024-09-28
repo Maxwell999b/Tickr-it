@@ -15,13 +15,13 @@ export function Footer() {
           </div>
           <nav className="flex flex-wrap items-center gap-2 justify-center">
             <Link
-              href="/Pages/termsOfService/"
+              href="/Pages/terms-of-service/"
               className="text-sm hover:underline text-pink-500 font-bold dark:text-secondary"
               prefetch={false}>
               Terms of Service
             </Link>
             <Link
-              href="/Pages/privacyPolicy/"
+              href="/Pages/privacy-policy/"
               className="text-sm hover:underline text-pink-500 font-bold dark:text-secondary"
               prefetch={false}>
               Privacy Policy

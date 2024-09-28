@@ -104,11 +104,11 @@ export function WelcomeOverlay({ userName, onClose }: WelcomeOverlayProps) {
             />
             <Label htmlFor="acceptTerms">
               I accept the{" "}
-              <Link href="Pages/termsOfService/" className="text-primary hover:underline" target="_blank">
+              <Link href="Pages/terms-of-service/" className="text-primary hover:underline" target="_blank">
                 Terms of Service
               </Link>{" "}
               and{" "}
-              <Link href="Pages/privacyPolicy/" className="text-primary hover:underline" target="_blank">
+              <Link href="Pages/privacy-policy/" className="text-primary hover:underline" target="_blank">
                 Privacy Policy
               </Link>
             </Label>
