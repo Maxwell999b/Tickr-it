@@ -128,10 +128,8 @@ export function Navbar() {
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                     <Input type="search" placeholder="Search tasks..." className="pl-10 pr-4 py-2 w-full" />
                   </div>
-                  <Button className="w-full flex items-center justify-center gap-2">
                     <Plus className="h-5 w-5" />
-                    Add New Task
-                  </Button>
+                    <Add New Task/>
                 </div>
 
                 <div className="mt-auto">
