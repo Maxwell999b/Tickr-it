@@ -129,7 +129,7 @@ export function Navbar() {
                     <Input type="search" placeholder="Search tasks..." className="pl-10 pr-4 py-2 w-full" />
                   </div>
                     <Plus className="h-5 w-5" />
-                    <Add New Task/>
+                    <Add_New_Task/>
                 </div>
 
                 <div className="mt-auto">
